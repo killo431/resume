@@ -2,32 +2,186 @@
 
 ## Current Situation
 
-Your website is currently accessible at **Randal.devtest512.info**. This guide will help you set up a simpler, more professional URL.
+Your website is currently accessible at **Randal.devtest512.info**. Since you already own **devtest512.info**, this guide will help you optimize your URL structure without purchasing a new domain.
+
+## Quick Start: Using Your Existing Domain
+
+Since you already own **devtest512.info**, you have FREE options to simplify your URL:
+
+### Best Option: Use Root Domain
+**Current:** `Randal.devtest512.info`
+**New:** `devtest512.info`
+
+✅ Shortest possible URL with your domain
+✅ No extra cost
+✅ Most professional
+
+[Jump to setup instructions](#using-your-existing-domain-devtest512info)
+
+### Alternative: Cleaner Subdomain
+**Current:** `Randal.devtest512.info`
+**New:** `resume.devtest512.info` or `randal.devtest512.info`
+
+✅ Clear purpose
+✅ No extra cost
+✅ Keeps root available for other uses
+
+[Jump to setup instructions](#using-your-existing-domain-devtest512info)
+
+---
 
 ## Overview
 
 The good news is that **no code changes are required**. The domain `Randal.devtest512.info` is not hardcoded anywhere in the application. All URL changes are handled through:
 1. Vercel Dashboard (deployment platform)
-2. DNS Provider (domain registrar)
+2. DNS Provider (your domain registrar for devtest512.info)
 
 ## Recommended URL Options
 
-Here are some simpler URL options you could use:
+Here are your options, prioritizing your existing domain:
 
-### Option 1: Personal Domain (Recommended)
+### Using Your Existing Domain (FREE)
+
+#### Option 1: Root Domain (Recommended)
+- `devtest512.info` - Shortest and cleanest with your domain
+
+#### Option 2: Cleaner Subdomain
+- `resume.devtest512.info` - Clear purpose
+- `randal.devtest512.info` - Personal (lowercase)
+- `portfolio.devtest512.info` - Professional focus
+
+### Alternative Options (If Purchasing New Domain)
+
+#### Option 3: Personal Domain
 - `randal.dev` - Professional and clean
 - `randalderego.com` - Full name variant
 - `rderego.com` - Abbreviated variant
 
-### Option 2: Subdomain
-- `resume.randal.dev` - Keep resume separate from main site
-- `portfolio.randal.dev` - Professional portfolio subdomain
-
-### Option 3: Free Vercel Domain
+#### Option 4: Free Vercel Domain
 - `randal-resume.vercel.app` - Free Vercel subdomain (no custom domain needed)
-- `randal-portfolio.vercel.app` - Alternative free option
 
-## Step-by-Step Setup Process
+---
+
+## Using Your Existing Domain: devtest512.info
+
+Since you already own this domain, here's how to optimize its use:
+
+### Setup Option A: Use Root Domain (devtest512.info)
+
+This gives you the shortest URL with your existing domain.
+
+#### Step 1: Configure DNS Records
+
+Log into your DNS provider where you manage `devtest512.info` and add/update these records:
+
+**For Root Domain:**
+```
+Type: A
+Name: @ (or leave blank for root)
+Value: 76.76.21.21
+TTL: 3600 (or automatic)
+```
+
+**For www Subdomain:**
+```
+Type: CNAME
+Name: www
+Value: cname.vercel-dns.com
+TTL: 3600 (or automatic)
+```
+
+#### Step 2: Configure in Vercel
+
+1. **Log into Vercel Dashboard:**
+   - Go to [vercel.com](https://vercel.com)
+   - Navigate to your project (resume)
+
+2. **Add Domains:**
+   - Click on your project
+   - Go to **Settings** → **Domains**
+   - Click **Add Domain**
+   - Enter `devtest512.info`
+   - Click **Add**
+   - Repeat to add `www.devtest512.info`
+
+3. **Set Primary Domain:**
+   - Click the three dots next to your preferred domain (e.g., `devtest512.info`)
+   - Select **Set as Primary Domain**
+   - The www version will redirect to it
+
+4. **Remove Old Domain:**
+   - Find `Randal.devtest512.info` in the domain list
+   - Click the three dots → **Remove**
+
+#### Step 3: Verify
+
+1. Wait 5-30 minutes for DNS propagation
+2. Visit [whatsmydns.net](https://www.whatsmydns.net)
+3. Enter `devtest512.info` and check if records show correctly
+4. Visit your new URL to confirm it's working
+5. Check that HTTPS is working (Vercel auto-provisions SSL)
+
+---
+
+### Setup Option B: Use Cleaner Subdomain (resume.devtest512.info)
+
+This keeps your root domain available for other uses.
+
+#### Step 1: Configure DNS Records
+
+Log into your DNS provider where you manage `devtest512.info`:
+
+**Option 1: Update Existing Record**
+If you have a record for `Randal`:
+```
+Type: CNAME
+Name: Change "Randal" to "resume" (or "randal" lowercase)
+Value: cname.vercel-dns.com
+TTL: 3600
+```
+
+**Option 2: Add New Record**
+If you want to keep the old one temporarily:
+```
+Type: CNAME
+Name: resume (or randal, or portfolio)
+Value: cname.vercel-dns.com
+TTL: 3600
+```
+
+#### Step 2: Configure in Vercel
+
+1. **Log into Vercel Dashboard:**
+   - Go to [vercel.com](https://vercel.com)
+   - Navigate to your project (resume)
+
+2. **Add New Domain:**
+   - Go to **Settings** → **Domains**
+   - Click **Add Domain**
+   - Enter `resume.devtest512.info` (or your chosen subdomain)
+   - Click **Add**
+   - Vercel will verify the DNS record
+
+3. **Set as Primary (optional):**
+   - If you want this as your main URL
+   - Click the three dots next to the domain
+   - Select **Set as Primary Domain**
+
+4. **Remove Old Domain:**
+   - Find `Randal.devtest512.info` in the domain list
+   - Click the three dots → **Remove**
+
+#### Step 3: Verify
+
+1. Wait 5-15 minutes for DNS propagation
+2. Visit [whatsmydns.net](https://www.whatsmydns.net)
+3. Enter `resume.devtest512.info` and check CNAME record
+4. Visit your new URL to confirm it's working
+5. Check that HTTPS is working (Vercel auto-provisions SSL)
+
+---
+
+## Purchasing a New Domain (Optional Future Upgrade)
 
 ### Step 1: Choose and Purchase a Domain (if needed)
 

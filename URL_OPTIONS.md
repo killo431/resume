@@ -3,29 +3,92 @@
 ## Current Situation
 ```
 ❌ Randal.devtest512.info
-   - Long subdomain
-   - Not memorable
-   - Looks temporary
+   - Capital letter in subdomain (unusual)
+   - Generic subdomain name
+   - Could be clearer
 ```
 
-## Recommended Solutions
+Since you already own **devtest512.info**, you can simplify without buying a new domain!
 
-### Option 1: Free Vercel Subdomain (EASIEST) ⭐
+## Recommended Solutions (Using Your Existing Domain)
+
+### Option 1: Cleaner Subdomain (RECOMMENDED) ⭐⭐⭐
+```
+✅ resume.devtest512.info
+```
+
+**Pros:**
+- ✅ Uses your existing domain (no extra cost)
+- ✅ Clear and professional purpose
+- ✅ Shorter than current subdomain
+- ✅ Lowercase (standard convention)
+- ✅ Easy to remember and share
+- ✅ Takes 15 minutes to set up
+
+**Cons:**
+- ❌ Still includes "devtest512" in URL
+- ❌ Slightly longer than a premium domain
+
+**Cost:** FREE (you already own the domain)
+
+**Setup Time:** 15 minutes (DNS change + Vercel update)
+
+**Steps:**
+1. Update DNS record from `Randal` to `resume`
+2. Update Vercel domain setting
+3. Done!
+
+**Alternative subdomains:**
+- `randal.devtest512.info` - Personal branding (lowercase)
+- `portfolio.devtest512.info` - Professional focus
+- `www.devtest512.info` - Classic approach
+
+---
+
+### Option 2: Use Root Domain (BEST VALUE) ⭐⭐⭐⭐
+```
+✅ devtest512.info
+```
+
+**Pros:**
+- ✅ Shortest possible with your domain
+- ✅ Uses your existing domain (no extra cost)
+- ✅ Most professional looking
+- ✅ No subdomain needed
+- ✅ Makes resume your main site
+- ✅ Clean and direct
+
+**Cons:**
+- ❌ Still has "devtest512" in the name
+- ❌ If you want to use root domain for something else later, need to move
+
+**Cost:** FREE (you already own the domain)
+
+**Setup Time:** 15 minutes (DNS A record + Vercel)
+
+**Steps:**
+1. Point root domain to Vercel (A record)
+2. Add www subdomain (CNAME)
+3. Configure in Vercel
+4. Done!
+
+---
+
+### Option 3: Free Vercel Subdomain (BACKUP) ⭐
 ```
 ✅ randal-resume.vercel.app
 ```
 
 **Pros:**
 - ✅ Completely free
-- ✅ No domain purchase needed
 - ✅ Takes 2 minutes to set up
 - ✅ Professional Vercel branding
 - ✅ Automatic SSL certificate
-- ✅ Much simpler than current URL
+- ✅ Can keep devtest512.info as well
 
 **Cons:**
-- ❌ Still has `.vercel.app` in URL
-- ❌ Not fully custom
+- ❌ Has `.vercel.app` in URL
+- ❌ Not your custom domain
 
 **Cost:** FREE
 
@@ -33,84 +96,34 @@
 
 **Steps:**
 1. Login to Vercel
-2. Go to project settings
-3. Change project name to `randal-resume`
-4. Done!
+2. Change project name to `randal-resume`
+3. Done!
 
 ---
 
-### Option 2: Premium .dev Domain (RECOMMENDED) ⭐⭐⭐
+### Option 4: Buy New Premium Domain (FUTURE UPGRADE) ⭐⭐⭐⭐⭐
 ```
 ✅ randal.dev
-```
-
-**Pros:**
-- ✅ Super professional
-- ✅ Clean and memorable
-- ✅ Developer-focused TLD
-- ✅ Great for personal branding
-- ✅ HTTPS required by default (secure)
-- ✅ Owned by you
-
-**Cons:**
-- ❌ Costs ~$20-30/year
-- ❌ Requires DNS configuration
-
-**Cost:** $20-30/year
-
-**Setup Time:** 15-30 minutes (+ DNS propagation)
-
-**Steps:**
-1. Purchase `randal.dev` from registrar
-2. Add to Vercel domains
-3. Configure DNS records
-4. Wait for DNS propagation
-5. Done!
-
----
-
-### Option 3: Classic .com Domain
-```
 ✅ randalderego.com
-✅ rderego.com
 ```
 
 **Pros:**
-- ✅ Most recognizable TLD
-- ✅ Professional
-- ✅ Slightly cheaper than .dev
-- ✅ Owned by you
+- ✅ Super professional and clean
+- ✅ Short and memorable
+- ✅ Great for personal branding
+- ✅ No "devtest512" in URL
+- ✅ Can keep devtest512.info for testing
 
 **Cons:**
-- ❌ Longer if using full name
-- ❌ Costs ~$10-15/year
-- ❌ Requires DNS configuration
+- ❌ Costs $10-30/year
+- ❌ Requires purchasing new domain
+- ❌ Takes 30 minutes to set up
 
-**Cost:** $10-15/year
+**Cost:** $10-30/year
 
-**Setup Time:** 15-30 minutes (+ DNS propagation)
+**Setup Time:** 30 minutes (purchase + DNS + Vercel)
 
----
-
-### Option 4: Subdomain Strategy
-```
-✅ resume.randal.dev
-✅ portfolio.randal.dev
-```
-
-**Pros:**
-- ✅ Organized for multiple projects
-- ✅ Professional structure
-- ✅ Keep main domain available
-- ✅ Same cost as main domain
-
-**Cons:**
-- ❌ Slightly longer URL
-- ❌ Still need to buy main domain
-
-**Cost:** Same as Option 2 ($20-30/year)
-
-**Setup Time:** 15-30 minutes (+ DNS propagation)
+**Future option if you decide to invest in a premium domain**
 
 ---
 
@@ -118,129 +131,143 @@
 
 | Option | URL | Cost | Setup Time | Professional | Memorable |
 |--------|-----|------|------------|--------------|-----------|
-| **Current** | Randal.devtest512.info | ? | N/A | ❌ | ❌ |
-| **Option 1** | randal-resume.vercel.app | FREE | 2 min | ✅ | ⭐⭐ |
-| **Option 2** | randal.dev | $20-30/yr | 30 min | ✅✅ | ⭐⭐⭐ |
-| **Option 3** | randalderego.com | $10-15/yr | 30 min | ✅✅ | ⭐⭐⭐ |
-| **Option 4** | resume.randal.dev | $20-30/yr | 30 min | ✅✅ | ⭐⭐ |
+| **Current** | Randal.devtest512.info | $0 | N/A | ⭐⭐ | ⭐⭐ |
+| **Option 1** | resume.devtest512.info | FREE | 15 min | ⭐⭐⭐ | ⭐⭐⭐ |
+| **Option 2** | devtest512.info | FREE | 15 min | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **Option 3** | randal-resume.vercel.app | FREE | 2 min | ⭐⭐ | ⭐⭐ |
+| **Option 4** | randal.dev | $20-30/yr | 30 min | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
 
 ---
 
-## Our Recommendation: START WITH OPTION 1, UPGRADE TO OPTION 2
+## Our Recommendation: Option 2 (Root Domain) or Option 1 (Subdomain)
 
-### Phase 1: Immediate (Today)
+### Recommended: Option 2 - Root Domain
 ```
-randal-resume.vercel.app
+devtest512.info
 ```
-- Takes 2 minutes
-- Free
-- Immediately better than current URL
-- No technical complexity
+- Shortest URL with your existing domain
+- FREE (you already own it)
+- Most professional within your domain
+- Takes 15 minutes to set up
 
-### Phase 2: When Ready (This Week/Month)
+### Alternative: Option 1 - Cleaner Subdomain
 ```
-randal.dev → redirects to resume
+resume.devtest512.info
 ```
-- Purchase randal.dev
-- Configure DNS
-- Point to your Vercel project
-- Much more professional
+- Clear purpose indication
+- FREE (you already own it)
+- Keeps root domain available for other uses
+- Takes 15 minutes to set up
 
 ---
 
 ## URL Length Comparison
 
 ```
-Current:  Randal.devtest512.info      [24 characters]
+Current:  Randal.devtest512.info          [24 characters]
           ████████████████████████
 
-Option 1: randal-resume.vercel.app    [26 characters]
+Option 1: resume.devtest512.info          [24 characters]
+          ████████████████████████
+
+Option 2: devtest512.info                 [17 characters] ⭐
+          █████████████████
+
+Option 3: randal-resume.vercel.app        [26 characters]
           ██████████████████████████
 
-Option 2: randal.dev                   [10 characters] ⭐
+Option 4: randal.dev                      [10 characters] ⭐⭐
           ██████████
-
-Option 3: randalderego.com             [18 characters]
-          ██████████████████
-
-Option 4: resume.randal.dev            [17 characters]
-          █████████████████
 ```
 
-**Winner:** `randal.dev` - Shortest and most professional!
+**Winner for your domain:** `devtest512.info` - Shortest and uses your existing domain!
 
 ---
 
 ## Next Steps
 
-### If you choose Option 1 (Free Vercel):
+### If you choose Option 1 (resume.devtest512.info):
+1. Go to your DNS provider for devtest512.info
+2. Update/add CNAME record: `resume` → `cname.vercel-dns.com`
+3. In Vercel: Settings → Domains → Add `resume.devtest512.info`
+4. Wait 5-15 minutes for DNS propagation
+5. Done!
+
+### If you choose Option 2 (devtest512.info root):
+1. Go to your DNS provider for devtest512.info
+2. Add A record: `@` → `76.76.21.21`
+3. Add CNAME: `www` → `cname.vercel-dns.com`
+4. In Vercel: Settings → Domains → Add both `devtest512.info` and `www.devtest512.info`
+5. Set one as primary
+6. Done!
+
+### If you choose Option 3 (Vercel subdomain):
 → See [QUICK_URL_SETUP.md](./QUICK_URL_SETUP.md)
 
-### If you choose Option 2, 3, or 4 (Custom Domain):
-→ See [DOMAIN_SETUP.md](./DOMAIN_SETUP.md)
+### If you want Option 4 (new premium domain):
+→ See full [DOMAIN_SETUP.md](./DOMAIN_SETUP.md) guide
 
 ---
 
 ## Cost Analysis (5 Year Projection)
 
 ```
-Option 1 (Vercel subdomain):
-Year 1-5: $0/year
-Total: $0
+Using your existing devtest512.info domain:
+Option 1 (subdomain): $0 total
+Option 2 (root domain): $0 total
 
-Option 2 (.dev domain):
-Year 1-5: $25/year average
-Total: ~$125
+You're already paying for devtest512.info renewal,
+so using it costs nothing extra!
 
-Option 3 (.com domain):
-Year 1-5: $12/year average
-Total: ~$60
+Buying new domain (Option 4):
+Year 1-5: $25/year average for .dev
+Total: ~$125 + you still pay for devtest512.info
 
-Return on Investment:
-- Professional image: Priceless
-- Memorable URL: Better networking
-- Personal branding: Career growth
-- Custom email possible: randalderego@randal.dev
+Savings by using your existing domain: $125 over 5 years
 ```
 
 ---
 
 ## FAQ
 
+**Q: Should I use the root domain or a subdomain?**
+A: Root domain (`devtest512.info`) is shorter and cleaner. Use subdomain (`resume.devtest512.info`) if you want to use the root for something else later.
+
 **Q: Can I change later?**
-A: Yes! Start with Option 1 free, upgrade to Option 2 anytime.
+A: Yes! You can easily switch between subdomains or add multiple domains.
 
 **Q: Will I lose my site during the change?**
-A: No, the site stays online. Just add the new domain.
+A: No, the site stays online. Just update DNS and add the new domain in Vercel.
 
 **Q: Do I need to change any code?**
 A: No! All changes are in Vercel dashboard and DNS only.
 
-**Q: Which option would a hiring manager prefer?**
-A: Option 2 (`randal.dev`) looks most professional, but Option 1 is still good.
+**Q: What about the capital R in Randal?**
+A: Subdomains are case-insensitive, but lowercase is the standard convention and looks cleaner.
 
-**Q: Can I use multiple domains?**
-A: Yes! Have both and set one as primary. Others redirect.
+**Q: Should I buy a new domain like randal.dev?**
+A: Only if you want a shorter, more professional URL without "devtest512". Your existing domain works great for free!
 
 ---
 
 ## Decision Flowchart
 
 ```
-Do you want to spend money?
-├─ No → Option 1: randal-resume.vercel.app
-│        (Takes 2 minutes, FREE)
+Do you want to spend money on a new domain?
+├─ No → Use your existing devtest512.info domain!
+│        │
+│        ├─ Want shortest URL? → Option 2: devtest512.info
+│        │                        (15 minutes, FREE)
+│        │
+│        └─ Want clear purpose? → Option 1: resume.devtest512.info
+│                                  (15 minutes, FREE)
 │
-└─ Yes → Do you want shortest possible URL?
-         ├─ Yes → Option 2: randal.dev
-         │        ($25/year, most professional)
-         │
-         └─ No → Option 3: randalderego.com
-                  ($12/year, classic choice)
+└─ Yes → Option 4: Buy randal.dev or randalderego.com
+         (30 minutes, $20-30/year)
 ```
 
 ---
 
-**Ready to simplify your URL?**
+**Ready to simplify your URL using your existing domain?**
 
-Choose your option and follow the setup guide! 🚀
+Choose Option 1 or Option 2 and follow the setup guide! 🚀
