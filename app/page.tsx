@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Server, 
@@ -23,8 +25,8 @@ import {
 } from 'lucide-react';
 
 // --- GEMINI API HELPER ---
-const callGeminiAPI = async (prompt, systemInstruction = "") => {
-  const apiKey = "";
+const callGeminiAPI = async (prompt: string, systemInstruction: string = "") => {
+  const apiKey = ""; // REMEMBER TO PUT YOUR API KEY HERE
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
   const payload = {
@@ -61,7 +63,7 @@ Experience:
 Education: B.S. in Computer Science (Western Governors University), CompTIA A+.
 Contact: randalrd92@gmail.com, 512-653-0052, Austin, TX.`;
 
-const renderFormattedText = (text) => {
+const renderFormattedText = (text: string) => {
   return text.split('\n').map((line, i) => (
     <p key={i} className="mb-2">
       {line.split(/(\*\*.*?\*\*)/).map((part, j) => 
@@ -73,7 +75,7 @@ const renderFormattedText = (text) => {
   ));
 };
 
-const App = () => {
+export default function PortfolioPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -89,7 +91,7 @@ const App = () => {
   ]);
   const [chatInput, setChatInput] = useState("");
   const [isChatting, setIsChatting] = useState(false);
-  const chatEndRef = useRef(null);
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (chatOpen) {
@@ -107,7 +109,7 @@ const App = () => {
     const prompt = `Here is Randal's Resume Context:\n${resumeContext}\n\nHere is the target Job Description:\n${jobDescription}\n\nPlease analyze the fit.`;
     
     const result = await callGeminiAPI(prompt, sysPrompt);
-    setAnalyzerResult(result);
+    setAnalyzerResult(result as string);
     setIsAnalyzing(false);
   };
 
@@ -127,7 +129,7 @@ const App = () => {
 
     const result = await callGeminiAPI(prompt, sysPrompt);
     
-    setChatMessages(prev => [...prev, { role: 'model', text: result }]);
+    setChatMessages(prev => [...prev, { role: 'model', text: result as string }]);
     setIsChatting(false);
   };
 
@@ -140,7 +142,7 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
@@ -163,13 +165,13 @@ const App = () => {
           
           {/* Desktop Nav */}
           <nav className="hidden md:flex gap-8 text-sm font-medium text-slate-600">
-            <button onClick={() => scrollToSection('about')} className="hover:text-blue-600 transition-colors">About</button>
-            <button onClick={() => scrollToSection('skills')} className="hover:text-blue-600 transition-colors">Skills</button>
-            <button onClick={() => scrollToSection('experience')} className="hover:text-blue-600 transition-colors">Experience</button>
-            <button onClick={() => scrollToSection('education')} className="hover:text-blue-600 transition-colors">Education</button>
+            <button onClick={() => scrollToSection('about')} className="hover:text-blue-600 transition-colors cursor-pointer">About</button>
+            <button onClick={() => scrollToSection('skills')} className="hover:text-blue-600 transition-colors cursor-pointer">Skills</button>
+            <button onClick={() => scrollToSection('experience')} className="hover:text-blue-600 transition-colors cursor-pointer">Experience</button>
+            <button onClick={() => scrollToSection('education')} className="hover:text-blue-600 transition-colors cursor-pointer">Education</button>
             <button 
               onClick={() => scrollToSection('contact')} 
-              className="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              className="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-blue-600 transition-colors cursor-pointer"
             >
               Contact Me
             </button>
@@ -177,7 +179,7 @@ const App = () => {
 
           {/* Mobile Menu Toggle */}
           <button 
-            className="md:hidden text-slate-900"
+            className="md:hidden text-slate-900 cursor-pointer"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -221,20 +223,20 @@ const App = () => {
             <div className="flex flex-wrap gap-4">
               <button 
                 onClick={() => scrollToSection('experience')}
-                className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20 flex items-center gap-2"
+                className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20 flex items-center gap-2 cursor-pointer"
               >
                 View Experience <ChevronRight size={18} />
               </button>
               <button 
                 onClick={() => setAnalyzerOpen(true)}
-                className="px-6 py-3 bg-indigo-50 text-indigo-700 font-medium rounded-lg border border-indigo-200 hover:bg-indigo-100 transition-all shadow-sm flex items-center gap-2"
+                className="px-6 py-3 bg-indigo-50 text-indigo-700 font-medium rounded-lg border border-indigo-200 hover:bg-indigo-100 transition-all shadow-sm flex items-center gap-2 cursor-pointer"
               >
                 <Sparkles size={18} className="text-indigo-600" />
                 Analyze Job Fit ✨
               </button>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className="px-6 py-3 bg-white text-slate-700 font-medium rounded-lg border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm"
+                className="px-6 py-3 bg-white text-slate-700 font-medium rounded-lg border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm cursor-pointer"
               >
                 Contact Me
               </button>
@@ -368,6 +370,4 @@ const App = () => {
                     <h3 className="font-bold text-lg text-slate-900">Systems Administrator</h3>
                     <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Nov 2021 - Sept 2025</span>
                   </div>
-                  <div className="text-sm text-slate-500 font-medium mb-4">TEAMLOGIC IT • AUSTIN, TX (REMOTE)</div>
-                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300">
-                    <li>Managed and maintained servers
+     
