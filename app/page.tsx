@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Server, 
-  Network, 
-  Terminal, 
-  Code, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Award, 
-  BookOpen, 
+import {
+  Server,
+  Network,
+  Terminal,
+  Code,
+  Mail,
+  Phone,
+  MapPin,
+  Award,
+  BookOpen,
   Briefcase,
   ChevronRight,
   Menu,
@@ -21,7 +21,8 @@ import {
   Send,
   Bot,
   User,
-  Loader2
+  Loader2,
+  RotateCcw
 } from 'lucide-react';
 
 // --- GEMINI API HELPER ---
@@ -66,14 +67,20 @@ Contact: randalrd92@gmail.com, 512-653-0052, Austin, TX.`;
 const renderFormattedText = (text: string) => {
   return text.split('\n').map((line, i) => (
     <p key={i} className="mb-2">
-      {line.split(/(\*\*.*?\*\*)/).map((part, j) => 
-        part.startsWith('**') && part.endsWith('**') ? 
-        <strong key={j} className="text-slate-900 font-bold">{part.slice(2, -2)}</strong> : 
+      {line.split(/(\*\*.*?\*\*)/).map((part, j) =>
+        part.startsWith('**') && part.endsWith('**') ?
+        <strong key={j} className="text-slate-900 font-bold">{part.slice(2, -2)}</strong> :
         part
       )}
     </p>
   ));
 };
+
+// Type for chat messages
+interface ChatMessage {
+  role: 'user' | 'model';
+  text: string;
+}
 
 export default function PortfolioPage() {
   const[isScrolled, setIsScrolled] = useState(false);
@@ -86,12 +93,32 @@ export default function PortfolioPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const [chatOpen, setChatOpen] = useState(false);
-  const[chatMessages, setChatMessages] = useState([
-    { role: 'model', text: "Hey there! 👋 I'm Randal's AI Assistant. I'm here to help you understand how Randal's IT expertise can solve your specific challenges. What are you working on or looking for help with?" }
-  ]);
+  const[chatMessages, setChatMessages] = useState<ChatMessage[]>(() => {
+    // Try to load conversation history from localStorage
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('chatHistory');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          // If parsing fails, use default
+        }
+      }
+    }
+    return [
+      { role: 'model', text: "Hey there! I'm here representing Randal Derego. I'd love to chat with you about IT challenges, projects, or how Randal's experience might be a fit for what you're working on. What brings you here today?" }
+    ];
+  });
   const [chatInput, setChatInput] = useState("");
   const [isChatting, setIsChatting] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
+
+  // Save chat history to localStorage whenever it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && chatMessages.length > 0) {
+      localStorage.setItem('chatHistory', JSON.stringify(chatMessages));
+    }
+  }, [chatMessages]);
 
   useEffect(() => {
     if (chatOpen) {
@@ -116,41 +143,57 @@ export default function PortfolioPage() {
   const handleSendMessage = async () => {
     if (!chatInput.trim()) return;
 
-    const newUserMsg = { role: 'user', text: chatInput };
-    setChatMessages(prev => [...prev, newUserMsg]);
+    const newUserMsg: ChatMessage = { role: 'user', text: chatInput };
+    setChatMessages((prev: ChatMessage[]) => [...prev, newUserMsg]);
     setChatInput("");
     setIsChatting(true);
 
-    const sysPrompt = `You are Randal Derego's intelligent AI assistant. Your goal is to have natural, helpful conversations about IT topics while representing Randal professionally.
+    const sysPrompt = `You are having a natural conversation on behalf of Randal Derego, a Systems Administrator with 10 years of IT experience. You're speaking AS his representative, not as a separate AI assistant.
 
-IMPORTANT GUIDELINES:
-1. Be conversational and engaging - act like a real person, not a resume dumper
-2. When someone asks about IT topics, ask clarifying questions to understand their specific needs
-3. Use smart logic to determine what they're really looking for before providing detailed information
-4. Don't just list resume facts - engage in dialogue to help them find the best solution
-5. If they ask general questions like "what can you do?", be conversational and ask what specific area they're interested in
-6. Only provide detailed resume information when it's clearly relevant to their specific question or need
-7. Be proactive in understanding their requirements, pain points, or challenges
-8. Keep responses concise (under 150 words) but meaningful
+CRITICAL INSTRUCTIONS FOR HUMAN-LIKE CONVERSATION:
+1. **Be genuinely conversational** - Use natural language, contractions (I'm, you're, that's), and casual transitions
+2. **Show awareness of the conversation** - Reference what was said earlier, acknowledge their interests, and build on previous points
+3. **Ask thoughtful follow-up questions** - Show genuine curiosity about their specific situation
+4. **Use conversational markers** - "That makes sense", "I see what you mean", "Based on what you mentioned...", "Good question!", "Actually..."
+5. **Vary your responses** - Don't be formulaic. Sometimes be brief, sometimes elaborate. Match their energy.
+6. **Be personable and relatable** - Share relevant insights naturally, as a person would in conversation
+7. **Remember context** - If they mentioned something 3 messages ago, you can still reference it
+8. **Don't info-dump** - Only share Randal's experience when it's directly relevant to what they're asking about
+9. **Be authentic** - Admit when you need to clarify something or when Randal's experience might not be a perfect match
 
-RANDAL'S CONTEXT: ${resumeContext}
+RANDAL'S BACKGROUND (Use naturally, not as a list):
+${resumeContext}
 
-CONVERSATION APPROACH:
-- For vague questions: Ask clarifying questions to understand their needs better
-- For specific technical questions: Provide relevant information from Randal's experience
-- For hiring questions: Focus on how Randal's skills match their specific requirements
-- Always be helpful, professional, and solution-oriented
+CONVERSATIONAL APPROACH BY SCENARIO:
+- **Vague/exploratory questions**: Ask 1-2 clarifying questions to understand their needs. Be friendly and curious.
+- **Specific technical questions**: Share relevant experience from Randal's background, explain how he's handled similar challenges
+- **Hiring/recruiting context**: Focus on fit, ask about their specific needs, highlight relevant accomplishments
+- **General chat**: Be helpful and professional, guide them naturally toward useful information
 
-Remember: You're here to assist and understand what they need, not just recite a resume.`;
+TONE GUIDELINES:
+- Professional but approachable (like a friendly colleague, not a formal assistant)
+- Confident but not arrogant
+- Helpful without being pushy
+- Knowledgeable but willing to clarify or dig deeper
 
-    // Format chat history for prompt
-    const conversationHistory = chatMessages.map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.text}`).join('\n');
+Remember: You're having a real conversation, not filling out a form or reading a resume. Be present, be engaged, and make them feel heard.`;
+
+    // Format chat history for prompt with better context preservation
+    const conversationHistory = chatMessages.map((m: ChatMessage) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.text}`).join('\n');
     const prompt = `${conversationHistory}\nUser: ${newUserMsg.text}\nAssistant:`;
 
     const result = await callGeminiAPI(prompt, sysPrompt);
 
-    setChatMessages(prev => [...prev, { role: 'model', text: result as string }]);
+    setChatMessages((prev: ChatMessage[]) => [...prev, { role: 'model', text: result as string }]);
     setIsChatting(false);
+  };
+
+  const handleClearChat = () => {
+    const initialMessage: ChatMessage = { role: 'model', text: "Hey there! I'm here representing Randal Derego. I'd love to chat with you about IT challenges, projects, or how Randal's experience might be a fit for what you're working on. What brings you here today?" };
+    setChatMessages([initialMessage]);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('chatHistory');
+    }
   };
 
   // Handle scroll effect for sticky header
@@ -579,15 +622,24 @@ Remember: You're here to assist and understand what they need, not just recite a
                   <Bot size={20} className="text-white" />
                 </div>
                 <div>
-                  <div className="font-bold text-sm">Randal's AI Assistant ✨</div>
+                  <div className="font-bold text-sm">Randal's AI Assistant</div>
                   <div className="text-xs text-blue-200 flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse"></span> Online
                   </div>
                 </div>
               </div>
-              <button onClick={() => setChatOpen(false)} className="text-slate-300 hover:text-white transition-colors cursor-pointer">
-                <X size={20} />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleClearChat}
+                  className="text-slate-400 hover:text-white transition-colors p-1 rounded hover:bg-slate-800 cursor-pointer"
+                  title="Clear conversation"
+                >
+                  <RotateCcw size={18} />
+                </button>
+                <button onClick={() => setChatOpen(false)} className="text-slate-300 hover:text-white transition-colors cursor-pointer">
+                  <X size={20} />
+                </button>
+              </div>
             </div>
             
             {/* Chat Messages */}
@@ -653,7 +705,7 @@ Remember: You're here to assist and understand what they need, not just recite a
             
             {/* Tooltip */}
             <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 w-max bg-white text-slate-800 text-sm font-medium py-2 px-4 rounded-xl shadow-lg border border-slate-100 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none origin-right">
-              Chat with my AI Agent ✨
+              Chat with Randal's AI
               {/* Triangle tip */}
               <div className="absolute top-1/2 -mt-2 -right-2 w-0 h-0 border-y-8 border-y-transparent border-l-8 border-l-white"></div>
             </div>
