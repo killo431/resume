@@ -2,6 +2,22 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Environment Setup
+
+1. Copy the example environment file:
+```bash
+cp .env.local.example .env.local
+```
+
+2. Get your Gemini API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+
+3. Add your API key to `.env.local`:
+```
+GEMINI_API_KEY=your_actual_api_key_here
+```
+
+### Running the Development Server
+
 First, run the development server:
 
 ```bash
@@ -32,5 +48,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+**Important:** When deploying to Vercel, make sure to add the `GEMINI_API_KEY` environment variable in your project settings:
+1. Go to your project settings on Vercel
+2. Navigate to "Environment Variables"
+3. Add `GEMINI_API_KEY` with your Gemini API key value
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

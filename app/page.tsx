@@ -24,45 +24,28 @@ import {
   Loader2
 } from 'lucide-react';
 
-// --- TYPES ---
-interface GeminiPayload {
-  contents: { parts: { text: string }[] }[];
-  system_instruction?: { parts: { text: string }[] };
-}
-
 // --- GEMINI API HELPER ---
+// Now uses the backend API route to keep the API key secure
 const callGeminiAPI = async (prompt: string, systemInstruction: string = "") => {
-  const apiKey = "AIzaSyCSimpkdSKmddX_yDyF0NM-mrl0l4tkajA"; // <--- REMEMBER TO PUT YOUR API KEY HERE
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-
-  // FIX: Use 'system_instruction' (snake_case) to match Google's API spec
-  const payload: GeminiPayload = {
-    contents: [{ parts: [{ text: prompt }] }]
-  };
-
-  if (systemInstruction) {
-    payload.system_instruction = { parts: [{ text: systemInstruction }] };
-  }
-
   const maxRetries = 5;
-  const delays =[1000, 2000, 4000, 8000, 16000];
+  const delays = [1000, 2000, 4000, 8000, 16000];
 
   for (let i = 0; i < maxRetries; i++) {
     try {
-      const response = await fetch(url, {
+      const response = await fetch('/api/gemini', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ prompt, systemInstruction })
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
-        console.error(`Gemini API Error (${response.status}):`, errorData);
-        throw new Error(`HTTP ${response.status}: ${errorData.error?.message || 'Unknown Error'}`);
+        console.error(`API Error (${response.status}):`, errorData);
+        throw new Error(`HTTP ${response.status}: ${errorData.error || 'Unknown Error'}`);
       }
-      
+
       const data = await response.json();
-      return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
+      return data.text || "No response generated.";
     } catch (error) {
       console.error(`Attempt ${i + 1} failed:`, error);
       if (i === maxRetries - 1) return "Error connecting to AI. Please try again later.";
