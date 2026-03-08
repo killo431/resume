@@ -136,6 +136,14 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
+### Custom Domain Setup
+
+To set up a custom domain or simplify your website URL, see the detailed [Domain Setup Guide](./DOMAIN_SETUP.md) which covers:
+- Using a simpler Vercel subdomain (e.g., `randal-resume.vercel.app`)
+- Configuring custom domains (e.g., `randal.dev`)
+- DNS configuration for various providers
+- Troubleshooting common domain issues
+
 ## Technologies Used
 
 - **Next.js 16.1.6**: React framework with App Router
