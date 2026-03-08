@@ -22,7 +22,12 @@ import {
   Bot,
   User,
   Loader2,
-  RotateCcw
+  RotateCcw,
+  Github,
+  Linkedin,
+  ExternalLink,
+  Star,
+  GitFork
 } from 'lucide-react';
 
 // --- GEMINI API HELPER ---
@@ -57,12 +62,13 @@ const callGeminiAPI = async (prompt: string, systemInstruction: string = "") => 
 
 const resumeContext = `Randal Derego is a Systems Administrator with 10 years of experience.
 Skills: VMware ESXi, Hyper-V, vSphere, TCP/IP, DNS, DHCP, VLANs, VPN, Cisco Switches, Active Directory, Group Policy, Exchange, Microsoft 365, Azure, AWS, Data Governance, Patch Management, PowerShell, Bash, VBA, Java, SQL, Python, AI Studio, LM Studio, VLLM, Ollama, NinjaOneRMM.
-Experience: 
+Experience:
 - Systems Administrator at TEAMLOGIC IT (Nov 2021-Sept 2025): Managed servers, automation scripts.
 - Help Desk at SAMSUNG (Jan 2019-Nov 2021): System setups, hardware deployment.
 - Tech Support at EAGLE EYE NETWORKS (Feb 2017-Jan 2019): Linux-based cloud video surveillance, CLI troubleshooting.
 Education: B.S. in Computer Science (Western Governors University), CompTIA A+.
-Contact: randalrd92@gmail.com, 512-653-0052, Austin, TX.`;
+Contact: randalrd92@gmail.com, 512-653-0052, Austin, TX.
+Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randal-d-7a6257197, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
 
 const renderFormattedText = (text: string) => {
   return text.split('\n').map((line, i) => (
@@ -106,7 +112,7 @@ export default function PortfolioPage() {
       }
     }
     return [
-      { role: 'model', text: "Hey there! I'm here representing Randal Derego. I'd love to chat with you about IT challenges, projects, or how Randal's experience might be a fit for what you're working on. What brings you here today?" }
+      { role: 'model', text: "Hey there! I&apos;m here representing Randal Derego. I&apos;d love to chat with you about IT challenges, projects, or how Randal&apos;s experience might be a fit for what you&apos;re working on. What brings you here today?" }
     ];
   });
   const [chatInput, setChatInput] = useState("");
@@ -189,7 +195,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
   };
 
   const handleClearChat = () => {
-    const initialMessage: ChatMessage = { role: 'model', text: "Hey there! I'm here representing Randal Derego. I'd love to chat with you about IT challenges, projects, or how Randal's experience might be a fit for what you're working on. What brings you here today?" };
+    const initialMessage: ChatMessage = { role: 'model', text: "Hey there! I&apos;m here representing Randal Derego. I&apos;d love to chat with you about IT challenges, projects, or how Randal&apos;s experience might be a fit for what you&apos;re working on. What brings you here today?" };
     setChatMessages([initialMessage]);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('chatHistory');
@@ -230,10 +236,11 @@ Remember: You're having a real conversation, not filling out a form or reading a
           <nav className="hidden md:flex gap-8 text-sm font-medium text-slate-600">
             <button onClick={() => scrollToSection('about')} className="hover:text-blue-600 transition-colors cursor-pointer">About</button>
             <button onClick={() => scrollToSection('skills')} className="hover:text-blue-600 transition-colors cursor-pointer">Skills</button>
+            <button onClick={() => scrollToSection('projects')} className="hover:text-blue-600 transition-colors cursor-pointer">Projects</button>
             <button onClick={() => scrollToSection('experience')} className="hover:text-blue-600 transition-colors cursor-pointer">Experience</button>
             <button onClick={() => scrollToSection('education')} className="hover:text-blue-600 transition-colors cursor-pointer">Education</button>
-            <button 
-              onClick={() => scrollToSection('contact')} 
+            <button
+              onClick={() => scrollToSection('contact')}
               className="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-blue-600 transition-colors cursor-pointer"
             >
               Contact Me
@@ -255,6 +262,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
           <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-slate-100 py-4 px-6 flex flex-col gap-4">
             <button onClick={() => scrollToSection('about')} className="text-left py-2 text-slate-600 font-medium">About</button>
             <button onClick={() => scrollToSection('skills')} className="text-left py-2 text-slate-600 font-medium">Skills</button>
+            <button onClick={() => scrollToSection('projects')} className="text-left py-2 text-slate-600 font-medium">Projects</button>
             <button onClick={() => scrollToSection('experience')} className="text-left py-2 text-slate-600 font-medium">Experience</button>
             <button onClick={() => scrollToSection('education')} className="text-left py-2 text-slate-600 font-medium">Education</button>
             <button onClick={() => scrollToSection('contact')} className="text-left py-2 text-blue-600 font-medium">Contact Me</button>
@@ -413,6 +421,108 @@ Remember: You're having a real conversation, not filling out a form or reading a
           </div>
         </section>
 
+        {/* FEATURED PROJECTS SECTION */}
+        <section id="projects" className="py-20 bg-white border-y border-slate-100">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Featured Projects</h2>
+              <p className="text-slate-600">Showcase of my best work on GitHub demonstrating practical skills in automation, web scraping, and modern development.</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Project 1: Resume Portfolio */}
+              <a
+                href="https://github.com/killo431/resume"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-blue-400 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                    <Code size={24} />
+                  </div>
+                  <ExternalLink size={18} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  AI-Powered Resume Portfolio
+                </h3>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                  Modern Next.js portfolio with integrated Gemini AI chatbot for job matching and interactive conversations. Features TypeScript, Tailwind CSS, and smart API design.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">TypeScript</span>
+                  <span className="px-2 py-1 bg-slate-200 text-slate-700 text-xs font-semibold rounded">Next.js</span>
+                  <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded">Gemini AI</span>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-slate-500">
+                  <span className="flex items-center gap-1"><Star size={14} /> 1</span>
+                  <span className="flex items-center gap-1"><GitFork size={14} /> 0</span>
+                </div>
+              </a>
+
+              {/* Project 2: CrawlerLLM */}
+              <a
+                href="https://github.com/killo431/CrawlerLLM"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-indigo-400 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                    <Terminal size={24} />
+                  </div>
+                  <ExternalLink size={18} className="text-slate-400 group-hover:text-indigo-600 transition-colors" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                  CrawlerLLM Job Scraper
+                </h3>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                  Intelligent web scraping system combining Python automation with LLM capabilities for job data extraction and analysis. Demonstrates advanced parsing and AI integration.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">Python</span>
+                  <span className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded">Web Scraping</span>
+                  <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded">LLM</span>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-slate-500">
+                  <span className="flex items-center gap-1"><Star size={14} /> 0</span>
+                  <span className="flex items-center gap-1"><GitFork size={14} /> 0</span>
+                </div>
+              </a>
+
+              {/* Project 3: Project Suite */}
+              <a
+                href="https://github.com/killo431/Name-it-detechit-project-suite-or-ProjSuite"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-emerald-400 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                    <Server size={24} />
+                  </div>
+                  <ExternalLink size={18} className="text-slate-400 group-hover:text-emerald-600 transition-colors" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                  Project Suite Framework
+                </h3>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                  Comprehensive project management and automation framework with organized directory structure, templates, and agent systems for streamlined development workflows.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-2 py-1 bg-slate-200 text-slate-700 text-xs font-semibold rounded">Framework</span>
+                  <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded">Templates</span>
+                  <span className="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded">Automation</span>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-slate-500">
+                  <span className="flex items-center gap-1"><Star size={14} /> 1</span>
+                  <span className="flex items-center gap-1"><GitFork size={14} /> 0</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* EXPERIENCE SECTION */}
         <section id="experience" className="py-20 bg-white">
           <div className="max-w-4xl mx-auto px-6">
@@ -514,10 +624,10 @@ Remember: You're having a real conversation, not filling out a form or reading a
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-3xl font-bold mb-6">Ready to Optimize Your Infrastructure?</h2>
             <p className="text-slate-400 mb-12 max-w-2xl mx-auto">
-              I'm currently based in Austin, TX and open to new opportunities. Whether you have a question or want to discuss a potential role, feel free to reach out.
+              I&apos;m currently based in Austin, TX and open to new opportunities. Whether you have a question or want to discuss a potential role, feel free to reach out.
             </p>
-            
-            <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+
+            <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
               <a href="mailto:randalrd92@gmail.com" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
                 <Mail className="text-blue-400" size={28} />
                 <div>
@@ -525,7 +635,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
                   <div className="font-medium">randalrd92@gmail.com</div>
                 </div>
               </a>
-              
+
               <a href="tel:512-653-0052" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
                 <Phone className="text-green-400" size={28} />
                 <div>
@@ -541,6 +651,39 @@ Remember: You're having a real conversation, not filling out a form or reading a
                   <div className="font-medium">Austin, TX</div>
                 </div>
               </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex justify-center gap-4">
+              <a
+                href="https://github.com/killo431"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 transition-all group"
+              >
+                <Github size={20} className="group-hover:scale-110 transition-transform" />
+                <span className="font-medium">GitHub</span>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/randal-d-7a6257197"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 transition-all group"
+              >
+                <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
+                <span className="font-medium">LinkedIn</span>
+              </a>
+
+              <a
+                href="https://profile.indeed.com/p/randald-mh1efpj"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 transition-all group"
+              >
+                <Briefcase size={20} className="group-hover:scale-110 transition-transform" />
+                <span className="font-medium">Indeed</span>
+              </a>
             </div>
           </div>
         </section>
@@ -567,7 +710,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
               {!analyzerResult && !isAnalyzing ? (
                 <div className="space-y-4">
                   <p className="text-sm text-slate-600">
-                    Paste a job description below. My AI assistant will analyze my resume against your requirements and tell you exactly why I'm a great fit for the role.
+                    Paste a job description below. My AI assistant will analyze my resume against your requirements and tell you exactly why I&apos;m a great fit for the role.
                   </p>
                   <textarea 
                     className="w-full h-48 p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none resize-none text-sm text-slate-700"
@@ -622,7 +765,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
                   <Bot size={20} className="text-white" />
                 </div>
                 <div>
-                  <div className="font-bold text-sm">Randal's AI Assistant</div>
+                  <div className="font-bold text-sm">Randal&apos;s AI Assistant</div>
                   <div className="text-xs text-blue-200 flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse"></span> Online
                   </div>
@@ -705,7 +848,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
             
             {/* Tooltip */}
             <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 w-max bg-white text-slate-800 text-sm font-medium py-2 px-4 rounded-xl shadow-lg border border-slate-100 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none origin-right">
-              Chat with Randal's AI
+              Chat with Randal&apos;s AI
               {/* Triangle tip */}
               <div className="absolute top-1/2 -mt-2 -right-2 w-0 h-0 border-y-8 border-y-transparent border-l-8 border-l-white"></div>
             </div>
