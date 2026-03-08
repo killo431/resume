@@ -138,9 +138,16 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ### Custom Domain Setup
 
-To set up a custom domain or simplify your website URL, see the detailed [Domain Setup Guide](./DOMAIN_SETUP.md) which covers:
+Since you already own **devtest512.info**, you can simplify your URL for FREE! See the [devtest512.info Domain Guide](./DEVTEST512_DOMAIN_GUIDE.md) for step-by-step instructions.
+
+**Quick options:**
+- Use root domain: `devtest512.info` (shortest)
+- Use cleaner subdomain: `resume.devtest512.info` or `randal.devtest512.info`
+
+For general domain setup or other domain options, see the [Domain Setup Guide](./DOMAIN_SETUP.md) which covers:
+- Detailed setup for your existing devtest512.info domain
 - Using a simpler Vercel subdomain (e.g., `randal-resume.vercel.app`)
-- Configuring custom domains (e.g., `randal.dev`)
+- Purchasing and configuring new custom domains (e.g., `randal.dev`)
 - DNS configuration for various providers
 - Troubleshooting common domain issues
 
