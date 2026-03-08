@@ -27,7 +27,10 @@ cp .env.local.example .env.local
 3. Add your API key to `.env.local`:
 ```
 GEMINI_API_KEY=your_actual_api_key_here
+NEXT_TELEMETRY_DISABLED=1
 ```
+
+> **Note:** The `NEXT_TELEMETRY_DISABLED=1` environment variable disables Next.js telemetry collection, which prevents telemetry messages during builds.
 
 ### Running the Development Server
 
@@ -125,10 +128,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-**Important:** When deploying to Vercel, make sure to add the `GEMINI_API_KEY` environment variable in your project settings:
+**Important:** When deploying to Vercel, make sure to add the following environment variables in your project settings:
 1. Go to your project settings on Vercel
 2. Navigate to "Environment Variables"
 3. Add `GEMINI_API_KEY` with your Gemini API key value
+4. Add `NEXT_TELEMETRY_DISABLED` with value `1` to disable telemetry messages during builds
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
