@@ -1,5 +1,18 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Features
+
+This portfolio website includes:
+
+- **AI-Powered Chatbot**: Interactive AI assistant using Gemini API for job matching and conversations
+- **Job Fit Analyzer**: AI tool that analyzes job descriptions against resume qualifications
+- **Technical Blog**: MDX-powered blog with AI content generation capabilities
+- **Responsive Design**: Mobile-first design with Tailwind CSS
+- **Dark Mode**: Theme switcher with localStorage persistence
+- **Skills Visualization**: Interactive skill proficiency displays
+- **Project Showcase**: GitHub-integrated project highlights
+- **Contact System**: Multi-channel contact options and form
+
 ## Getting Started
 
 ### Environment Setup
@@ -36,6 +49,69 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Blog System
+
+This project includes a full-featured blog powered by MDX (Markdown + JSX).
+
+### Creating Blog Posts
+
+#### Option 1: Manual Creation
+
+Create a new `.mdx` file in `content/blog/` with frontmatter:
+
+```mdx
+---
+title: "Your Blog Post Title"
+date: "2026-03-08"
+author: "Randal Derego"
+excerpt: "Brief description"
+tags: ["Tag1", "Tag2"]
+---
+
+# Your Content Here
+
+Write your post using Markdown...
+```
+
+#### Option 2: AI Generation
+
+1. Visit `/blog/generate` in your browser
+2. Enter a topic or select from suggestions
+3. Choose tone, tags, and length
+4. Click "Generate Blog Post"
+5. Download the generated MDX file
+6. Save it to `content/blog/`
+
+### Blog Features
+
+- **MDX Support**: Markdown with embedded React components
+- **Search & Filter**: Full-text search and tag-based filtering
+- **Syntax Highlighting**: Code blocks with language-specific highlighting
+- **Reading Time**: Automatic calculation
+- **SEO Optimized**: Meta tags and Open Graph data
+- **Responsive Design**: Mobile-friendly layout
+
+For detailed blog documentation, see [BLOG_DOCUMENTATION.md](./BLOG_DOCUMENTATION.md)
+
+## Project Structure
+
+```
+/app
+  /api/gemini          # Gemini AI API route
+  /blog                # Blog pages
+    /[slug]            # Dynamic blog post pages
+    /generate          # AI blog generator
+  /page.tsx            # Main portfolio page
+  /layout.tsx          # Root layout
+/components
+  /blog                # Blog-specific components
+/content
+  /blog                # MDX blog posts
+/lib
+  /blog.ts             # Blog utilities
+  /ai-content-generator.ts  # AI content generation
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -55,3 +131,15 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 3. Add `GEMINI_API_KEY` with your Gemini API key value
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Technologies Used
+
+- **Next.js 16.1.6**: React framework with App Router
+- **React 19.2.3**: UI library
+- **TypeScript 5**: Type safety
+- **Tailwind CSS 4**: Utility-first CSS
+- **MDX**: Markdown with JSX support
+- **Gemini AI**: AI-powered content generation and chatbot
+- **Lucide React**: Icon library
+- **gray-matter**: Frontmatter parsing
+- **next-mdx-remote**: MDX rendering for Next.js

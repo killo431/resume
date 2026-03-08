@@ -1,0 +1,110 @@
+---
+title: "Automating Infrastructure with PowerShell: Best Practices"
+date: "2026-03-08"
+author: "Randal Derego"
+excerpt: "Learn how to leverage PowerShell for automating common IT infrastructure tasks and improving operational efficiency."
+tags: ["PowerShell", "Automation", "Infrastructure", "DevOps"]
+---
+
+# Automating Infrastructure with PowerShell: Best Practices
+
+Over my 10 years in systems administration, I've learned that **automation is the key to scaling IT operations**. PowerShell has been my go-to tool for automating everything from server deployments to patch management.
+
+## Why PowerShell for Infrastructure Automation?
+
+PowerShell offers several advantages for IT professionals:
+
+- **Native Windows Integration**: Built into Windows, no additional installation needed
+- **Object-Oriented**: Unlike text-based shells, PowerShell works with .NET objects
+- **Extensive Module Library**: Thousands of community and vendor-provided modules
+- **Cross-Platform**: PowerShell Core runs on Linux and macOS
+
+## Essential Automation Tasks
+
+### 1. Server Health Monitoring
+
+Here's a simple script to check server health across your environment:
+
+```powershell
+$servers = Get-Content "servers.txt"
+
+foreach ($server in $servers) {
+    $cpu = Get-WmiObject Win32_Processor -ComputerName $server |
+           Measure-Object -Property LoadPercentage -Average
+
+    $memory = Get-WmiObject Win32_OperatingSystem -ComputerName $server
+    $memoryUsed = [math]::Round((($memory.TotalVisibleMemorySize -
+                  $memory.FreePhysicalMemory) /
+                  $memory.TotalVisibleMemorySize) * 100, 2)
+
+    Write-Output "$server - CPU: $($cpu.Average)% | Memory: $memoryUsed%"
+}
+```
+
+### 2. Automated Patch Management
+
+Keeping servers up-to-date is critical for security:
+
+```powershell
+Install-Module PSWindowsUpdate -Force
+Get-WindowsUpdate -AcceptAll -AutoReboot
+```
+
+### 3. Active Directory User Provisioning
+
+Automate user account creation with proper error handling:
+
+```powershell
+function New-ADUserAccount {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$FirstName,
+        [Parameter(Mandatory=$true)]
+        [string]$LastName,
+        [Parameter(Mandatory=$true)]
+        [string]$Department
+    )
+
+    try {
+        $username = "$FirstName.$LastName".ToLower()
+        $email = "$username@company.com"
+
+        New-ADUser -Name "$FirstName $LastName" `
+                   -GivenName $FirstName `
+                   -Surname $LastName `
+                   -SamAccountName $username `
+                   -EmailAddress $email `
+                   -Department $Department `
+                   -Enabled $true `
+                   -ChangePasswordAtLogon $true
+
+        Write-Output "✓ Created user: $username"
+    }
+    catch {
+        Write-Error "Failed to create user: $_"
+    }
+}
+```
+
+## Best Practices for Production Scripts
+
+1. **Always Use Error Handling**: Wrap critical operations in try-catch blocks
+2. **Log Everything**: Maintain detailed logs for auditing and troubleshooting
+3. **Validate Input**: Use parameter validation attributes
+4. **Test in Dev First**: Never run untested scripts in production
+5. **Version Control**: Store all scripts in Git for change tracking
+
+## Real-World Impact
+
+In my role at TEAMLOGIC IT, I implemented PowerShell automation that:
+
+- Reduced server patching time by **75%**
+- Eliminated manual user provisioning errors
+- Saved the team **15+ hours per week**
+- Improved system reliability and uptime
+
+## Conclusion
+
+PowerShell automation has transformed how I manage IT infrastructure. Start small with simple scripts, build your skills, and gradually tackle more complex automation challenges.
+
+**What's your favorite PowerShell automation use case? Let me know!**

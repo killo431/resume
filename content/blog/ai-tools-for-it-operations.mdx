@@ -1,0 +1,227 @@
+---
+title: "Getting Started with AI Tools for IT Operations"
+date: "2026-03-01"
+author: "Randal Derego"
+excerpt: "Explore how AI-powered tools like LM Studio and Ollama can enhance your IT operations workflow and improve troubleshooting efficiency."
+tags: ["AI", "Automation", "IT Operations", "LM Studio", "Ollama"]
+---
+
+# Getting Started with AI Tools for IT Operations
+
+The intersection of AI and IT operations is creating exciting new opportunities. In this post, I'll share my experience integrating AI tools into daily IT workflows.
+
+## Why AI for IT Operations?
+
+AI-powered tools can assist with:
+
+- **Documentation**: Automatically generate clear technical documentation
+- **Troubleshooting**: Quickly analyze logs and error messages
+- **Script Generation**: Create automation scripts from natural language
+- **Knowledge Base**: Instant access to technical information
+
+## Tools I Use
+
+### 1. LM Studio
+
+LM Studio provides a user-friendly interface for running local LLMs:
+
+- **Privacy**: All processing happens locally
+- **No API Costs**: Free to use with your own hardware
+- **Model Flexibility**: Support for various open-source models
+
+**Getting Started:**
+
+```bash
+# Download LM Studio from lmstudio.ai
+# Load a model (I recommend CodeLlama for technical tasks)
+# Start the local server on localhost:1234
+```
+
+### 2. Ollama
+
+Ollama simplifies running LLMs via command line:
+
+```bash
+# Install Ollama
+curl https://ollama.ai/install.sh | sh
+
+# Pull a model
+ollama pull codellama
+
+# Run a model
+ollama run codellama "Explain what this error means: Connection refused"
+```
+
+## Practical Use Cases
+
+### Log Analysis
+
+Use AI to quickly understand complex error logs:
+
+```python
+import requests
+
+def analyze_log(log_content):
+    response = requests.post('http://localhost:1234/v1/chat/completions',
+        json={
+            'messages': [
+                {'role': 'system', 'content': 'You are a systems administrator expert.'},
+                {'role': 'user', 'content': f'Analyze this log and suggest fixes:\n{log_content}'}
+            ]
+        })
+    return response.json()['choices'][0]['message']['content']
+```
+
+### PowerShell Script Generation
+
+Generate scripts from natural language:
+
+**Prompt:**
+> "Create a PowerShell script to check disk space on all servers in servers.txt and email a report if any are above 80%"
+
+**Result:**
+```powershell
+$servers = Get-Content "servers.txt"
+$threshold = 80
+$alerts = @()
+
+foreach ($server in $servers) {
+    $disk = Get-WmiObject Win32_LogicalDisk -ComputerName $server -Filter "DriveType=3"
+    foreach ($d in $disk) {
+        $percentFree = [math]::Round(($d.FreeSpace / $d.Size) * 100, 2)
+        if ($percentFree -lt (100 - $threshold)) {
+            $alerts += "$server - Drive $($d.DeviceID): $percentFree% free"
+        }
+    }
+}
+
+if ($alerts.Count -gt 0) {
+    Send-MailMessage -To "admin@company.com" `
+        -From "alerts@company.com" `
+        -Subject "Disk Space Alert" `
+        -Body ($alerts -join "`n") `
+        -SmtpServer "smtp.company.com"
+}
+```
+
+### Documentation Generation
+
+AI can help document your infrastructure:
+
+**Prompt:**
+> "Document this Active Directory group structure for our team wiki"
+
+This saves hours of manual documentation work.
+
+## Best Practices
+
+### 1. Verify AI-Generated Code
+
+**Always review and test** AI-generated scripts before production use:
+
+- Check for security issues
+- Validate logic and error handling
+- Test in a dev environment first
+
+### 2. Use Specific Prompts
+
+Better prompts lead to better results:
+
+❌ Bad: "Write a backup script"
+
+✅ Good: "Write a PowerShell script that backs up SQL databases on SERVER01 to \\backup\sql using VSS, with logging to C:\logs\backup.log, and only keeps last 7 days of backups"
+
+### 3. Iterate and Refine
+
+If the first result isn't perfect:
+
+1. Review what's wrong
+2. Provide feedback
+3. Ask for specific improvements
+
+## Security Considerations
+
+When using AI tools:
+
+- **Use local models** for sensitive data (LM Studio, Ollama)
+- **Never expose** production passwords or credentials
+- **Review all code** for potential vulnerabilities
+- **Document** AI usage in your change management process
+
+## Integration Example
+
+Here's how I integrated AI into my help desk workflow:
+
+```python
+#!/usr/bin/env python3
+import requests
+import sys
+
+def ai_assistant(user_query):
+    """Local AI assistant for IT help desk"""
+
+    system_prompt = """You are an IT help desk assistant specializing in:
+    - Windows 10/11 troubleshooting
+    - Microsoft 365 issues
+    - Network connectivity problems
+    - Active Directory account issues
+
+    Provide clear, step-by-step solutions."""
+
+    response = requests.post('http://localhost:1234/v1/chat/completions',
+        json={
+            'model': 'codellama',
+            'messages': [
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': user_query}
+            ],
+            'temperature': 0.3
+        })
+
+    return response.json()['choices'][0]['message']['content']
+
+if __name__ == '__main__':
+    query = ' '.join(sys.argv[1:])
+    print(ai_assistant(query))
+```
+
+## Performance Tips
+
+### Optimize Model Selection
+
+Different models for different tasks:
+
+- **CodeLlama**: Best for code generation and technical tasks
+- **Mistral**: Good all-around performance
+- **Llama 2**: Strong reasoning capabilities
+
+### Hardware Recommendations
+
+For optimal performance:
+
+- **Minimum**: 16GB RAM, modern CPU
+- **Recommended**: 32GB RAM, dedicated GPU
+- **Ideal**: 64GB RAM, RTX 4090 or similar
+
+## Real-World Impact
+
+Since integrating AI tools:
+
+- **Documentation time**: Reduced by 60%
+- **Script development**: 3x faster
+- **Troubleshooting**: Quicker root cause analysis
+- **Knowledge retention**: Better documentation of solutions
+
+## Getting Started Today
+
+1. **Install Ollama or LM Studio**
+2. **Download a technical model** (CodeLlama recommended)
+3. **Start with simple queries** to understand capabilities
+4. **Gradually integrate** into your workflow
+5. **Share successes** with your team
+
+## Conclusion
+
+AI tools aren't replacing IT professionals—they're making us more efficient. By handling routine documentation and providing quick references, AI frees us to focus on complex problem-solving and strategic initiatives.
+
+**What AI tools are you using in your IT work? Let's discuss!**
