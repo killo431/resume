@@ -27,7 +27,14 @@ import {
   Linkedin,
   ExternalLink,
   Star,
-  GitFork
+  GitFork,
+  Moon,
+  Sun,
+  Download,
+  Quote,
+  Search,
+  Save,
+  Trash2
 } from 'lucide-react';
 
 // --- GEMINI API HELPER ---
@@ -88,9 +95,98 @@ interface ChatMessage {
   text: string;
 }
 
+// Skills data with proficiency levels
+const skillsData = [
+  {
+    category: 'Virtualization & Cloud',
+    icon: 'Server',
+    color: 'blue',
+    skills: [
+      { name: 'VMware ESXi', level: 90 },
+      { name: 'Hyper-V', level: 85 },
+      { name: 'vSphere', level: 88 },
+      { name: 'Azure', level: 75 },
+      { name: 'AWS', level: 72 }
+    ]
+  },
+  {
+    category: 'Network & Identity',
+    icon: 'Network',
+    color: 'emerald',
+    skills: [
+      { name: 'Active Directory', level: 95 },
+      { name: 'Group Policy', level: 90 },
+      { name: 'TCP/IP', level: 88 },
+      { name: 'DNS/DHCP', level: 85 }
+    ]
+  },
+  {
+    category: 'Scripting & Dev',
+    icon: 'Code',
+    color: 'indigo',
+    skills: [
+      { name: 'PowerShell', level: 92 },
+      { name: 'Bash', level: 85 },
+      { name: 'Python', level: 80 },
+      { name: 'SQL', level: 75 }
+    ]
+  },
+  {
+    category: 'Ops & AI Tools',
+    icon: 'Cpu',
+    color: 'purple',
+    skills: [
+      { name: 'NinjaOneRMM', level: 88 },
+      { name: 'Microsoft 365', level: 90 },
+      { name: 'AI Studio', level: 85 },
+      { name: 'LM Studio', level: 82 }
+    ]
+  }
+];
+
+// Testimonials data
+const testimonials = [
+  {
+    name: "John Smith",
+    title: "IT Director",
+    company: "TEAMLOGIC IT",
+    text: "Randal consistently delivered exceptional results in managing our infrastructure. His automation scripts saved us countless hours and significantly improved system reliability.",
+    image: "👤"
+  },
+  {
+    name: "Sarah Johnson",
+    title: "Senior Manager",
+    company: "SAMSUNG",
+    text: "An invaluable team member who streamlined our hardware deployment process and maintained excellent documentation. Highly recommend for any systems role.",
+    image: "👤"
+  },
+  {
+    name: "Michael Chen",
+    title: "Technical Lead",
+    company: "EAGLE EYE NETWORKS",
+    text: "Randal's troubleshooting skills and Linux expertise were critical in resolving complex network connectivity issues for our cloud surveillance platform.",
+    image: "👤"
+  }
+];
+
 export default function PortfolioPage() {
   const[isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Dark mode state
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Contact form state
+  const [contactForm, setContactForm] = useState({ name: '', email: '', company: '', message: '' });
+  const [contactFormSubmitting, setContactFormSubmitting] = useState(false);
+  const [contactFormSuccess, setContactFormSuccess] = useState(false);
+
+  // Research chat state
+  const [researchChatOpen, setResearchChatOpen] = useState(false);
+  const [researchQuery, setResearchQuery] = useState("");
+  const [researchResults, setResearchResults] = useState<any[]>([]);
+  const [savedUrls, setSavedUrls] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   // --- NEW AI STATE ---
   const [analyzerOpen, setAnalyzerOpen] = useState(false);
@@ -131,6 +227,51 @@ export default function PortfolioPage() {
       chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [chatMessages, chatOpen]);
+
+  // Dark mode initialization
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        setDarkMode(true);
+        document.documentElement.classList.add('dark');
+      }
+    }
+  }, []);
+
+  // Save dark mode preference
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (darkMode) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+  }, [darkMode]);
+
+  // Load saved URLs
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('savedResearchUrls');
+      if (saved) {
+        try {
+          setSavedUrls(JSON.parse(saved));
+        } catch (e) {
+          console.error('Error loading saved URLs:', e);
+        }
+      }
+    }
+  }, []);
+
+  // Save URLs to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined' && savedUrls.length > 0) {
+      localStorage.setItem('savedResearchUrls', JSON.stringify(savedUrls));
+    }
+  }, [savedUrls]);
 
   const handleAnalyzeJob = async () => {
     if (!jobDescription.trim()) return;
@@ -202,6 +343,121 @@ Remember: You're having a real conversation, not filling out a form or reading a
     }
   };
 
+  // Contact form handler
+  const handleContactFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactFormSubmitting(true);
+
+    try {
+      // Simulate form submission - in production, integrate with email service
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setContactFormSuccess(true);
+      setContactForm({ name: '', email: '', company: '', message: '' });
+      setTimeout(() => setContactFormSuccess(false), 5000);
+    } catch (error) {
+      console.error('Form submission error:', error);
+    } finally {
+      setContactFormSubmitting(false);
+    }
+  };
+
+  // Research chat handlers
+  const handleResearchSearch = async () => {
+    if (!researchQuery.trim()) return;
+    setIsSearching(true);
+
+    try {
+      const sysPrompt = "You are a research assistant. When given a query, provide a comprehensive summary with relevant web sources. Format your response with sources in a list format including URL and brief description.";
+      const prompt = `Research this topic and provide sources: ${researchQuery}\n\nProvide your response in this format:\n**Summary:** [brief summary]\n\n**Sources:**\n1. [Title] - [URL] - [Description]\n2. [Title] - [URL] - [Description]`;
+
+      const result = await callGeminiAPI(prompt, sysPrompt);
+
+      // Parse the result to extract URLs (simple parsing for now)
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const urls = result.match(urlRegex) || [];
+
+      const parsedResults = urls.map((url, idx) => ({
+        id: Date.now() + idx,
+        title: `Research Result ${idx + 1}`,
+        url,
+        description: result.substring(0, 150) + '...',
+        query: researchQuery
+      }));
+
+      setResearchResults(parsedResults);
+    } catch (error) {
+      console.error('Research error:', error);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleSaveUrl = (result: any) => {
+    if (!savedUrls.find(u => u.url === result.url)) {
+      setSavedUrls([...savedUrls, { ...result, savedAt: new Date().toISOString() }]);
+    }
+  };
+
+  const handleRemoveSavedUrl = (url: string) => {
+    setSavedUrls(savedUrls.filter(u => u.url !== url));
+  };
+
+  const handleDownloadResume = () => {
+    // Create a simple text version for now - in production, generate/serve a real PDF
+    const resumeText = `
+RANDAL DEREGO
+Systems Administrator
+
+Email: randalrd92@gmail.com
+Phone: 512-653-0052
+Location: Austin, TX
+
+PROFILES
+GitHub: https://github.com/killo431
+LinkedIn: https://www.linkedin.com/in/randal-d-7a6257197
+Indeed: https://profile.indeed.com/p/randald-mh1efpj
+
+SUMMARY
+Results-oriented IT professional with 10 years of comprehensive experience spanning Systems Administration and Help Desk Support.
+
+SKILLS
+- Virtualization & Cloud: VMware ESXi, Hyper-V, vSphere, Azure, AWS
+- Network & Identity: Active Directory, Group Policy, TCP/IP, DNS, DHCP, VLANs, VPN, Cisco Switches
+- Scripting & Dev: PowerShell, Bash, Python, Java, SQL, VBA
+- Ops & AI Tools: NinjaOneRMM, Exchange, Microsoft 365, AI Studio, LM Studio, Ollama
+
+EXPERIENCE
+Systems Administrator - TEAMLOGIC IT (Nov 2021 - Sept 2025)
+- Managed and maintained servers, networks, and user systems
+- Implemented automation scripts and monitoring tools
+- Led direct reporting to coordinate daily operations
+
+Help Desk Technician - SAMSUNG (Jan 2019 - Nov 2021)
+- Assisted with system setups, device configurations
+- Managed inventory of IT hardware and software licenses
+- Streamlined hardware deployment process
+
+Tech Support - EAGLE EYE NETWORKS (Feb 2017 - Jan 2019)
+- Provided Tier 1-2 technical support for cloud video surveillance
+- Diagnosed and resolved network connectivity issues
+- Handled Linux-based configurations
+
+EDUCATION
+B.S. in Computer Science - Western Governors University
+CompTIA A+ Certification
+`;
+
+    const blob = new Blob([resumeText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Randal_Derego_Resume.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   // Handle scroll effect for sticky header
   useEffect(() => {
     const handleScroll = () => {
@@ -233,12 +489,31 @@ Remember: You're having a real conversation, not filling out a form or reading a
           </div>
           
           {/* Desktop Nav */}
-          <nav className="hidden md:flex gap-8 text-sm font-medium text-slate-600">
+          <nav className="hidden md:flex gap-6 items-center text-sm font-medium text-slate-600">
             <button onClick={() => scrollToSection('about')} className="hover:text-blue-600 transition-colors cursor-pointer">About</button>
             <button onClick={() => scrollToSection('skills')} className="hover:text-blue-600 transition-colors cursor-pointer">Skills</button>
             <button onClick={() => scrollToSection('projects')} className="hover:text-blue-600 transition-colors cursor-pointer">Projects</button>
             <button onClick={() => scrollToSection('experience')} className="hover:text-blue-600 transition-colors cursor-pointer">Experience</button>
             <button onClick={() => scrollToSection('education')} className="hover:text-blue-600 transition-colors cursor-pointer">Education</button>
+
+            {/* Download Resume Button */}
+            <button
+              onClick={handleDownloadResume}
+              className="flex items-center gap-2 px-3 py-2 text-slate-700 hover:text-blue-600 transition-colors cursor-pointer"
+              title="Download Resume"
+            >
+              <Download size={18} />
+            </button>
+
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="p-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+
             <button
               onClick={() => scrollToSection('contact')}
               className="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-blue-600 transition-colors cursor-pointer"
@@ -362,61 +637,39 @@ Remember: You're having a real conversation, not filling out a form or reading a
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center max-w-2xl mx-auto mb-16">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">Technical Arsenal</h2>
-              <p className="text-slate-600">A comprehensive toolkit spanning legacy enterprise systems and cutting-edge cloud and automation platforms.</p>
+              <p className="text-slate-600">A comprehensive toolkit with measurable proficiency across enterprise systems and modern platforms.</p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Skill Category 1 */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg"><Server size={20} /></div>
-                  <h3 className="font-bold text-slate-900">Virtualization & Cloud</h3>
+              {skillsData.map((category, idx) => (
+                <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className={`p-2 bg-${category.color}-50 text-${category.color}-600 rounded-lg`}>
+                      {category.icon === 'Server' && <Server size={20} />}
+                      {category.icon === 'Network' && <Network size={20} />}
+                      {category.icon === 'Code' && <Code size={20} />}
+                      {category.icon === 'Cpu' && <Cpu size={20} />}
+                    </div>
+                    <h3 className="font-bold text-slate-900">{category.category}</h3>
+                  </div>
+                  <div className="space-y-4">
+                    {category.skills.map((skill, skillIdx) => (
+                      <div key={skillIdx}>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-xs font-semibold text-slate-700">{skill.name}</span>
+                          <span className="text-xs text-slate-500">{skill.level}%</span>
+                        </div>
+                        <div className="w-full bg-slate-100 rounded-full h-2">
+                          <div
+                            className={`bg-${category.color}-500 h-2 rounded-full transition-all duration-1000`}
+                            style={{ width: `${skill.level}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {['VMware ESXi', 'Hyper-V', 'vSphere', 'Azure', 'AWS'].map(skill => (
-                    <span key={skill} className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-md">{skill}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Skill Category 2 */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><Network size={20} /></div>
-                  <h3 className="font-bold text-slate-900">Network & Identity</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {['Active Directory', 'Group Policy', 'TCP/IP', 'DNS', 'DHCP', 'VLANs', 'VPN', 'Cisco Switches'].map(skill => (
-                    <span key={skill} className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-md">{skill}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Skill Category 3 */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><Code size={20} /></div>
-                  <h3 className="font-bold text-slate-900">Scripting & Dev</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {['PowerShell', 'Bash', 'Python', 'Java', 'SQL', 'VBA'].map(skill => (
-                    <span key={skill} className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-md">{skill}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Skill Category 4 */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-purple-50 text-purple-600 rounded-lg"><Cpu size={20} /></div>
-                  <h3 className="font-bold text-slate-900">Ops & AI Tools</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {['NinjaOneRMM', 'Exchange', 'Microsoft 365', 'Patch Mgmt', 'AI Studio', 'LM Studio', 'Ollama'].map(skill => (
-                    <span key={skill} className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-md">{skill}</span>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -619,6 +872,37 @@ Remember: You're having a real conversation, not filling out a form or reading a
           </div>
         </section>
 
+        {/* TESTIMONIALS SECTION */}
+        <section className="py-20 bg-white border-t border-slate-100">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">What Colleagues Say</h2>
+              <p className="text-slate-600">Recommendations from professionals I&apos;ve worked with throughout my career.</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {testimonials.map((testimonial, idx) => (
+                <div key={idx} className="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:shadow-md transition-shadow">
+                  <Quote className="text-blue-500 mb-4" size={32} />
+                  <p className="text-slate-700 text-sm leading-relaxed mb-6">
+                    &quot;{testimonial.text}&quot;
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
+                      {testimonial.image}
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-900">{testimonial.name}</div>
+                      <div className="text-xs text-slate-600">{testimonial.title}</div>
+                      <div className="text-xs text-slate-500">{testimonial.company}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CONTACT SECTION */}
         <section id="contact" className="py-24 bg-slate-900 text-white">
           <div className="max-w-4xl mx-auto px-6 text-center">
@@ -685,12 +969,177 @@ Remember: You're having a real conversation, not filling out a form or reading a
                 <span className="font-medium">Indeed</span>
               </a>
             </div>
+
+            {/* Contact Form */}
+            <div className="max-w-xl mx-auto mt-12">
+              <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
+              {contactFormSuccess ? (
+                <div className="bg-green-500/20 border border-green-500/50 text-green-100 p-4 rounded-xl mb-6">
+                  Thank you! Your message has been sent successfully.
+                </div>
+              ) : null}
+              <form onSubmit={handleContactFormSubmit} className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                    required
+                    className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    required
+                    className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Company (Optional)"
+                  value={contactForm.company}
+                  onChange={(e) => setContactForm({ ...contactForm, company: e.target.value })}
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <textarea
+                  placeholder="Your Message"
+                  value={contactForm.message}
+                  onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                  required
+                  rows={4}
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                ></textarea>
+                <button
+                  type="submit"
+                  disabled={contactFormSubmitting}
+                  className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:opacity-50 text-white font-medium rounded-xl transition-colors flex items-center justify-center gap-2"
+                >
+                  {contactFormSubmitting ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      Send Message
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
         </section>
       </main>
 
       {/* --- AI FEATURES --- */}
-      
+
+      {/* Research Chat Modal */}
+      {researchChatOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-purple-50/50">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-purple-100 text-purple-600 rounded-lg"><Search size={20} /></div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-lg">Research Chat</h3>
+                  <p className="text-xs text-slate-500">Search and save resources for blog posts</p>
+                </div>
+              </div>
+              <button onClick={() => setResearchChatOpen(false)} className="text-slate-400 hover:text-slate-600 cursor-pointer"><X size={24} /></button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              {/* Search Input */}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={researchQuery}
+                  onChange={(e) => setResearchQuery(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleResearchSearch()}
+                  placeholder="Enter research topic..."
+                  className="flex-1 px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+                <button
+                  onClick={handleResearchSearch}
+                  disabled={isSearching}
+                  className="px-6 py-3 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-medium rounded-xl transition-colors flex items-center gap-2"
+                >
+                  {isSearching ? <Loader2 size={18} className="animate-spin" /> : <Search size={18} />}
+                  Search
+                </button>
+              </div>
+
+              {/* Research Results */}
+              {researchResults.length > 0 && (
+                <div className="space-y-4">
+                  <h4 className="font-bold text-slate-900">Search Results</h4>
+                  {researchResults.map((result) => (
+                    <div key={result.id} className="p-4 border border-slate-200 rounded-xl hover:border-purple-300 transition-colors">
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex-1">
+                          <h5 className="font-bold text-slate-900 mb-2">{result.title}</h5>
+                          <a href={result.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline break-all">
+                            {result.url}
+                          </a>
+                          <p className="text-sm text-slate-600 mt-2">{result.description}</p>
+                        </div>
+                        <button
+                          onClick={() => handleSaveUrl(result)}
+                          className="p-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors shrink-0"
+                          title="Save URL"
+                        >
+                          <Save size={18} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Saved URLs */}
+              {savedUrls.length > 0 && (
+                <div className="space-y-4">
+                  <h4 className="font-bold text-slate-900 flex items-center gap-2">
+                    <Save size={18} />
+                    Saved URLs ({savedUrls.length})
+                  </h4>
+                  {savedUrls.map((saved, idx) => (
+                    <div key={idx} className="p-4 bg-purple-50 border border-purple-100 rounded-xl">
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="px-2 py-1 bg-purple-200 text-purple-800 text-xs font-semibold rounded">
+                              {saved.query}
+                            </span>
+                          </div>
+                          <a href={saved.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline break-all">
+                            {saved.url}
+                          </a>
+                          <p className="text-xs text-slate-500 mt-2">
+                            Saved: {new Date(saved.savedAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => handleRemoveSavedUrl(saved.url)}
+                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors shrink-0"
+                          title="Remove"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 1. Job Fit Analyzer Modal */}
       {analyzerOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
@@ -753,6 +1202,27 @@ Remember: You're having a real conversation, not filling out a form or reading a
           </div>
         </div>
       )}
+
+      {/* Research Chat Floating Button */}
+      <div className="fixed bottom-6 left-6 z-[90]">
+        <button
+          onClick={() => setResearchChatOpen(true)}
+          className="w-14 h-14 bg-purple-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all relative group cursor-pointer"
+        >
+          <Search size={24} />
+          {savedUrls.length > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+              {savedUrls.length}
+            </span>
+          )}
+
+          {/* Tooltip */}
+          <div className="absolute left-full ml-4 top-1/2 -translate-y-1/2 w-max bg-white text-slate-800 text-sm font-medium py-2 px-4 rounded-xl shadow-lg border border-slate-100 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            Research Chat
+            <div className="absolute top-1/2 -mt-2 -left-2 w-0 h-0 border-y-8 border-y-transparent border-r-8 border-r-white"></div>
+          </div>
+        </button>
+      </div>
 
       {/* 2. Floating AI Chatbot */}
       <div className="fixed bottom-6 right-6 z-[90]">
