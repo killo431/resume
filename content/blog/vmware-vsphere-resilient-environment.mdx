@@ -1,0 +1,169 @@
+---
+title: "Building a Resilient VMware vSphere Environment"
+date: "2026-03-05"
+author: "Randal Derego"
+excerpt: "A comprehensive guide to designing and maintaining a high-availability VMware infrastructure with best practices from the field."
+tags: ["VMware", "Virtualization", "Infrastructure", "High Availability"]
+---
+
+# Building a Resilient VMware vSphere Environment
+
+VMware vSphere has been the backbone of enterprise virtualization for years. In this post, I'll share insights from managing production VMware environments and the lessons learned along the way.
+
+## Architecture Fundamentals
+
+A resilient vSphere environment requires careful planning across multiple layers:
+
+### 1. Host Configuration
+
+- **ESXi Version**: Keep hosts on consistent, supported versions
+- **Hardware Compatibility**: Use VMware HCL-certified hardware
+- **Redundant Components**: Dual power supplies, NICs, and HBAs
+- **Resource Allocation**: Don't overcommit critical resources
+
+### 2. Network Design
+
+Proper network segmentation is crucial:
+
+- **Management Network**: Isolated for ESXi management traffic
+- **vMotion Network**: Dedicated 10Gbps for live migrations
+- **Storage Network**: iSCSI/NFS on separate VLANs
+- **VM Network**: Segregated by security zones
+
+## High Availability Configuration
+
+### Setting Up HA Clusters
+
+```bash
+# Enable HA on a cluster
+Get-Cluster "Production-Cluster" | Set-Cluster -HAEnabled:$true
+
+# Configure admission control
+Set-Cluster -Cluster "Production-Cluster" `
+    -HAAdmissionControlEnabled:$true `
+    -HAFailoverLevel 1
+```
+
+### Key HA Settings
+
+1. **Host Monitoring**: Enable for automated failover
+2. **VM Monitoring**: Restart VMs on application failures
+3. **Admission Control**: Reserve resources for failover scenarios
+4. **Datastore Heartbeating**: Additional mechanism for host isolation detection
+
+## Disaster Recovery Strategy
+
+### vCenter Backup
+
+Regular backups are essential:
+
+- **File-Based Backup**: Native vCenter backup mechanism
+- **Frequency**: Daily incremental, weekly full
+- **Retention**: 30 days minimum
+- **Test Restores**: Quarterly validation
+
+### Replication Options
+
+Consider these replication strategies:
+
+1. **vSphere Replication**: Built-in, no additional license needed
+2. **Array-Based Replication**: For supported storage arrays
+3. **Third-Party Solutions**: Veeam, Zerto for advanced features
+
+## Performance Optimization
+
+### Storage Performance
+
+Monitor these metrics closely:
+
+- **IOPS**: Input/Output Operations Per Second
+- **Latency**: Keep below 20ms for most workloads
+- **Queue Depth**: Adjust based on storage type
+
+### Memory Management
+
+```powershell
+# Check for memory ballooning
+Get-VM | Get-Stat -Stat mem.vmmemctl.average |
+    Where-Object {$_.Value -gt 0} |
+    Select-Object Entity, Value
+```
+
+## Troubleshooting Common Issues
+
+### Purple Screen of Death (PSOD)
+
+When encountering a PSOD:
+
+1. Capture the error message and codes
+2. Check `/var/log/vmkernel.log`
+3. Review hardware health (iLO/iDRAC)
+4. Verify driver compatibility
+
+### VM Performance Issues
+
+Systematic approach:
+
+```
+1. Check CPU ready time (should be < 5%)
+2. Verify memory ballooning isn't active
+3. Review storage latency metrics
+4. Check for resource contention
+```
+
+## Automation with PowerCLI
+
+PowerCLI is invaluable for managing vSphere at scale:
+
+```powershell
+# Connect to vCenter
+Connect-VIServer -Server vcenter.company.com
+
+# Get all VMs with snapshots older than 7 days
+Get-VM | Get-Snapshot |
+    Where-Object {$_.Created -lt (Get-Date).AddDays(-7)} |
+    Select-Object VM, Name, Created, SizeGB
+```
+
+## Security Best Practices
+
+1. **Enable Lockdown Mode**: On ESXi hosts in production
+2. **Restrict SSH Access**: Disable when not actively troubleshooting
+3. **Implement vSphere Permissions**: Use role-based access control
+4. **Regular Patching**: Stay current with security updates
+5. **Network Segmentation**: Isolate management interfaces
+
+## Monitoring and Alerting
+
+### Key Metrics to Monitor
+
+- CPU utilization across all hosts
+- Memory usage and contention
+- Storage I/O latency and throughput
+- Network bandwidth utilization
+- VM snapshot age and size
+
+### Alert Configuration
+
+Set up proactive alerts for:
+
+- Host hardware health issues
+- High CPU/memory utilization (>85%)
+- Storage latency spikes (>30ms)
+- Failed backups or replications
+
+## Lessons from the Field
+
+After managing vSphere environments for years, here are my top tips:
+
+> **Plan for Failure**: Design your environment assuming components will fail. Redundancy isn't optional.
+
+> **Automate Everything**: Manual processes don't scale and introduce errors.
+
+> **Document Thoroughly**: Your future self (and colleagues) will thank you.
+
+## Conclusion
+
+Building a resilient vSphere environment requires attention to detail, proper planning, and ongoing maintenance. The investment in a well-architected infrastructure pays dividends in uptime and reliability.
+
+**Questions about VMware or virtualization? Feel free to reach out!**
