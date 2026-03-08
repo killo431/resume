@@ -377,7 +377,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
       const urlRegex = /(https?:\/\/[^\s]+)/g;
       const urls = result.match(urlRegex) || [];
 
-      const parsedResults = urls.map((url, idx) => ({
+      const parsedResults = urls.map((url: string, idx: number) => ({
         id: Date.now() + idx,
         title: `Research Result ${idx + 1}`,
         url,
