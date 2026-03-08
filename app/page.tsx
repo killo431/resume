@@ -87,7 +87,7 @@ export default function PortfolioPage() {
 
   const [chatOpen, setChatOpen] = useState(false);
   const[chatMessages, setChatMessages] = useState([
-    { role: 'model', text: "Hi! I'm Randal's AI Assistant. Ask me anything about his IT infrastructure experience, skills, or projects!" }
+    { role: 'model', text: "Hey there! 👋 I'm Randal's AI Assistant. I'm here to help you understand how Randal's IT expertise can solve your specific challenges. What are you working on or looking for help with?" }
   ]);
   const [chatInput, setChatInput] = useState("");
   const [isChatting, setIsChatting] = useState(false);
@@ -115,20 +115,40 @@ export default function PortfolioPage() {
 
   const handleSendMessage = async () => {
     if (!chatInput.trim()) return;
-    
+
     const newUserMsg = { role: 'user', text: chatInput };
     setChatMessages(prev => [...prev, newUserMsg]);
     setChatInput("");
     setIsChatting(true);
 
-    const sysPrompt = `You are Randal Derego's AI career assistant, answering questions for recruiters and hiring managers. Base your answers strictly on this context: ${resumeContext}. If asked something outside this scope, politely pivot back to his IT skills. Be conversational, professional, and confident. Keep answers under 100 words.`;
-    
+    const sysPrompt = `You are Randal Derego's intelligent AI assistant. Your goal is to have natural, helpful conversations about IT topics while representing Randal professionally.
+
+IMPORTANT GUIDELINES:
+1. Be conversational and engaging - act like a real person, not a resume dumper
+2. When someone asks about IT topics, ask clarifying questions to understand their specific needs
+3. Use smart logic to determine what they're really looking for before providing detailed information
+4. Don't just list resume facts - engage in dialogue to help them find the best solution
+5. If they ask general questions like "what can you do?", be conversational and ask what specific area they're interested in
+6. Only provide detailed resume information when it's clearly relevant to their specific question or need
+7. Be proactive in understanding their requirements, pain points, or challenges
+8. Keep responses concise (under 150 words) but meaningful
+
+RANDAL'S CONTEXT: ${resumeContext}
+
+CONVERSATION APPROACH:
+- For vague questions: Ask clarifying questions to understand their needs better
+- For specific technical questions: Provide relevant information from Randal's experience
+- For hiring questions: Focus on how Randal's skills match their specific requirements
+- Always be helpful, professional, and solution-oriented
+
+Remember: You're here to assist and understand what they need, not just recite a resume.`;
+
     // Format chat history for prompt
-    const conversationHistory = chatMessages.map(m => `${m.role === 'user' ? 'Recruiter' : 'AI Assistant'}: ${m.text}`).join('\n');
-    const prompt = `${conversationHistory}\nRecruiter: ${newUserMsg.text}\nAI Assistant:`;
+    const conversationHistory = chatMessages.map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.text}`).join('\n');
+    const prompt = `${conversationHistory}\nUser: ${newUserMsg.text}\nAssistant:`;
 
     const result = await callGeminiAPI(prompt, sysPrompt);
-    
+
     setChatMessages(prev => [...prev, { role: 'model', text: result as string }]);
     setIsChatting(false);
   };
