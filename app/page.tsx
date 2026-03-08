@@ -148,7 +148,7 @@ const skillsData = [
 // Testimonials data
 const testimonials = [
   {
-    name: "John Smith",
+    name: "Juan Falcon",
     title: "IT Director",
     company: "TEAMLOGIC IT",
     text: "Randal consistently delivered exceptional results in managing our infrastructure. His automation scripts saved us countless hours and significantly improved system reliability.",
@@ -794,13 +794,13 @@ CompTIA A+ Certification
                 <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-100 text-blue-600 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
                   <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                 </div>
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
                     <h3 className="font-bold text-lg text-slate-900">Systems Administrator</h3>
                     <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Nov 2021 - Sept 2025</span>
                   </div>
                   <div className="text-sm text-slate-500 font-medium mb-4">TEAMLOGIC IT • AUSTIN, TX (REMOTE)</div>
-                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300">
+                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300 max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-300">
                     <li>Managed and maintained servers, networks, and user systems to ensure optimal uptime, security, and performance.</li>
                     <li>Implemented automation scripts and monitoring tools to streamline patch management and system reliability.</li>
                     <li>Led direct reporting to coordinate daily operations, ensuring all critical tasks were completed efficiently.</li>
@@ -810,14 +810,16 @@ CompTIA A+ Certification
 
               {/* Job 2 */}
               <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-slate-100 text-slate-400 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"></div>
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-100 text-blue-600 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                </div>
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
                     <h3 className="font-bold text-lg text-slate-900">Help Desk Technician</h3>
-                    <span className="text-sm font-medium text-slate-600 bg-slate-100 px-3 py-1 rounded-full w-fit">Jan 2019 - Nov 2021</span>
+                    <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Jan 2019 - Nov 2021</span>
                   </div>
                   <div className="text-sm text-slate-500 font-medium mb-4">SAMSUNG • AUSTIN, TX</div>
-                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300">
+                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300 max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-300">
                     <li>Assisted with system setups, device configurations, and account management, maintaining rigorous documentation.</li>
                     <li>Managed inventory of IT hardware and software licenses.</li>
                     <li>Streamlined the hardware deployment process for new employees, improving onboarding times.</li>
@@ -827,14 +829,16 @@ CompTIA A+ Certification
 
               {/* Job 3 */}
               <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-slate-100 text-slate-400 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"></div>
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-100 text-blue-600 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                </div>
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
                     <h3 className="font-bold text-lg text-slate-900">Tech Support</h3>
-                    <span className="text-sm font-medium text-slate-600 bg-slate-100 px-3 py-1 rounded-full w-fit">Feb 2017 - Jan 2019</span>
+                    <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Feb 2017 - Jan 2019</span>
                   </div>
                   <div className="text-sm text-slate-500 font-medium mb-4">EAGLE EYE NETWORKS • AUSTIN, TX</div>
-                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300">
+                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300 max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-300">
                     <li>Provided Tier 1-2 technical support for cloud video surveillance systems, handling Linux-based configurations.</li>
                     <li>Assisted customers with camera setup and terminal troubleshooting.</li>
                     <li>Diagnosed and resolved complex network connectivity issues involving IP cameras, firewalls, and switches using CLI tools.</li>
