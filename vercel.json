@@ -6,7 +6,6 @@
   "framework": "nextjs",
   "regions": ["iad1"],
   "env": {
-    "GEMINI_API_KEY": "@gemini-api-key",
     "NEXT_TELEMETRY_DISABLED": "1"
   },
   "headers": [
