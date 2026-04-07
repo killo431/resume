@@ -2,7 +2,7 @@ import { getAllPosts, getAllTags } from '@/lib/blog';
 import BlogListing from '@/components/blog/BlogListing';
 
 export const metadata = {
-  title: 'Blog | Randal Derego',
+  title: 'Blog | Randy DeRego',
   description: 'Technical insights on systems administration, automation, and IT infrastructure',
 };
 

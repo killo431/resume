@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   }
 
   return {
-    title: `${post.title} | Randal Derego`,
+    title: `${post.title} | Randy DeRego`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
@@ -132,7 +132,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6">
             <h3 className="text-xl font-bold text-slate-900 mb-2">About the Author</h3>
             <p className="text-slate-700 mb-4">
-              <strong>Randal Derego</strong> is a Systems Administrator with 10 years of experience
+              <strong>Randy DeRego</strong> is a Systems Administrator with 10 years of experience
               specializing in infrastructure management, automation, and IT operations. He has worked
               with various technologies including VMware, Azure, AWS, and modern DevOps tools.
             </p>

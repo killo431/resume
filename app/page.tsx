@@ -68,14 +68,14 @@ const callGeminiAPI = async (prompt: string, systemInstruction: string = "") => 
   }
 };
 
-const resumeContext = `Randal Derego is a Systems Administrator with 10 years of experience.
+const resumeContext = `Randy DeRego is a Systems Administrator with 10 years of experience.
 Skills: VMware ESXi, Hyper-V, vSphere, TCP/IP, DNS, DHCP, VLANs, VPN, Cisco Switches, Active Directory, Group Policy, Exchange, Microsoft 365, Azure, AWS, Data Governance, Patch Management, PowerShell, Bash, VBA, Java, SQL, Python, AI Studio, LM Studio, VLLM, Ollama, NinjaOneRMM.
 Experience:
 - Systems Administrator at TEAMLOGIC IT (Nov 2021-Sept 2025): Managed servers, automation scripts.
 - Help Desk at SAMSUNG (Jan 2019-Nov 2021): System setups, hardware deployment.
 - Tech Support at EAGLE EYE NETWORKS (Feb 2017-Jan 2019): Linux-based cloud video surveillance, CLI troubleshooting.
 Education: B.S. in Computer Science (Western Governors University), CompTIA A+.
-Contact: randalrd92@gmail.com, 512-653-0052, Austin, TX.
+Contact: rderego@devtech.info, (512) 891-4201, Austin, TX.
 Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randal-d-7a6257197, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
 
 const renderFormattedText = (text: string) => {
@@ -151,7 +151,7 @@ const testimonials = [
     name: "Juan Falcon",
     title: "IT Director",
     company: "TEAMLOGIC IT",
-    text: "Randal consistently delivered exceptional results in managing our infrastructure. His automation scripts saved us countless hours and significantly improved system reliability.",
+    text: "Randy consistently delivered exceptional results in managing our infrastructure. His automation scripts saved us countless hours and significantly improved system reliability.",
     image: "👤"
   },
   {
@@ -165,7 +165,7 @@ const testimonials = [
     name: "Michael Chen",
     title: "Technical Lead",
     company: "EAGLE EYE NETWORKS",
-    text: "Randal's troubleshooting skills and Linux expertise were critical in resolving complex network connectivity issues for our cloud surveillance platform.",
+    text: "Randy's troubleshooting skills and Linux expertise were critical in resolving complex network connectivity issues for our cloud surveillance platform.",
     image: "👤"
   }
 ];
@@ -209,7 +209,7 @@ export default function PortfolioPage() {
       }
     }
     return [
-      { role: 'model', text: "Hey there! I&apos;m here representing Randal Derego. I&apos;d love to chat with you about IT challenges, projects, or how Randal&apos;s experience might be a fit for what you&apos;re working on. What brings you here today?" }
+      { role: 'model', text: "Hey there! I&apos;m here representing Randy DeRego. I&apos;d love to chat with you about IT challenges, projects, or how Randy&apos;s experience might be a fit for what you&apos;re working on. What brings you here today?" }
     ];
   });
   const [chatInput, setChatInput] = useState("");
@@ -279,9 +279,9 @@ export default function PortfolioPage() {
     setIsAnalyzing(true);
     setAnalyzerResult("");
     
-    const sysPrompt = "You are an expert IT recruiter AI assistant embedded in Randal Derego's portfolio. Your job is to analyze the provided Job Description against Randal's resume and generate a customized pitch on why he is a strong fit. Highlight overlapping skills. Be enthusiastic and professional. Format with **bold** for emphasis, but keep it concise (under 200 words).";
+    const sysPrompt = "You are an expert IT recruiter AI assistant embedded in Randy DeRego's portfolio. Your job is to analyze the provided Job Description against Randy's resume and generate a customized pitch on why he is a strong fit. Highlight overlapping skills. Be enthusiastic and professional. Format with **bold** for emphasis, but keep it concise (under 200 words).";
     
-    const prompt = `Here is Randal's Resume Context:\n${resumeContext}\n\nHere is the target Job Description:\n${jobDescription}\n\nPlease analyze the fit.`;
+    const prompt = `Here is Randy's Resume Context:\n${resumeContext}\n\nHere is the target Job Description:\n${jobDescription}\n\nPlease analyze the fit.`;
     
     const result = await callGeminiAPI(prompt, sysPrompt);
     setAnalyzerResult(result as string);
@@ -296,7 +296,7 @@ export default function PortfolioPage() {
     setChatInput("");
     setIsChatting(true);
 
-    const sysPrompt = `You are having a natural conversation on behalf of Randal Derego, a Systems Administrator with 10 years of IT experience. You're speaking AS his representative, not as a separate AI assistant.
+    const sysPrompt = `You are having a natural conversation on behalf of Randy DeRego, a Systems Administrator with 10 years of IT experience. You're speaking AS his representative, not as a separate AI assistant.
 
 CRITICAL INSTRUCTIONS FOR HUMAN-LIKE CONVERSATION:
 1. **Be genuinely conversational** - Use natural language, contractions (I'm, you're, that's), and casual transitions
@@ -306,15 +306,15 @@ CRITICAL INSTRUCTIONS FOR HUMAN-LIKE CONVERSATION:
 5. **Vary your responses** - Don't be formulaic. Sometimes be brief, sometimes elaborate. Match their energy.
 6. **Be personable and relatable** - Share relevant insights naturally, as a person would in conversation
 7. **Remember context** - If they mentioned something 3 messages ago, you can still reference it
-8. **Don't info-dump** - Only share Randal's experience when it's directly relevant to what they're asking about
-9. **Be authentic** - Admit when you need to clarify something or when Randal's experience might not be a perfect match
+8. **Don't info-dump** - Only share Randy's experience when it's directly relevant to what they're asking about
+9. **Be authentic** - Admit when you need to clarify something or when Randy's experience might not be a perfect match
 
-RANDAL'S BACKGROUND (Use naturally, not as a list):
+RANDY'S BACKGROUND (Use naturally, not as a list):
 ${resumeContext}
 
 CONVERSATIONAL APPROACH BY SCENARIO:
 - **Vague/exploratory questions**: Ask 1-2 clarifying questions to understand their needs. Be friendly and curious.
-- **Specific technical questions**: Share relevant experience from Randal's background, explain how he's handled similar challenges
+- **Specific technical questions**: Share relevant experience from Randy's background, explain how he's handled similar challenges
 - **Hiring/recruiting context**: Focus on fit, ask about their specific needs, highlight relevant accomplishments
 - **General chat**: Be helpful and professional, guide them naturally toward useful information
 
@@ -337,7 +337,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
   };
 
   const handleClearChat = () => {
-    const initialMessage: ChatMessage = { role: 'model', text: "Hey there! I&apos;m here representing Randal Derego. I&apos;d love to chat with you about IT challenges, projects, or how Randal&apos;s experience might be a fit for what you&apos;re working on. What brings you here today?" };
+    const initialMessage: ChatMessage = { role: 'model', text: "Hey there! I&apos;m here representing Randy DeRego. I&apos;d love to chat with you about IT challenges, projects, or how Randy&apos;s experience might be a fit for what you&apos;re working on. What brings you here today?" };
     setChatMessages([initialMessage]);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('chatHistory');
@@ -406,11 +406,11 @@ Remember: You're having a real conversation, not filling out a form or reading a
   const handleDownloadResume = () => {
     // Create a simple text version for now - in production, generate/serve a real PDF
     const resumeText = `
-RANDAL DEREGO
+RANDY DEREGO
 Systems Administrator
 
-Email: randalrd92@gmail.com
-Phone: 512-653-0052
+Email: rderego@devtech.info
+Phone: (512) 891-4201
 Location: Austin, TX
 
 PROFILES
@@ -452,7 +452,7 @@ CompTIA A+ Certification
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Randal_Derego_Resume.txt';
+    a.download = 'Randy_DeRego_Resume.txt';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -486,7 +486,7 @@ CompTIA A+ Certification
       >
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <div className="text-xl font-bold tracking-tight text-slate-900">
-            Randal<span className="text-blue-600">Derego</span>
+            Randy<span className="text-blue-600">DeRego</span>
           </div>
           
           {/* Desktop Nav */}
@@ -919,19 +919,19 @@ CompTIA A+ Certification
             </p>
 
             <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
-              <a href="mailto:randalrd92@gmail.com" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+              <a href="mailto:rderego@devtech.info" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
                 <Mail className="text-blue-400" size={28} />
                 <div>
                   <div className="text-sm text-slate-400 mb-1">Email</div>
-                  <div className="font-medium">randalrd92@gmail.com</div>
+                  <div className="font-medium">rderego@devtech.info</div>
                 </div>
               </a>
 
-              <a href="tel:512-653-0052" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+              <a href="tel:5128914201" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
                 <Phone className="text-green-400" size={28} />
                 <div>
                   <div className="text-sm text-slate-400 mb-1">Phone</div>
-                  <div className="font-medium">512-653-0052</div>
+                  <div className="font-medium">(512) 891-4201</div>
                 </div>
               </a>
 
@@ -1242,7 +1242,7 @@ CompTIA A+ Certification
                   <Bot size={20} className="text-white" />
                 </div>
                 <div>
-                  <div className="font-bold text-sm">Randal&apos;s AI Assistant</div>
+                  <div className="font-bold text-sm">Randy&apos;s AI Assistant</div>
                   <div className="text-xs text-blue-200 flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse"></span> Online
                   </div>
@@ -1325,7 +1325,7 @@ CompTIA A+ Certification
             
             {/* Tooltip */}
             <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 w-max bg-white text-slate-800 text-sm font-medium py-2 px-4 rounded-xl shadow-lg border border-slate-100 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none origin-right">
-              Chat with Randal&apos;s AI
+              Chat with Randy&apos;s AI
               {/* Triangle tip */}
               <div className="absolute top-1/2 -mt-2 -right-2 w-0 h-0 border-y-8 border-y-transparent border-l-8 border-l-white"></div>
             </div>
@@ -1335,7 +1335,7 @@ CompTIA A+ Certification
 
       {/* FOOTER */}
       <footer className="bg-slate-950 text-slate-500 py-8 text-center text-sm border-t border-white/10">
-        <p>© {new Date().getFullYear()} Randal Derego. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Randy DeRego. All rights reserved.</p>
       </footer>
     </div>
   );
