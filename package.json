@@ -15,7 +15,7 @@
     "@types/mdx": "^2.0.13",
     "gray-matter": "^4.0.3",
     "lucide-react": "latest",
-    "next": "16.1.6",
+    "next": "16.2.3",
     "next-mdx-remote": "^6.0.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
