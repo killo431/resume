@@ -76,6 +76,9 @@ Experience:
 - Systems Administrator at TEAMLOGIC IT (Nov 2021-Sept 2025): Administered cloud and virtualized networks, built automation for patching and remediation, and led daily operations.
 - Help Desk Technician/Network Technician at SAMSUNG (Jan 2019-Nov 2021): Executed system configurations, provisioned accounts, and managed hardware and software onboarding workflows.
 - Tech Support at EAGLE EYE NETWORKS (Feb 2017-Jan 2019): Provided Tier 1-2 support for cloud video surveillance, Linux terminal setups, and network troubleshooting.
+ Projects:
+ - Mission Control Platform (completed July 2026): Built a Next.js 16 operations dashboard with 13 pages, MCP server meta-tool architecture, n8n-pro-mcp sidecar integration, Authelia SSO, and a unified control plane deployed through Coolify, Traefik, and Let's Encrypt.
+ - Web Data Knowledge Base Pipeline (completed): Delivered n8n, Firecrawl, and PostgreSQL/pgvector workflows for content extraction, chunking, deduplication, embeddings, vector search, MCP search access, and tiered collection schedules.
 Education: B.S. in Computer Science (Western Governors University), CompTIA A+ (Certification).
 Contact: rderego@devtest512.info, (512) 891-4201, Austin, TX.
 Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randysderego/, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
@@ -96,6 +99,18 @@ const renderFormattedText = (text: string) => {
 interface ChatMessage {
   role: 'user' | 'model';
   text: string;
+}
+
+interface ResearchResult {
+  id: number;
+  title: string;
+  url: string;
+  description: string;
+  query: string;
+}
+
+interface SavedResearchResult extends ResearchResult {
+  savedAt: string;
 }
 
 // Skills data with proficiency levels
@@ -187,8 +202,8 @@ export default function PortfolioPage() {
   // Research chat state
   const [researchChatOpen, setResearchChatOpen] = useState(false);
   const [researchQuery, setResearchQuery] = useState("");
-  const [researchResults, setResearchResults] = useState<any[]>([]);
-  const [savedUrls, setSavedUrls] = useState<any[]>([]);
+  const [researchResults, setResearchResults] = useState<ResearchResult[]>([]);
+  const [savedUrls, setSavedUrls] = useState<SavedResearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   // --- NEW AI STATE ---
@@ -261,7 +276,7 @@ export default function PortfolioPage() {
       const saved = localStorage.getItem('savedResearchUrls');
       if (saved) {
         try {
-          setSavedUrls(JSON.parse(saved));
+          setSavedUrls(JSON.parse(saved) as SavedResearchResult[]);
         } catch (e) {
           console.error('Error loading saved URLs:', e);
         }
@@ -379,7 +394,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
       const urlRegex = /(https?:\/\/[^\s]+)/g;
       const urls = result.match(urlRegex) || [];
 
-      const parsedResults = urls.map((url: string, idx: number) => ({
+      const parsedResults: ResearchResult[] = urls.map((url: string, idx: number) => ({
         id: Date.now() + idx,
         title: `Research Result ${idx + 1}`,
         url,
@@ -395,7 +410,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
     }
   };
 
-  const handleSaveUrl = (result: any) => {
+  const handleSaveUrl = (result: ResearchResult) => {
     if (!savedUrls.find(u => u.url === result.url)) {
       setSavedUrls([...savedUrls, { ...result, savedAt: new Date().toISOString() }]);
     }
@@ -459,6 +474,10 @@ Tech Support - EAGLE EYE NETWORKS (Feb 2017 - Jan 2019)
 EDUCATION
 B.S. in Computer Science - Western Governors University
 CompTIA A+ (Certification)
+
+PROJECT HIGHLIGHTS
+- Mission Control Platform (Completed Jul 2026): Built a Next.js 16 mission control dashboard with MCP meta-tools, n8n-pro-mcp integration, Authelia SSO, and Coolify/Traefik deployment.
+- Web Data Knowledge Base Pipeline (Completed): Delivered Firecrawl, n8n, PostgreSQL/pgvector, and MCP-powered search workflows with extraction, chunking, deduplication, embeddings, and vector retrieval.
 `;
 
     const blob = new Blob([resumeText], { type: 'text/plain' });
@@ -695,7 +714,87 @@ CompTIA A+ (Certification)
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center max-w-2xl mx-auto mb-16">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">Featured Projects</h2>
-              <p className="text-slate-600">Showcase of my best work on GitHub demonstrating practical skills in automation, web scraping, and modern development.</p>
+              <p className="text-slate-600">Showcase of my best work across automation, AI platforms, infrastructure, and modern application delivery.</p>
+            </div>
+
+            <div className="mb-6 rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 p-8 text-white shadow-lg shadow-slate-900/10">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+                <div className="max-w-3xl">
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">
+                    <Cpu size={14} />
+                    Completed July 2026
+                  </div>
+                  <h3 className="mb-4 text-3xl font-bold tracking-tight">
+                    Mission Control Platform + Web Data Knowledge Base Pipeline
+                  </h3>
+                  <p className="max-w-2xl text-sm leading-7 text-slate-200">
+                    Built an integrated platform that combines a Next.js command center, AI-powered development environment, workflow automation engine, knowledge base pipeline, and unified mission control dashboard. The full stack is managed through Coolify with Traefik reverse proxy and Let&apos;s Encrypt SSL.
+                  </p>
+                </div>
+                <div className="grid gap-3 text-sm text-slate-200 sm:grid-cols-2 lg:w-[26rem]">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="text-2xl font-bold text-white">50 / 50</div>
+                    <div className="mt-1 text-slate-300">Tasks completed</div>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="text-2xl font-bold text-white">59</div>
+                    <div className="mt-1 text-slate-300">Agents dispatched</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 grid gap-6 xl:grid-cols-[1.2fr_1.2fr_1fr]">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                  <h4 className="mb-4 text-lg font-semibold text-white">Initiative 1 · Web Data Knowledge Base Pipeline</h4>
+                  <ul className="space-y-3 text-sm leading-7 text-slate-200">
+                    <li>n8n workflows with Firecrawl and PostgreSQL/pgvector for automated content extraction.</li>
+                    <li>Implemented chunking, deduplication, embeddings, and vector search for reliable retrieval.</li>
+                    <li>Added an MCP server search interface plus tiered daily, 3x-weekly, and weekly collectors.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                  <h4 className="mb-4 text-lg font-semibold text-white">Initiative 2 · Mission Control Platform</h4>
+                  <ul className="space-y-3 text-sm leading-7 text-slate-200">
+                    <li>Shipped a Next.js 16 dashboard with 13 pages spanning chat, editor, vault, monitoring, flows, audit, research, and tools.</li>
+                    <li>Designed an MCP meta-tool pattern where 3 tools replaced 100+ commands across Coolify, Obsidian, Skills, Tools, Rules, and n8n.</li>
+                    <li>Integrated the n8n-pro-mcp sidecar with 51 tools and Authelia SSO across all subdomains.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                  <h4 className="mb-4 text-lg font-semibold text-white">Core Stack</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      'Next.js 16',
+                      'React 19',
+                      'TypeScript',
+                      'Tailwind CSS v4',
+                      'n8n',
+                      'PostgreSQL 16',
+                      'pgvector',
+                      'Qdrant',
+                      'Firecrawl',
+                      'SearXNG',
+                      'Coolify',
+                      'Traefik',
+                      'Let’s Encrypt',
+                      'Authelia',
+                      'Grafana',
+                      'Prometheus',
+                      'Code Server',
+                      'Ollama',
+                    ].map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-blue-50"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
