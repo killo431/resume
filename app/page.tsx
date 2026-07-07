@@ -115,7 +115,7 @@ const skillsData = [
   {
     category: 'Network & Identity',
     icon: 'Network',
-    color: 'emerald',
+    color: 'blue',
     skills: [
       { name: 'Active Directory', level: 95 },
       { name: 'Group Policy', level: 90 },
@@ -126,7 +126,7 @@ const skillsData = [
   {
     category: 'Scripting & Dev',
     icon: 'Code',
-    color: 'indigo',
+    color: 'blue',
     skills: [
       { name: 'PowerShell', level: 92 },
       { name: 'Bash', level: 85 },
@@ -137,7 +137,7 @@ const skillsData = [
   {
     category: 'Ops & AI Tools',
     icon: 'Cpu',
-    color: 'purple',
+    color: 'blue',
     skills: [
       { name: 'NinjaOneRMM', level: 88 },
       { name: 'Microsoft 365', level: 90 },
