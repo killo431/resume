@@ -39,7 +39,7 @@ export default function BlogListing({ posts, allTags }: BlogListingProps) {
             ← Back to Home
           </Link>
           <h1 className="text-4xl font-bold text-slate-900 mb-4">Technical Blog</h1>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-slate-900">
             Insights, tutorials, and thoughts on systems administration, automation, and IT infrastructure.
           </p>
         </div>
@@ -113,12 +113,12 @@ export default function BlogListing({ posts, allTags }: BlogListingProps) {
                     <h2 className="text-2xl font-bold text-slate-900 mb-3 hover:text-blue-600 transition-colors">
                       {post.title}
                     </h2>
-                    <p className="text-slate-600 mb-4 leading-relaxed">
+                    <p className="text-slate-900 mb-4 leading-relaxed">
                       {post.excerpt}
                     </p>
 
                     {/* Metadata */}
-                    <div className="flex flex-wrap gap-4 text-sm text-slate-500 mb-4">
+                    <div className="flex flex-wrap gap-4 text-sm text-slate-900 mb-4">
                       <div className="flex items-center gap-1">
                         <Calendar size={16} />
                         <time>{new Date(post.date).toLocaleDateString('en-US', {
