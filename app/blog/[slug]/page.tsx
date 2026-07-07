@@ -5,7 +5,7 @@ import { getPostBySlug, getPostSlugs } from '@/lib/blog';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
-import { useMDXComponents } from '@/mdx-components';
+import { useMDXComponents as getMDXComponents } from '@/mdx-components';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // Estimate reading time (rough calculation: 200 words per minute)
   const wordCount = post.content.split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / 200);
-  const mdxComponents = useMDXComponents({});
+  const mdxComponents = getMDXComponents({});
 
   return (
     <div className="min-h-screen bg-slate-50">

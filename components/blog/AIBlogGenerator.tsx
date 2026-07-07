@@ -175,7 +175,7 @@ export default function AIBlogGenerator() {
               </label>
               <select
                 value={tone}
-                onChange={(e) => setTone(e.target.value as any)}
+                onChange={(e) => setTone(e.target.value as 'professional' | 'casual' | 'technical' | 'educational')}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 <option value="professional">Professional</option>

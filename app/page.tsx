@@ -101,6 +101,15 @@ interface ChatMessage {
   text: string;
 }
 
+interface ResearchResult {
+  id: number;
+  title: string;
+  url: string;
+  description: string;
+  query: string;
+  savedAt?: string;
+}
+
 // Skills data with proficiency levels
 const skillsData = [
   {
@@ -190,8 +199,8 @@ export default function PortfolioPage() {
   // Research chat state
   const [researchChatOpen, setResearchChatOpen] = useState(false);
   const [researchQuery, setResearchQuery] = useState("");
-  const [researchResults, setResearchResults] = useState<any[]>([]);
-  const [savedUrls, setSavedUrls] = useState<any[]>([]);
+  const [researchResults, setResearchResults] = useState<ResearchResult[]>([]);
+  const [savedUrls, setSavedUrls] = useState<ResearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   // --- NEW AI STATE ---
@@ -264,7 +273,7 @@ export default function PortfolioPage() {
       const saved = localStorage.getItem('savedResearchUrls');
       if (saved) {
         try {
-          setSavedUrls(JSON.parse(saved));
+          setSavedUrls(JSON.parse(saved) as ResearchResult[]);
         } catch (e) {
           console.error('Error loading saved URLs:', e);
         }
@@ -382,7 +391,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
       const urlRegex = /(https?:\/\/[^\s]+)/g;
       const urls = result.match(urlRegex) || [];
 
-      const parsedResults = urls.map((url: string, idx: number) => ({
+      const parsedResults: ResearchResult[] = urls.map((url: string, idx: number) => ({
         id: Date.now() + idx,
         title: `Research Result ${idx + 1}`,
         url,
@@ -398,7 +407,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
     }
   };
 
-  const handleSaveUrl = (result: any) => {
+  const handleSaveUrl = (result: ResearchResult) => {
     if (!savedUrls.find(u => u.url === result.url)) {
       setSavedUrls([...savedUrls, { ...result, savedAt: new Date().toISOString() }]);
     }
