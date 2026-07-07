@@ -78,7 +78,7 @@ Experience:
 - Tech Support at EAGLE EYE NETWORKS (Feb 2017-Jan 2019): Provided Tier 1-2 support for cloud video surveillance, Linux terminal setups, and network troubleshooting.
 Education: B.S. in Computer Science (Western Governors University), CompTIA A+ (Certification).
 Contact: rderego@devtest512.info, (512) 891-4201, Austin, TX.
-Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randal-d-7a6257197, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
+Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randysderego/, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
 
 const renderFormattedText = (text: string) => {
   return text.split('\n').map((line, i) => (
@@ -417,7 +417,7 @@ Location: Austin, TX
 
 PROFILES
 GitHub: https://github.com/killo431
-LinkedIn: https://www.linkedin.com/in/randal-d-7a6257197
+LinkedIn: https://www.linkedin.com/in/randysderego/
 Indeed: https://profile.indeed.com/p/randald-mh1efpj
 
 SUMMARY
@@ -1009,7 +1009,7 @@ CompTIA A+ (Certification)
               </a>
 
               <a
-                href="https://www.linkedin.com/in/randal-d-7a6257197"
+                href="https://www.linkedin.com/in/randysderego/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 transition-all group"
