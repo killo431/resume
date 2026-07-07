@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </h1>
 
           {/* Metadata */}
-          <div className="flex flex-wrap gap-4 text-slate-600 mb-6">
+          <div className="flex flex-wrap gap-4 text-slate-900 mb-6">
             <div className="flex items-center gap-2">
               <Calendar size={18} />
               <time>
