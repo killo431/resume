@@ -77,7 +77,7 @@ Experience:
 - Help Desk Technician/Network Technician at SAMSUNG (Jan 2019-Nov 2021): Executed system configurations, provisioned accounts, and managed hardware and software onboarding workflows.
 - Tech Support at EAGLE EYE NETWORKS (Feb 2017-Jan 2019): Provided Tier 1-2 support for cloud video surveillance, Linux terminal setups, and network troubleshooting.
 Education: B.S. in Computer Science (Western Governors University), CompTIA A+ (Certification).
-Contact: rderego@devtech.info, (512) 891-4201, Austin, TX.
+Contact: rderego@devtest512.info, (512) 891-4201, Austin, TX.
 Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randal-d-7a6257197, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
 
 const renderFormattedText = (text: string) => {
@@ -411,7 +411,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
 RANDY DEREGO
 Systems Administrator
 
-Email: rderego@devtech.info
+Email: rderego@devtest512.info
 Phone: (512) 891-4201
 Location: Austin, TX
 
@@ -971,11 +971,11 @@ CompTIA A+ (Certification)
             </p>
 
             <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
-              <a href="mailto:rderego@devtech.info" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+              <a href="mailto:rderego@devtest512.info" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
                 <Mail className="text-blue-400" size={28} />
                 <div>
                   <div className="text-sm text-slate-400 mb-1">Email</div>
-                  <div className="font-medium">rderego@devtech.info</div>
+                  <div className="font-medium">rderego@devtest512.info</div>
                 </div>
               </a>
 
