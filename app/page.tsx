@@ -107,7 +107,10 @@ interface ResearchResult {
   url: string;
   description: string;
   query: string;
-  savedAt?: string;
+}
+
+interface SavedResearchResult extends ResearchResult {
+  savedAt: string;
 }
 
 // Skills data with proficiency levels
@@ -200,7 +203,7 @@ export default function PortfolioPage() {
   const [researchChatOpen, setResearchChatOpen] = useState(false);
   const [researchQuery, setResearchQuery] = useState("");
   const [researchResults, setResearchResults] = useState<ResearchResult[]>([]);
-  const [savedUrls, setSavedUrls] = useState<ResearchResult[]>([]);
+  const [savedUrls, setSavedUrls] = useState<SavedResearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   // --- NEW AI STATE ---
@@ -273,7 +276,7 @@ export default function PortfolioPage() {
       const saved = localStorage.getItem('savedResearchUrls');
       if (saved) {
         try {
-          setSavedUrls(JSON.parse(saved) as ResearchResult[]);
+          setSavedUrls(JSON.parse(saved) as SavedResearchResult[]);
         } catch (e) {
           console.error('Error loading saved URLs:', e);
         }
