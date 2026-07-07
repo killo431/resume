@@ -1,0 +1,88 @@
+---
+title: "How to Keep Human Approval in AI-Driven IT Automation"
+date: "2026-07-07"
+author: "Randal Derego"
+excerpt: "Use approval thresholds, role design, and evidence-based workflow checks to keep AI automation useful without letting it execute risky changes unchecked."
+tags: ["Tech", "Infrastructure", "Security", "AI", "Automation"]
+---
+
+## Introduction
+AI-driven automation is attractive because it compresses the distance between detection and action. A tool that can summarize an alert, propose a fix, and execute a remediation script seems like the natural next step for busy IT teams. The problem is that speed can erase the pause that normally catches dangerous assumptions.
+
+Traditional approval models fail when organizations either force human review on every tiny action or remove it too aggressively in the name of efficiency. This article shows how to keep meaningful human approval in AI-driven IT automation without turning the workflow into a bottleneck.
+
+
+The guidance below is intentionally practical for 2026 business environments: it focuses on repeatable controls, evidence that leaders and auditors can understand, and implementation choices that reduce dependence on one administrator remembering every detail.
+
+---
+
+## 1. The Core Challenge: Over-Automated AI Decision Paths
+The core challenge is deciding which actions are truly low risk and which ones deserve human judgment every time. An AI-generated cache clear or ticket enrichment step may be harmless, while account changes, firewall updates, or server restarts can have immediate business consequences.
+
+**Key Vulnerability:** Unchecked AI automation can cause **fast-moving configuration errors, policy violations, and hard-to-explain production changes**.
+
+**The Impact:** When a system acts without appropriate review, incident containment becomes harder because teams must investigate not just the original problem but also the automation that responded to it. Trust in the automation program can collapse after one visible mistake.
+
+In business environments, these differences matter because the same automation platform may touch both routine operations and highly sensitive control paths. One approval model for everything usually fails at both ends.
+
+Traditional fixes often fail because they address the symptom on one server, one team, or one workflow without correcting the ownership model behind it. Once the business grows, mergers happen, or another platform is introduced, the same weakness usually reappears in a slightly different form.
+
+> **Note:** Human approval should be aligned with business impact, reversibility, and confidence in the automation—not applied uniformly or removed by default.
+
+---
+
+## 2. Step-by-Step Implementation: Reserve Human Approval for High-Impact Actions
+This is where teams turn policy into operating reality. The most effective implementations are chronological, measurable, and easy for both infrastructure and business stakeholders to follow during routine changes.
+
+Before making technical changes, align the sequence with the people who own the business process, the infrastructure, and the support model. That alignment reduces surprise during rollout and ensures the solution can survive staff turnover, audit review, and the next major platform change.
+
+### Phase A: Initial Setup
+Start by classifying AI-assisted actions into tiers such as observe only, recommend, execute with approval, and execute automatically. Tie those tiers to system criticality, blast radius, reversibility, and data sensitivity so the approval logic reflects real business risk.
+
+Then design the workflow so human approvers see the evidence they need quickly: trigger details, proposed action, affected systems, expected outcome, rollback steps, and why the automation is confident the recommendation is appropriate.
+
+```bash
+# Example: run a dry-run before execution
+ansible-playbook --check remediate.yml
+
+# Example: require approval before applying infrastructure change
+terraform plan -out planned-change.tfplan
+
+# Example: review pending jobs
+systemctl list-timers --all
+```
+
+Use sample commands like these as controlled starting points, then adapt them to your naming standards, maintenance windows, and separation-of-duties requirements. The long-term objective is not just a successful command run, but a repeatable implementation pattern that another engineer can review, test, and support without guesswork.
+
+### Phase B: Verification & Testing
+Verification should test both control and usability. Confirm that high-impact actions pause for approval, low-risk workflows remain efficient, and approvers can understand the recommendation well enough to make a sound decision without deep re-investigation.
+
+Review approvals after rollout to make sure they are neither rubber-stamped nor constantly bypassed. If every recommendation still requires a long manual analysis, the evidence quality or tier design needs refinement.
+
+- Run scenario tests across all approval tiers to confirm the platform enforces the right level of human involvement for each action type.
+- Review approved and rejected actions to identify patterns where recommendations are consistently unclear, low confidence, or unnecessarily escalated.
+- Confirm rollback paths are documented and usable before allowing any AI-driven workflow to execute in production.
+
+
+If verification reveals an exception, document it immediately with a business owner, a remediation target, and the conditions under which the exception remains acceptable. That small governance step prevents temporary workarounds from quietly becoming permanent risk accepted by nobody and understood by even fewer people.
+
+---
+
+## 3. Best Practices for Long-Term Maintenance
+A good implementation is not finished when the first rollout succeeds. Long-term value comes from preventing drift, making failures visible early, and preserving enough context for the next administrator or reviewer to act with confidence.
+
+- **Automation:** Automate evidence packaging, dry-run generation, and policy routing so approvers spend time judging risk instead of collecting context.
+- **Monitoring:** Monitor approval times, rejection rates, auto-execution frequency, and downstream incident links to detect when automation confidence exceeds safe reality.
+- **Documentation:** Document approval tiers, approver responsibilities, and examples of allowed autonomous actions so teams understand where the boundaries are.
+
+
+It also helps to schedule a lightweight quarterly review of the control design, the exception list, and the ownership model. Environments change faster than most runbooks do, and periodic review keeps today’s sound implementation from becoming next quarter’s legacy weakness.
+
+## Conclusion
+Human approval remains a business advantage in AI automation because it keeps speed aligned with judgment. The strongest programs automate the routine while preserving thoughtful control over actions that can materially affect users, systems, or compliance.
+
+
+Teams that treat this work as an operational capability rather than a one-time project usually see the best long-term returns: fewer urgent surprises, cleaner audits, faster onboarding for new staff, and stronger confidence from leadership when technology or business demand shifts.
+
+## Discussion
+What is your take? Which IT actions in your environment should never be executed by AI without a named human approving the change first? Let me know in the comments!
