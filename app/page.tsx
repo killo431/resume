@@ -77,8 +77,8 @@ Experience:
 - Help Desk Technician/Network Technician at SAMSUNG (Jan 2019-Nov 2021): Executed system configurations, provisioned accounts, and managed hardware and software onboarding workflows.
 - Tech Support at EAGLE EYE NETWORKS (Feb 2017-Jan 2019): Provided Tier 1-2 support for cloud video surveillance, Linux terminal setups, and network troubleshooting.
 Education: B.S. in Computer Science (Western Governors University), CompTIA A+ (Certification).
-Contact: rderego@devtech.info, (512) 891-4201, Austin, TX.
-Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randal-d-7a6257197, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
+Contact: rderego@devtest512.info, (512) 891-4201, Austin, TX.
+Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randysderego/, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
 
 const renderFormattedText = (text: string) => {
   return text.split('\n').map((line, i) => (
@@ -115,7 +115,7 @@ const skillsData = [
   {
     category: 'Network & Identity',
     icon: 'Network',
-    color: 'emerald',
+    color: 'blue',
     skills: [
       { name: 'Active Directory', level: 95 },
       { name: 'Group Policy', level: 90 },
@@ -126,7 +126,7 @@ const skillsData = [
   {
     category: 'Scripting & Dev',
     icon: 'Code',
-    color: 'indigo',
+    color: 'blue',
     skills: [
       { name: 'PowerShell', level: 92 },
       { name: 'Bash', level: 85 },
@@ -137,7 +137,7 @@ const skillsData = [
   {
     category: 'Ops & AI Tools',
     icon: 'Cpu',
-    color: 'purple',
+    color: 'blue',
     skills: [
       { name: 'NinjaOneRMM', level: 88 },
       { name: 'Microsoft 365', level: 90 },
@@ -151,7 +151,7 @@ const skillsData = [
 const testimonials = [
   {
     name: "Juan Falcon",
-    title: "IT Director",
+    title: "Coworker",
     company: "TEAMLOGIC IT",
     text: "Randy consistently delivered exceptional results in managing our infrastructure. His automation scripts saved us countless hours and significantly improved system reliability.",
     image: "👤"
@@ -411,13 +411,13 @@ Remember: You're having a real conversation, not filling out a form or reading a
 RANDY DEREGO
 Systems Administrator
 
-Email: rderego@devtech.info
+Email: rderego@devtest512.info
 Phone: (512) 891-4201
 Location: Austin, TX
 
 PROFILES
 GitHub: https://github.com/killo431
-LinkedIn: https://www.linkedin.com/in/randal-d-7a6257197
+LinkedIn: https://www.linkedin.com/in/randysderego/
 Indeed: https://profile.indeed.com/p/randald-mh1efpj
 
 SUMMARY
@@ -788,6 +788,66 @@ CompTIA A+ (Certification)
                   <span className="flex items-center gap-1"><GitFork size={14} /> 0</span>
                 </div>
               </a>
+
+              {/* Project 4: Auto_Install-Printers */}
+              <a
+                href="https://github.com/killo431/Auto_Install-Printers"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-blue-400 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                    <Terminal size={24} />
+                  </div>
+                  <ExternalLink size={18} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  Auto Install Printers
+                </h3>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                  Automated printer deployment script that silently installs network printers across Windows environments. Eliminates manual configuration and reduces IT support overhead at scale.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">PowerShell</span>
+                  <span className="px-2 py-1 bg-slate-200 text-slate-700 text-xs font-semibold rounded">Automation</span>
+                  <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded">Windows</span>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-slate-500">
+                  <span className="flex items-center gap-1"><Star size={14} /> 0</span>
+                  <span className="flex items-center gap-1"><GitFork size={14} /> 0</span>
+                </div>
+              </a>
+
+              {/* Project 5: The Autopilot Desk */}
+              <a
+                href="https://theautopilotdesk.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-purple-400 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                    <Cpu size={24} />
+                  </div>
+                  <ExternalLink size={18} className="text-slate-400 group-hover:text-purple-600 transition-colors" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2 group-hover:text-purple-600 transition-colors">
+                  The Autopilot Desk
+                </h3>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                  B2B AI automation agency website built with self-hosted n8n infrastructure. Delivers end-to-end intelligent workflow systems for SMBs — enterprise-grade automation without per-task pricing or vendor lock-in.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded">n8n</span>
+                  <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">AI Automation</span>
+                  <span className="px-2 py-1 bg-slate-200 text-slate-700 text-xs font-semibold rounded">Next.js</span>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-slate-500">
+                  <span className="flex items-center gap-1"><Star size={14} /> —</span>
+                  <span className="flex items-center gap-1"><GitFork size={14} /> —</span>
+                </div>
+              </a>
             </div>
           </div>
         </section>
@@ -971,11 +1031,11 @@ CompTIA A+ (Certification)
             </p>
 
             <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
-              <a href="mailto:rderego@devtech.info" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+              <a href="mailto:rderego@devtest512.info" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
                 <Mail className="text-blue-400" size={28} />
                 <div>
                   <div className="text-sm text-slate-400 mb-1">Email</div>
-                  <div className="font-medium">rderego@devtech.info</div>
+                  <div className="font-medium">rderego@devtest512.info</div>
                 </div>
               </a>
 
@@ -1009,7 +1069,7 @@ CompTIA A+ (Certification)
               </a>
 
               <a
-                href="https://www.linkedin.com/in/randal-d-7a6257197"
+                href="https://www.linkedin.com/in/randysderego/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 transition-all group"
