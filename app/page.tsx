@@ -788,6 +788,66 @@ CompTIA A+ (Certification)
                   <span className="flex items-center gap-1"><GitFork size={14} /> 0</span>
                 </div>
               </a>
+
+              {/* Project 4: Auto_Install-Printers */}
+              <a
+                href="https://github.com/killo431/Auto_Install-Printers"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-blue-400 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                    <Terminal size={24} />
+                  </div>
+                  <ExternalLink size={18} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  Auto Install Printers
+                </h3>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                  Automated printer deployment script that silently installs network printers across Windows environments. Eliminates manual configuration and reduces IT support overhead at scale.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">PowerShell</span>
+                  <span className="px-2 py-1 bg-slate-200 text-slate-700 text-xs font-semibold rounded">Automation</span>
+                  <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded">Windows</span>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-slate-500">
+                  <span className="flex items-center gap-1"><Star size={14} /> 0</span>
+                  <span className="flex items-center gap-1"><GitFork size={14} /> 0</span>
+                </div>
+              </a>
+
+              {/* Project 5: The Autopilot Desk */}
+              <a
+                href="https://theautopilotdesk.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-purple-400 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                    <Cpu size={24} />
+                  </div>
+                  <ExternalLink size={18} className="text-slate-400 group-hover:text-purple-600 transition-colors" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2 group-hover:text-purple-600 transition-colors">
+                  The Autopilot Desk
+                </h3>
+                <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                  B2B AI automation agency website built with self-hosted n8n infrastructure. Delivers end-to-end intelligent workflow systems for SMBs — enterprise-grade automation without per-task pricing or vendor lock-in.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded">n8n</span>
+                  <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">AI Automation</span>
+                  <span className="px-2 py-1 bg-slate-200 text-slate-700 text-xs font-semibold rounded">Next.js</span>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-slate-500">
+                  <span className="flex items-center gap-1"><Star size={14} /> —</span>
+                  <span className="flex items-center gap-1"><GitFork size={14} /> —</span>
+                </div>
+              </a>
             </div>
           </div>
         </section>
