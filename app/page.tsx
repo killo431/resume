@@ -71,10 +71,12 @@ const callGeminiAPI = async (prompt: string, systemInstruction: string = "") => 
 const resumeContext = `Randy DeRego is a Systems Administrator with 10 years of experience.
 Skills: VMware ESXi, Hyper-V, vSphere, TCP/IP, DNS, DHCP, VLANs, VPN, Cisco Switches, Active Directory, Group Policy, Exchange, Microsoft 365, Azure, AWS, Data Governance, Patch Management, PowerShell, Bash, VBA, Java, SQL, Python, AI Studio, LM Studio, VLLM, Ollama, NinjaOneRMM.
 Experience:
-- Systems Administrator at TEAMLOGIC IT (Nov 2021-Sept 2025): Managed servers, automation scripts.
-- Help Desk at SAMSUNG (Jan 2019-Nov 2021): System setups, hardware deployment.
-- Tech Support at EAGLE EYE NETWORKS (Feb 2017-Jan 2019): Linux-based cloud video surveillance, CLI troubleshooting.
-Education: B.S. in Computer Science (Western Governors University), CompTIA A+.
+- Systems Administrator at SERVER AT WORK (Mar 2026-Jul 2026): Maintained infrastructure, deployed monitoring and automation, supported AD, Exchange, M365, Azure, and AWS environments.
+- Systems Administrator at THE SOLUTIONS TEAM (Dec 2025-Mar 2026): Managed high-availability virtualized environments, created automation tools, and directed client onboarding.
+- Systems Administrator at TEAMLOGIC IT (Nov 2021-Sept 2025): Administered cloud and virtualized networks, built automation for patching and remediation, and led daily operations.
+- Help Desk Technician/Network Technician at SAMSUNG (Jan 2019-Nov 2021): Executed system configurations, provisioned accounts, and managed hardware and software onboarding workflows.
+- Tech Support at EAGLE EYE NETWORKS (Feb 2017-Jan 2019): Provided Tier 1-2 support for cloud video surveillance, Linux terminal setups, and network troubleshooting.
+Education: B.S. in Computer Science (Western Governors University), CompTIA A+ (Certification).
 Contact: rderego@devtech.info, (512) 891-4201, Austin, TX.
 Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randal-d-7a6257197, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
 
@@ -428,24 +430,35 @@ SKILLS
 - Ops & AI Tools: NinjaOneRMM, Exchange, Microsoft 365, AI Studio, LM Studio, Ollama
 
 EXPERIENCE
-Systems Administrator - TEAMLOGIC IT (Nov 2021 - Sept 2025)
-- Managed and maintained servers, networks, and user systems
-- Implemented automation scripts and monitoring tools
-- Led direct reporting to coordinate daily operations
+Systems Administrator - SERVER AT WORK (Mar 2026 - Jul 2026)
+- Maintained infrastructure, networks, and user accounts to maximize uptime, security, and response performance
+- Deployed monitoring tools and automation workflows to streamline enterprise patch management
+- Supported Active Directory, Group Policy, Exchange, Microsoft 365, Azure, and AWS environments
 
-Help Desk Technician - SAMSUNG (Jan 2019 - Nov 2021)
-- Assisted with system setups, device configurations
-- Managed inventory of IT hardware and software licenses
-- Streamlined hardware deployment process
+Systems Administrator - THE SOLUTIONS TEAM (Dec 2025 - Mar 2026)
+- Managed high-availability environments using Hyper-V, vSphere, and ESXi
+- Created automation tools to reduce patch timelines and accelerate incident response
+- Directed new client technical onboarding and infrastructure deployment lifecycles
+
+Systems Administrator - TEAMLOGIC IT (Nov 2021 - Sept 2025)
+- Administered critical cloud and virtualized networks across Azure, ESXi, Hyper-V, and vSphere
+- Built PowerShell and Python automation scripts for patching and remediation, reducing resolution times by 30%
+- Enhanced network security through Cisco hardware configuration and Active Directory/Group Policy administration
+- Led daily operations, mentored junior staff, and managed complex tier troubleshooting to achieve SLA targets
+
+Help Desk Technician/Network Technician - SAMSUNG (Jan 2019 - Nov 2021)
+- Executed system configurations, device setup, account provisioning, and technical documentation logging
+- Installed, configured, and decommissioned core network and IT equipment
+- Tracked software licensing and hardware inventory to streamline new-hire onboarding
 
 Tech Support - EAGLE EYE NETWORKS (Feb 2017 - Jan 2019)
-- Provided Tier 1-2 technical support for cloud video surveillance
-- Diagnosed and resolved network connectivity issues
-- Handled Linux-based configurations
+- Provided Tier 1-2 support for cloud video surveillance, including camera configurations and Linux terminal setups
+- Partnered with remote NOC and engineering teams to resolve complex infrastructure concerns
+- Diagnosed IP camera, firewall, and switch connectivity issues using Linux CLI tools
 
 EDUCATION
 B.S. in Computer Science - Western Governors University
-CompTIA A+ Certification
+CompTIA A+ (Certification)
 `;
 
     const blob = new Blob([resumeText], { type: 'text/plain' });
@@ -797,13 +810,13 @@ CompTIA A+ Certification
                 <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
                     <h3 className="font-bold text-lg text-slate-900">Systems Administrator</h3>
-                    <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Nov 2021 - Sept 2025</span>
+                    <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Mar 2026 - Jul 2026</span>
                   </div>
-                  <div className="text-sm text-slate-500 font-medium mb-4">TEAMLOGIC IT • AUSTIN, TX (REMOTE)</div>
+                  <div className="text-sm text-slate-500 font-medium mb-4">SERVER AT WORK • AUSTIN, TX</div>
                   <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300 max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-300">
-                    <li>Managed and maintained servers, networks, and user systems to ensure optimal uptime, security, and performance.</li>
-                    <li>Implemented automation scripts and monitoring tools to streamline patch management and system reliability.</li>
-                    <li>Led direct reporting to coordinate daily operations, ensuring all critical tasks were completed efficiently.</li>
+                    <li>Maintained infrastructure, networks, and user accounts to maximize server uptime, security, and response performance.</li>
+                    <li>Deployed monitoring tools and automation workflows to streamline enterprise patch management.</li>
+                    <li>Supported configuration environments including Active Directory, Group Policy, Exchange, Microsoft 365, Azure, and AWS.</li>
                   </ul>
                 </div>
               </div>
@@ -815,14 +828,14 @@ CompTIA A+ Certification
                 </div>
                 <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
-                    <h3 className="font-bold text-lg text-slate-900">Help Desk Technician</h3>
-                    <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Jan 2019 - Nov 2021</span>
+                    <h3 className="font-bold text-lg text-slate-900">Systems Administrator</h3>
+                    <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Dec 2025 - Mar 2026</span>
                   </div>
-                  <div className="text-sm text-slate-500 font-medium mb-4">SAMSUNG • AUSTIN, TX</div>
+                  <div className="text-sm text-slate-500 font-medium mb-4">THE SOLUTIONS TEAM • AUSTIN, TX</div>
                   <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300 max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-300">
-                    <li>Assisted with system setups, device configurations, and account management, maintaining rigorous documentation.</li>
-                    <li>Managed inventory of IT hardware and software licenses.</li>
-                    <li>Streamlined the hardware deployment process for new employees, improving onboarding times.</li>
+                    <li>Managed high-availability environments using Hyper-V, vSphere, and ESXi.</li>
+                    <li>Created automation tools to reduce patch timelines and accelerate technical incident responses.</li>
+                    <li>Directed new client technical onboarding and infrastructure deployment lifecycles.</li>
                   </ul>
                 </div>
               </div>
@@ -834,14 +847,53 @@ CompTIA A+ Certification
                 </div>
                 <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+                    <h3 className="font-bold text-lg text-slate-900">Systems Administrator</h3>
+                    <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Nov 2021 - Sept 2025</span>
+                  </div>
+                  <div className="text-sm text-slate-500 font-medium mb-4">TEAMLOGIC IT • AUSTIN, TX</div>
+                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300 max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-300">
+                    <li>Administered critical cloud (Azure) and virtualized networks (ESXi, Hyper-V, vSphere).</li>
+                    <li>Built PowerShell and Python automation scripts for patching and remediation, reducing resolution times by 30%.</li>
+                    <li>Enhanced network security via Cisco hardware configurations and robust Active Directory/Group Policy structures.</li>
+                    <li>Led daily operations, mentored junior staff, and managed complex tier troubleshooting to achieve SLA targets.</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Job 4 */}
+              <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-100 text-blue-600 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                </div>
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+                    <h3 className="font-bold text-lg text-slate-900">Help Desk Technician/Network Technician</h3>
+                    <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Jan 2019 - Nov 2021</span>
+                  </div>
+                  <div className="text-sm text-slate-500 font-medium mb-4">SAMSUNG • AUSTIN, TX</div>
+                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300 max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-300">
+                    <li>Executed system configurations, device setup, account provisioning, and managed technical documentation logs.</li>
+                    <li>Installed, configured, and decommissioned core network and IT equipment.</li>
+                    <li>Tracked software licensing and hardware inventory to streamline the onboarding of new hires.</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Job 5 */}
+              <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-100 text-blue-600 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                </div>
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
                     <h3 className="font-bold text-lg text-slate-900">Tech Support</h3>
                     <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Feb 2017 - Jan 2019</span>
                   </div>
                   <div className="text-sm text-slate-500 font-medium mb-4">EAGLE EYE NETWORKS • AUSTIN, TX</div>
                   <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300 max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-300">
-                    <li>Provided Tier 1-2 technical support for cloud video surveillance systems, handling Linux-based configurations.</li>
-                    <li>Assisted customers with camera setup and terminal troubleshooting.</li>
-                    <li>Diagnosed and resolved complex network connectivity issues involving IP cameras, firewalls, and switches using CLI tools.</li>
+                    <li>Provided Tier 1-2 support for cloud video surveillance, managing camera configurations and Linux terminal setups.</li>
+                    <li>Partnered with remote NOC and engineering teams to trace and resolve complex infrastructure concerns.</li>
+                    <li>Diagnosed IP camera, firewall, and switch connectivity issues using Linux CLI utilities like ping, traceroute, and netstat.</li>
                   </ul>
                 </div>
               </div>
@@ -871,7 +923,7 @@ CompTIA A+ Certification
                   <Award size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-slate-900">CompTIA A+</h3>
+                  <h3 className="font-bold text-lg text-slate-900">CompTIA A+ (Certification)</h3>
                   <p className="text-slate-500 mt-1">Professional Certification</p>
                 </div>
               </div>
