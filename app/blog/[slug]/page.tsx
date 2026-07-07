@@ -5,6 +5,7 @@ import { getPostBySlug, getPostSlugs } from '@/lib/blog';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
+import { useMDXComponents } from '@/mdx-components';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -52,6 +53,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // Estimate reading time (rough calculation: 200 words per minute)
   const wordCount = post.content.split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / 200);
+  const mdxComponents = useMDXComponents({});
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -115,9 +117,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
 
         {/* Post Content */}
-        <div className="prose prose-slate max-w-none bg-white rounded-2xl border border-slate-200 p-8 md:p-12">
+        <div className="bg-white rounded-3xl border border-slate-200 p-8 md:p-12 shadow-sm text-slate-800">
           <MDXRemote
             source={post.content}
+            components={mdxComponents}
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm],
