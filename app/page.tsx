@@ -151,7 +151,7 @@ const skillsData = [
 const testimonials = [
   {
     name: "Juan Falcon",
-    title: "IT Director",
+    title: "Coworker",
     company: "TEAMLOGIC IT",
     text: "Randy consistently delivered exceptional results in managing our infrastructure. His automation scripts saved us countless hours and significantly improved system reliability.",
     image: "👤"
