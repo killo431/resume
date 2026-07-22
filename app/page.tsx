@@ -71,7 +71,6 @@ const callGeminiAPI = async (prompt: string, systemInstruction: string = "") => 
 const resumeContext = `Randy DeRego is a Systems Administrator with 10 years of experience.
 Skills: VMware ESXi, Hyper-V, vSphere, TCP/IP, DNS, DHCP, VLANs, VPN, Cisco Switches, Active Directory, Group Policy, Exchange, Microsoft 365, Azure, AWS, Data Governance, Patch Management, PowerShell, Bash, VBA, Java, SQL, Python, AI Studio, LM Studio, VLLM, Ollama, NinjaOneRMM.
 Experience:
-- Systems Administrator at SERVER AT WORK (Mar 2026-Jul 2026): Maintained infrastructure, deployed monitoring and automation, supported AD, Exchange, M365, Azure, and AWS environments.
 - Systems Administrator at THE SOLUTIONS TEAM (Dec 2025-Mar 2026): Managed high-availability virtualized environments, created automation tools, and directed client onboarding.
 - Systems Administrator at TEAMLOGIC IT (Nov 2021-Sept 2025): Administered cloud and virtualized networks, built automation for patching and remediation, and led daily operations.
 - Help Desk Technician/Network Technician at SAMSUNG (Jan 2019-Nov 2021): Executed system configurations, provisioned accounts, and managed hardware and software onboarding workflows.
@@ -226,7 +225,7 @@ export default function PortfolioPage() {
       }
     }
     return [
-      { role: 'model', text: "Hey there! I&apos;m here representing Randy DeRego. I&apos;d love to chat with you about IT challenges, projects, or how Randy&apos;s experience might be a fit for what you&apos;re working on. What brings you here today?" }
+      { role: 'model', text: "Hey there! I'm here representing Randy DeRego. I'd love to chat with you about IT challenges, projects, or how Randy's experience might be a fit for what you're working on. What brings you here today?" }
     ];
   });
   const [chatInput, setChatInput] = useState("");
@@ -354,7 +353,7 @@ Remember: You're having a real conversation, not filling out a form or reading a
   };
 
   const handleClearChat = () => {
-    const initialMessage: ChatMessage = { role: 'model', text: "Hey there! I&apos;m here representing Randy DeRego. I&apos;d love to chat with you about IT challenges, projects, or how Randy&apos;s experience might be a fit for what you&apos;re working on. What brings you here today?" };
+    const initialMessage: ChatMessage = { role: 'model', text: "Hey there! I'm here representing Randy DeRego. I'd love to chat with you about IT challenges, projects, or how Randy's experience might be a fit for what you're working on. What brings you here today?" };
     setChatMessages([initialMessage]);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('chatHistory');
@@ -445,11 +444,6 @@ SKILLS
 - Ops & AI Tools: NinjaOneRMM, Exchange, Microsoft 365, AI Studio, LM Studio, Ollama
 
 EXPERIENCE
-Systems Administrator - SERVER AT WORK (Mar 2026 - Jul 2026)
-- Maintained infrastructure, networks, and user accounts to maximize uptime, security, and response performance
-- Deployed monitoring tools and automation workflows to streamline enterprise patch management
-- Supported Active Directory, Group Policy, Exchange, Microsoft 365, Azure, and AWS environments
-
 Systems Administrator - THE SOLUTIONS TEAM (Dec 2025 - Mar 2026)
 - Managed high-availability environments using Hyper-V, vSphere, and ESXi
 - Created automation tools to reduce patch timelines and accelerate incident response
@@ -969,25 +963,6 @@ PROJECT HIGHLIGHTS
                 <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
                     <h3 className="font-bold text-lg text-slate-900">Systems Administrator</h3>
-                    <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Mar 2026 - Jul 2026</span>
-                  </div>
-                  <div className="text-sm text-slate-500 font-medium mb-4">SERVER AT WORK • AUSTIN, TX</div>
-                  <ul className="space-y-2 text-slate-600 text-sm list-disc list-inside marker:text-slate-300 max-h-0 overflow-hidden opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-300">
-                    <li>Maintained infrastructure, networks, and user accounts to maximize server uptime, security, and response performance.</li>
-                    <li>Deployed monitoring tools and automation workflows to streamline enterprise patch management.</li>
-                    <li>Supported configuration environments including Active Directory, Group Policy, Exchange, Microsoft 365, Azure, and AWS.</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Job 2 */}
-              <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-100 text-blue-600 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                </div>
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white border border-slate-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
-                    <h3 className="font-bold text-lg text-slate-900">Systems Administrator</h3>
                     <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">Dec 2025 - Mar 2026</span>
                   </div>
                   <div className="text-sm text-slate-500 font-medium mb-4">THE SOLUTIONS TEAM • AUSTIN, TX</div>
@@ -999,7 +974,7 @@ PROJECT HIGHLIGHTS
                 </div>
               </div>
 
-              {/* Job 3 */}
+              {/* Job 2 */}
               <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                 <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-100 text-blue-600 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
                   <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
