@@ -567,6 +567,7 @@ PROJECT HIGHLIGHTS
             <button onClick={() => scrollToSection('experience')} className="hover:text-blue-600 transition-colors cursor-pointer">Experience</button>
             <button onClick={() => scrollToSection('education')} className="hover:text-blue-600 transition-colors cursor-pointer">Education</button>
             <Link href="/blog" className="hover:text-blue-600 transition-colors">Blog</Link>
+            <a href="/az104" className="hover:text-blue-600 transition-colors">AZ-104</a>
 
             {/* Download Resume Button */}
             <button
@@ -613,6 +614,7 @@ PROJECT HIGHLIGHTS
             <button onClick={() => scrollToSection('experience')} className="text-left py-2 text-slate-600 font-medium">Experience</button>
             <button onClick={() => scrollToSection('education')} className="text-left py-2 text-slate-600 font-medium">Education</button>
             <Link href="/blog" className="text-left py-2 text-slate-600 font-medium">Blog</Link>
+            <a href="/az104" className="text-left py-2 text-slate-600 font-medium">AZ-104</a>
             <button onClick={() => scrollToSection('contact')} className="text-left py-2 text-blue-600 font-medium">Contact Me</button>
           </div>
         )}

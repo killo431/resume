@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AZ-104 Study App | Randy DeRego</title>
+  <meta name="description" content="Practice exam and study guide for Microsoft Azure Administrator (AZ-104) certification." />
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- AZ-104 app styles — scoped to #az104-app, no global side effects -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Page chrome only — minimal, non-conflicting */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+
+    /* Sticky top nav bar */
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0.875rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .site-header__brand {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #1e293b;
+      text-decoration: none;
+    }
+    .site-header__brand span { color: #2563eb; }
+    .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-size: 0.875rem;
+    }
+    .site-header__nav a {
+      color: #475569;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .site-header__nav a:hover,
+    .site-header__nav a[aria-current="page"] {
+      color: #2563eb;
+    }
+    .site-header__nav a[aria-current="page"] {
+      font-weight: 700;
+    }
+
+    /* App content area */
+    #az104-app {
+      /* styles.css handles everything inside */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site navigation (matches main site style without importing global CSS) -->
+  <header class="site-header">
+    <a href="/" class="site-header__brand">Randy<span>DeRego</span></a>
+    <nav class="site-header__nav" aria-label="Main">
+      <a href="/#about">About</a>
+      <a href="/#skills">Skills</a>
+      <a href="/#projects">Projects</a>
+      <a href="/#experience">Experience</a>
+      <a href="/blog">Blog</a>
+      <a href="/az104" aria-current="page">AZ-104</a>
+    </nav>
+  </header>
+
+  <!-- AZ-104 app mount point — all JS/CSS scoped here -->
+  <div id="az104-app" role="main" aria-label="AZ-104 Study Application"></div>
+
+  <!-- Load data, questions, then engine (order matters) -->
+  <script src="task2_data.js"></script>
+  <script src="task3_questions.js"></script>
+  <script src="task4_engine.js"></script>
+
+</body>
+</html>
