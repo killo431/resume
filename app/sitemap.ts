@@ -7,7 +7,14 @@ const BASE_URL = 'https://devtest512.info';
 const appDirectory = path.join(process.cwd(), 'app');
 
 function getStaticRoutesFromAppDir(directory: string, currentPath = ''): string[] {
-  const entries = fs.readdirSync(directory, { withFileTypes: true });
+  let entries: fs.Dirent[];
+  try {
+    entries = fs.readdirSync(directory, { withFileTypes: true });
+  } catch (error) {
+    console.error(`Failed to read app directory for sitemap generation: ${directory}`, error);
+    return [];
+  }
+
   const routes: string[] = [];
 
   if (entries.some((entry) => entry.isFile() && entry.name === 'page.tsx')) {
@@ -70,7 +77,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
 
   const sitemapEntries = [...staticEntries, ...blogEntries];
-  // Keep the last occurrence per URL; static entries are listed first so blog entries win on duplicates.
+  // Keep the last occurrence per URL; blog entries come last and keep their post-specific metadata on duplicates.
   const dedupedEntries = Array.from(new Map(sitemapEntries.map((entry) => [entry.url, entry])).values());
 
   return dedupedEntries;
