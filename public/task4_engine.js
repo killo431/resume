@@ -3,6 +3,11 @@
   'use strict';
 
   var STORAGE_KEY = 'az104_dashboard_state_v2';
+  var LEGACY_STORAGE_KEY = 'az104_app_state';
+  var TIMER_START_SECONDS = 20 * 60;
+  var STUDY_DAYS = 14;
+  var MIN_SUBNET_CIDR = 16;
+  var MAX_SUBNET_CIDR = 30;
   var timerHandle = null;
 
   var state = loadState();
@@ -10,7 +15,7 @@
   function loadState() {
     var defaults = {
       activeSection: 'overview',
-      timerSeconds: 20 * 60,
+      timerSeconds: TIMER_START_SECONDS,
       timerRunning: false,
       answers: {},
       completedDomains: [],
@@ -19,9 +24,20 @@
 
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return defaults;
+      if (!raw) {
+        var legacyRaw = localStorage.getItem(LEGACY_STORAGE_KEY);
+        if (legacyRaw) {
+          var legacyParsed = JSON.parse(legacyRaw);
+          var migrated = Object.assign({}, defaults, legacyParsed);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+          localStorage.removeItem(LEGACY_STORAGE_KEY);
+          return migrated;
+        }
+        return defaults;
+      }
       return Object.assign({}, defaults, JSON.parse(raw));
-    } catch (_err) {
+    } catch (error) {
+      console.warn('[AZ104] Failed to load saved state:', error);
       return defaults;
     }
   }
@@ -29,7 +45,8 @@
   function saveState() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch (_err) {
+    } catch (error) {
+      console.warn('[AZ104] Failed to save state:', error);
       // no-op
     }
   }
@@ -139,7 +156,7 @@
 
   function resetTimer() {
     state.timerRunning = false;
-    state.timerSeconds = 20 * 60;
+    state.timerSeconds = TIMER_START_SECONDS;
     updateTimerUI();
     saveState();
   }
@@ -161,7 +178,16 @@
 
   function domainNumberFromId(domainId) {
     var match = String(domainId || '').match(/(\d+)/);
-    return match ? Number(match[1]) : 0;
+    if (match) return Number(match[1]);
+
+    var fallbackMap = {
+      domain1: 1,
+      domain2: 2,
+      domain3: 3,
+      domain4: 4,
+      domain5: 5
+    };
+    return fallbackMap[String(domainId || '').toLowerCase()] || 0;
   }
 
   function questionsForDomain(domainId) {
@@ -211,13 +237,13 @@
         if (letter === question.correct) optionClass += ' correct';
         else if (letter === answered) optionClass += ' wrong';
       }
-      html += '<button class="' + optionClass + '" data-qid="' + question.id + '" data-letter="' + letter + '" ' + (isAnswered ? 'disabled' : '') + '>';
+      html += '<button class="' + optionClass + '" data-qid="' + question.id + '" data-letter="' + letter + '" ' + (isAnswered ? 'disabled aria-disabled="true"' : '') + '>';
       html += '<strong>' + letter + '.</strong> <span>' + escapeHtml(opt) + '</span>';
       html += '</button>';
     });
 
     html += '</div>';
-    html += '<div class="explanation-card ' + (isAnswered ? 'visible' : 'hidden') + '"><div class="explanation-content"><b>Explanation:</b> ' + escapeHtml(question.explanation || '') + '</div></div>';
+    html += '<div class="explanation-card ' + (isAnswered ? 'visible' : 'hidden') + '" aria-hidden="' + (!isAnswered) + '" aria-live="polite"><div class="explanation-content"><b>Explanation:</b> ' + escapeHtml(question.explanation || '') + '</div></div>';
 
     wrapper.innerHTML = html;
     return wrapper;
@@ -310,8 +336,8 @@
     var nav = document.createElement('div');
     nav.className = 'exam-submit-area';
     nav.innerHTML =
-      '<button class="btn btn-outline" data-nav="prev" ' + (mockState.index === 0 ? 'disabled' : '') + '>Previous</button> ' +
-      '<button class="btn btn-accent" data-nav="next" ' + (mockState.index >= total - 1 ? 'disabled' : '') + '>Next</button>';
+      '<button class="btn btn-outline" data-nav="prev" ' + (mockState.index === 0 ? 'disabled aria-disabled="true"' : '') + '>Previous</button> ' +
+      '<button class="btn btn-accent" data-nav="next" ' + (mockState.index >= total - 1 ? 'disabled aria-disabled="true"' : '') + '>Next</button>';
     body.appendChild(nav);
 
     var oldCards = section.querySelectorAll('.card, .question-card, .exam-submit-area, .empty-state');
@@ -460,7 +486,7 @@
     html += '</div></div>';
 
     html += '<div class="card"><h3 style="margin-bottom:0.75rem;">Subnet Calculator</h3>' +
-      '<div class="subnet-input-row"><label for="cidr-input">CIDR:</label><input id="cidr-input" class="cidr-input" type="number" min="16" max="30" value="24"><button id="btn-calc-subnet" class="btn btn-accent btn-sm">Calculate</button></div>' +
+      '<div class="subnet-input-row"><label for="cidr-input">CIDR:</label><input id="cidr-input" class="cidr-input" type="number" min="' + MIN_SUBNET_CIDR + '" max="' + MAX_SUBNET_CIDR + '" value="24"><button id="btn-calc-subnet" class="btn btn-accent btn-sm">Calculate</button></div>' +
       '<div id="subnet-output" class="subnet-result-card"></div></div>';
 
     var old = section.querySelectorAll('.cheatsheet-card, .card');
@@ -471,7 +497,8 @@
     if (calcBtn) {
       calcBtn.addEventListener('click', function () {
         var cidr = Number((byId('cidr-input') || {}).value || 24);
-        var hostBits = Math.max(2, 32 - cidr);
+        cidr = Math.max(MIN_SUBNET_CIDR, Math.min(MAX_SUBNET_CIDR, cidr));
+        var hostBits = 32 - cidr;
         var totalIps = Math.pow(2, hostBits);
         var usable = Math.max(0, totalIps - 5);
         var output = byId('subnet-output');
@@ -515,7 +542,7 @@
 
     if (overviewProgress) overviewProgress.textContent = pctAnswered + '%';
     if (overviewProgress && overviewProgress.nextElementSibling) {
-      overviewProgress.nextElementSibling.textContent = Math.min(14, Math.round((pctAnswered / 100) * 14)) + ' of 14 days completed';
+      overviewProgress.nextElementSibling.textContent = Math.min(STUDY_DAYS, Math.round((pctAnswered / 100) * STUDY_DAYS)) + ' of ' + STUDY_DAYS + ' days completed';
     }
 
     if (overviewQuestions) overviewQuestions.textContent = String(answered);
