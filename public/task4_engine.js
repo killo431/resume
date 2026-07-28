@@ -11,6 +11,8 @@
   var MAX_SUBNET_CIDR = 30;
   var MAX_KEYWORD_CARDS = 28;
   var AZURE_RESERVED_IPS = 5; // Azure reserves 5 IPs in each subnet.
+  var SECTION_IDS = ['overview', 'dom1', 'dom2', 'dom3', 'dom4', 'dom5', 'mock', 'keywords', 'errorlog', 'cheat'];
+  var DOMAIN_SECTION_IDS = ['dom1', 'dom2', 'dom3', 'dom4', 'dom5'];
   var timerHandle = null;
 
   var state = loadState();
@@ -76,7 +78,7 @@
   }
 
   function sectionIds() {
-    return ['overview', 'dom1', 'dom2', 'dom3', 'dom4', 'dom5', 'mock', 'keywords', 'errorlog', 'cheat'];
+    return SECTION_IDS;
   }
 
   function showSection(key) {
@@ -103,7 +105,7 @@
       }
     });
 
-    ['dom1', 'dom2', 'dom3', 'dom4', 'dom5'].forEach(function (id) {
+    DOMAIN_SECTION_IDS.forEach(function (id) {
       var card = byId('dlc-' + id);
       if (card) {
         card.addEventListener('click', function () {
@@ -489,7 +491,8 @@
     html += '</div></div>';
 
     html += '<div class="card"><h3 style="margin-bottom:0.75rem;">Subnet Calculator</h3>' +
-      '<div class="subnet-input-row"><label for="cidr-input">CIDR:</label><input id="cidr-input" class="cidr-input" type="number" min="' + MIN_SUBNET_CIDR + '" max="' + MAX_SUBNET_CIDR + '" value="24"><button id="btn-calc-subnet" class="btn btn-accent btn-sm">Calculate</button></div>' +
+      '<div class="subnet-input-row"><label for="cidr-input">CIDR:</label><input id="cidr-input" class="cidr-input" type="number" min="' + MIN_SUBNET_CIDR + '" max="' + MAX_SUBNET_CIDR + '" value="24" aria-label="Subnet CIDR value from ' + MIN_SUBNET_CIDR + ' to ' + MAX_SUBNET_CIDR + '" aria-describedby="cidr-help"><button id="btn-calc-subnet" class="btn btn-accent btn-sm">Calculate</button></div>' +
+      '<p id="cidr-help" class="text-muted" style="font-size:0.75rem;">Enter a subnet CIDR between /' + MIN_SUBNET_CIDR + ' and /' + MAX_SUBNET_CIDR + '.</p>' +
       '<div id="subnet-output" class="subnet-result-card"></div></div>';
 
     var old = section.querySelectorAll('.cheatsheet-card, .card');
@@ -546,7 +549,7 @@
     if (overviewProgress) overviewProgress.textContent = pctAnswered + '%';
     var overviewProgressSubtext = document.querySelector('#overview-progress-value + .stat-sub');
     if (overviewProgressSubtext) {
-      overviewProgressSubtext.textContent = Math.min(STUDY_DAYS, Math.round((pctAnswered / 100) * STUDY_DAYS)) + ' of ' + STUDY_DAYS + ' days completed';
+      overviewProgressSubtext.textContent = calculateCompletedDays(pctAnswered) + ' of ' + STUDY_DAYS + ' days completed';
     }
 
     if (overviewQuestions) overviewQuestions.textContent = String(answered);
@@ -586,3 +589,6 @@
     init();
   }
 })();
+  function calculateCompletedDays(pctAnswered) {
+    return Math.min(STUDY_DAYS, Math.round((pctAnswered / 100) * STUDY_DAYS));
+  }
