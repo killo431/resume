@@ -2,7 +2,7 @@
 
 ## Overview
 
-Successfully implemented a complete MDX-powered blog system with AI content generation capabilities for the Randal Derego portfolio website.
+Successfully implemented a complete MDX-powered blog system with AI content generation capabilities for the Randy DeRego portfolio website.
 
 ## Problem Statement
 

@@ -2,14 +2,14 @@
 
 ## Current Situation
 
-Your website is currently accessible at **Randal.devtest512.info**. Since you already own **devtest512.info**, this guide will help you optimize your URL structure without purchasing a new domain.
+Your website is currently accessible at **Randy.devtest512.info**. Since you already own **devtest512.info**, this guide will help you optimize your URL structure without purchasing a new domain.
 
 ## Quick Start: Using Your Existing Domain
 
 Since you already own **devtest512.info**, you have FREE options to simplify your URL:
 
 ### Best Option: Use Root Domain
-**Current:** `Randal.devtest512.info`
+**Current:** `Randy.devtest512.info`
 **New:** `devtest512.info`
 
 ✅ Shortest possible URL with your domain
@@ -19,8 +19,8 @@ Since you already own **devtest512.info**, you have FREE options to simplify you
 [Jump to setup instructions](#using-your-existing-domain-devtest512info)
 
 ### Alternative: Cleaner Subdomain
-**Current:** `Randal.devtest512.info`
-**New:** `resume.devtest512.info` or `randal.devtest512.info`
+**Current:** `Randy.devtest512.info`
+**New:** `resume.devtest512.info` or `randy.devtest512.info`
 
 ✅ Clear purpose
 ✅ No extra cost
@@ -32,7 +32,7 @@ Since you already own **devtest512.info**, you have FREE options to simplify you
 
 ## Overview
 
-The good news is that **no code changes are required**. The domain `Randal.devtest512.info` is not hardcoded anywhere in the application. All URL changes are handled through:
+The good news is that **no code changes are required**. The domain `Randy.devtest512.info` is not hardcoded anywhere in the application. All URL changes are handled through:
 1. Vercel Dashboard (deployment platform)
 2. DNS Provider (your domain registrar for devtest512.info)
 
@@ -47,18 +47,18 @@ Here are your options, prioritizing your existing domain:
 
 #### Option 2: Cleaner Subdomain
 - `resume.devtest512.info` - Clear purpose
-- `randal.devtest512.info` - Personal (lowercase)
+- `randy.devtest512.info` - Personal (lowercase)
 - `portfolio.devtest512.info` - Professional focus
 
 ### Alternative Options (If Purchasing New Domain)
 
 #### Option 3: Personal Domain
-- `randal.dev` - Professional and clean
-- `randalderego.com` - Full name variant
+- `randy.dev` - Professional and clean
+- `randyderego.com` - Full name variant
 - `rderego.com` - Abbreviated variant
 
 #### Option 4: Free Vercel Domain
-- `randal-resume.vercel.app` - Free Vercel subdomain (no custom domain needed)
+- `randy-resume.vercel.app` - Free Vercel subdomain (no custom domain needed)
 
 ---
 
@@ -110,7 +110,7 @@ TTL: 3600 (or automatic)
    - The www version will redirect to it
 
 4. **Remove Old Domain:**
-   - Find `Randal.devtest512.info` in the domain list
+   - Find `Randy.devtest512.info` in the domain list
    - Click the three dots → **Remove**
 
 #### Step 3: Verify
@@ -132,10 +132,10 @@ This keeps your root domain available for other uses.
 Log into your DNS provider where you manage `devtest512.info`:
 
 **Option 1: Update Existing Record**
-If you have a record for `Randal`:
+If you have a record for `Randy`:
 ```
 Type: CNAME
-Name: Change "Randal" to "resume" (or "randal" lowercase)
+Name: Change "Randy" to "resume" (or "randy" lowercase)
 Value: cname.vercel-dns.com
 TTL: 3600
 ```
@@ -144,7 +144,7 @@ TTL: 3600
 If you want to keep the old one temporarily:
 ```
 Type: CNAME
-Name: resume (or randal, or portfolio)
+Name: resume (or randy, or portfolio)
 Value: cname.vercel-dns.com
 TTL: 3600
 ```
@@ -168,7 +168,7 @@ TTL: 3600
    - Select **Set as Primary Domain**
 
 4. **Remove Old Domain:**
-   - Find `Randal.devtest512.info` in the domain list
+   - Find `Randy.devtest512.info` in the domain list
    - Click the three dots → **Remove**
 
 #### Step 3: Verify
@@ -185,7 +185,7 @@ TTL: 3600
 
 ### Step 1: Choose and Purchase a Domain (if needed)
 
-If you want a custom domain like `randal.dev`:
+If you want a custom domain like `randy.dev`:
 
 1. **Purchase from a registrar:**
    - [Namecheap](https://www.namecheap.com) - Affordable, good UI
@@ -205,7 +205,7 @@ If you want a custom domain like `randal.dev`:
    - Click on your project
    - Go to **Settings** → **Domains**
    - Click **Add Domain**
-   - Enter your new domain (e.g., `randal.dev`)
+   - Enter your new domain (e.g., `randy.dev`)
    - Click **Add**
 
 3. **Vercel will provide DNS records** you need to configure
@@ -214,7 +214,7 @@ If you want a custom domain like `randal.dev`:
 
 You'll need to add these DNS records at your domain registrar:
 
-#### For Root Domain (e.g., `randal.dev`):
+#### For Root Domain (e.g., `randy.dev`):
 ```
 Type: A
 Name: @
@@ -268,13 +268,13 @@ If you want to simplify without purchasing a domain:
 1. **Go to Vercel Dashboard** → Your Project
 2. **Settings** → **General** → **Project Name**
 3. **Change project name** to something simple like:
-   - `randal-resume`
-   - `randal-portfolio`
-   - `randal-dev`
+   - `randy-resume`
+   - `randy-portfolio`
+   - `randy-dev`
 
 4. Your URL will automatically become:
-   - `randal-resume.vercel.app`
-   - Much simpler than `Randal.devtest512.info`!
+   - `randy-resume.vercel.app`
+   - Much simpler than `Randy.devtest512.info`!
 
 ## Removing Old Domain
 
@@ -282,11 +282,11 @@ Once your new domain is working:
 
 1. **In Vercel Dashboard:**
    - Go to Settings → Domains
-   - Find `Randal.devtest512.info`
+   - Find `Randy.devtest512.info`
    - Click the three dots → **Remove**
 
 2. **In DNS Provider (devtest512.info):**
-   - Remove or update the DNS record for `Randal` subdomain
+   - Remove or update the DNS record for `Randy` subdomain
    - Or keep it as a redirect if you want
 
 ## DNS Configuration Examples by Provider
@@ -351,11 +351,11 @@ Once your new domain is working:
 ## Summary
 
 **For simplest solution without cost:**
-- Change Vercel project name to `randal-resume`
-- Use `randal-resume.vercel.app` (free!)
+- Change Vercel project name to `randy-resume`
+- Use `randy-resume.vercel.app` (free!)
 
 **For professional custom domain:**
-- Purchase `randal.dev` or similar (~$20-30/year)
+- Purchase `randy.dev` or similar (~$20-30/year)
 - Add to Vercel → Settings → Domains
 - Configure DNS records at your registrar
 - Wait for DNS propagation

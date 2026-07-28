@@ -66,7 +66,7 @@ Create a new `.mdx` file in `content/blog/` with frontmatter:
 ---
 title: "Your Blog Post Title"
 date: "2026-03-08"
-author: "Randal Derego"
+author: "Randy DeRego"
 excerpt: "Brief description"
 tags: ["Tag1", "Tag2"]
 ---
@@ -142,12 +142,12 @@ Since you already own **devtest512.info**, you can simplify your URL for FREE! S
 
 **Quick options:**
 - Use root domain: `devtest512.info` (shortest)
-- Use cleaner subdomain: `resume.devtest512.info` or `randal.devtest512.info`
+- Use cleaner subdomain: `resume.devtest512.info` or `randy.devtest512.info`
 
 For general domain setup or other domain options, see the [Domain Setup Guide](./DOMAIN_SETUP.md) which covers:
 - Detailed setup for your existing devtest512.info domain
-- Using a simpler Vercel subdomain (e.g., `randal-resume.vercel.app`)
-- Purchasing and configuring new custom domains (e.g., `randal.dev`)
+- Using a simpler Vercel subdomain (e.g., `randy-resume.vercel.app`)
+- Purchasing and configuring new custom domains (e.g., `randy.dev`)
 - DNS configuration for various providers
 - Troubleshooting common domain issues
 

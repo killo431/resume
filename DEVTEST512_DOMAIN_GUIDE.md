@@ -3,7 +3,7 @@
 ## Your Situation
 
 ✅ You own **devtest512.info**
-❌ Currently using: `Randal.devtest512.info`
+❌ Currently using: `Randy.devtest512.info`
 ✅ Want to simplify the URL
 
 **Good news:** You can simplify for FREE using your existing domain!
@@ -32,7 +32,7 @@
    - Settings → Domains → Add `devtest512.info`
    - Add `www.devtest512.info`
    - Set one as primary
-   - Remove `Randal.devtest512.info`
+   - Remove `Randy.devtest512.info`
 
 3. **Wait:** 5-30 minutes for DNS propagation
 
@@ -42,7 +42,7 @@
 
 ### 🏆 Option 2: Cleaner Subdomain
 
-**Change to:** `resume.devtest512.info` or `randal.devtest512.info`
+**Change to:** `resume.devtest512.info` or `randy.devtest512.info`
 
 **Why this is good:**
 - ✅ Clear purpose or personal branding
@@ -52,19 +52,19 @@
 
 **Subdomain choices:**
 - `resume.devtest512.info` - Clear purpose ⭐
-- `randal.devtest512.info` - Personal branding (lowercase)
+- `randy.devtest512.info` - Personal branding (lowercase)
 - `portfolio.devtest512.info` - Professional focus
 
 **How to set up:**
 1. **DNS Changes** (at your domain registrar):
    - Update or add CNAME: `resume` → `cname.vercel-dns.com`
-   - (Or use `randal` or `portfolio` instead of `resume`)
+   - (Or use `randy` or `portfolio` instead of `resume`)
 
 2. **Vercel Changes:**
    - Settings → Domains → Add your chosen subdomain
    - Example: `resume.devtest512.info`
    - Set as primary (optional)
-   - Remove `Randal.devtest512.info`
+   - Remove `Randy.devtest512.info`
 
 3. **Wait:** 5-15 minutes for DNS propagation
 
@@ -76,7 +76,7 @@
 
 | Current | Option 1 | Option 2 |
 |---------|----------|----------|
-| Randal.devtest512.info | devtest512.info | resume.devtest512.info |
+| Randy.devtest512.info | devtest512.info | resume.devtest512.info |
 | 24 characters | 17 characters (-7) | 24 characters |
 | Capital R (unusual) | No subdomain ⭐ | Clear purpose ⭐ |
 | Generic name | Shortest | Professional |
@@ -105,7 +105,7 @@ Go to your DNS provider where you manage `devtest512.info`:
    TTL: 3600 (or Auto)
    ```
 
-3. **Optional - Remove old Randal record** (or keep temporarily)
+3. **Optional - Remove old Randy record** (or keep temporarily)
 
 ### Step 2: Vercel Configuration
 
@@ -132,7 +132,7 @@ Go to your DNS provider where you manage `devtest512.info`:
    - (www will redirect to it)
 
 7. **Remove old domain:**
-   - Find `Randal.devtest512.info`
+   - Find `Randy.devtest512.info`
    - Click the 3 dots → "Remove"
 
 ### Step 3: Verify
@@ -163,10 +163,10 @@ Go to your DNS provider where you manage `devtest512.info`:
 
 Go to your DNS provider where you manage `devtest512.info`:
 
-**Option A: Update existing Randal record**
+**Option A: Update existing Randy record**
 ```
 Type: CNAME
-Name: Change "Randal" to "resume" (or "randal" lowercase)
+Name: Change "Randy" to "resume" (or "randy" lowercase)
 Value: cname.vercel-dns.com
 TTL: 3600
 ```
@@ -198,7 +198,7 @@ TTL: 3600
    - Select "Set as Primary Domain"
 
 6. **Remove old domain:**
-   - Find `Randal.devtest512.info`
+   - Find `Randy.devtest512.info`
    - Click the 3 dots → "Remove"
 
 ### Step 3: Verify
@@ -260,7 +260,7 @@ TTL: 3600
 ### Vercel says "Invalid Configuration"
 - **Check DNS records:** Make sure they match exactly
 - **Wait for propagation:** Vercel checks DNS before accepting
-- **Remove old domain first:** Try removing `Randal.devtest512.info` first
+- **Remove old domain first:** Try removing `Randy.devtest512.info` first
 
 ### SSL Certificate not working
 - **Wait 5-10 minutes:** Vercel auto-provisions SSL

@@ -38,7 +38,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       content,
       title: data.title || 'Untitled',
       date: data.date || new Date().toISOString(),
-      author: data.author || 'Randal Derego',
+      author: data.author || 'Randy DeRego',
       excerpt: data.excerpt || '',
       tags: data.tags || [],
       coverImage: data.coverImage,

@@ -1,6 +1,6 @@
 # Website Enhancement Ideas
 
-Below are 10 enhancements and ideas to improve the Randal Derego portfolio website based on the current implementation and best practices for professional portfolios.
+Below are 10 enhancements and ideas to improve the Randy DeRego portfolio website based on the current implementation and best practices for professional portfolios.
 
 ## 1. **Dark Mode Toggle**
 **Priority: High**

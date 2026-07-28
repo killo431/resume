@@ -80,7 +80,7 @@ Experience:
  - Web Data Knowledge Base Pipeline (completed): Delivered n8n, Firecrawl, and PostgreSQL/pgvector workflows for content extraction, chunking, deduplication, embeddings, vector search, MCP search access, and tiered collection schedules.
 Education: B.S. in Computer Science (Western Governors University), CompTIA A+ (Certification).
 Contact: rderego@devtest512.info, (512) 891-4201, Austin, TX.
-Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randysderego/, Indeed: https://profile.indeed.com/p/randald-mh1efpj`;
+Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randysderego/, Indeed: https://profile.indeed.com/p/randyd-mh1efpj, Blog: https://devtest512.info/blog`;
 
 const renderFormattedText = (text: string) => {
   return text.split('\n').map((line, i) => (
@@ -432,7 +432,8 @@ Location: Austin, TX
 PROFILES
 GitHub: https://github.com/killo431
 LinkedIn: https://www.linkedin.com/in/randysderego/
-Indeed: https://profile.indeed.com/p/randald-mh1efpj
+Indeed: https://profile.indeed.com/p/randyd-mh1efpj
+Blog: https://devtest512.info/blog
 
 SUMMARY
 Results-oriented IT professional with 10 years of comprehensive experience spanning Systems Administration and Help Desk Support.
@@ -1153,7 +1154,7 @@ PROJECT HIGHLIGHTS
               </a>
 
               <a
-                href="https://profile.indeed.com/p/randald-mh1efpj"
+                href="https://profile.indeed.com/p/randyd-mh1efpj"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 transition-all group"
