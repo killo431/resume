@@ -77,7 +77,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
 
   const sitemapEntries = [...staticEntries, ...blogEntries];
-  // Keep the last occurrence per URL; blog entries come last and keep their post-specific metadata on duplicates.
+  // Keep the last occurrence per URL; Map overwrite semantics mean later blog entries win for duplicate URLs.
   const dedupedEntries = Array.from(new Map(sitemapEntries.map((entry) => [entry.url, entry])).values());
 
   return dedupedEntries;
