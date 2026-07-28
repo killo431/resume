@@ -678,7 +678,32 @@ function renderQuestionCard(q, domainKey, index) {
 
   const header = document.createElement('div');
   header.className = 'question-header';
-  header.innerHTML = `<span class="topic-summary">${escHtml(q.scenarioTag || '')}</span><span>Q${index + 1}</span>`;
+
+  const topicWrap = document.createElement('span');
+  topicWrap.className = 'topic-summary';
+
+  const revealBtn = document.createElement('button');
+  revealBtn.className = 'reveal-topic-btn';
+  revealBtn.textContent = '\u25b6 Reveal';
+  revealBtn.setAttribute('aria-label', 'Reveal question topic');
+
+  const topicText = document.createElement('span');
+  topicText.className = 'topic-hidden';
+  topicText.textContent = q.scenarioTag || '';
+
+  revealBtn.addEventListener('click', function () {
+    revealBtn.style.display = 'none';
+    topicText.style.display = 'inline';
+  });
+
+  topicWrap.appendChild(revealBtn);
+  topicWrap.appendChild(topicText);
+
+  const qNum = document.createElement('span');
+  qNum.textContent = 'Q' + (index + 1);
+
+  header.appendChild(topicWrap);
+  header.appendChild(qNum);
   card.appendChild(header);
 
   const qtext = document.createElement('div');
