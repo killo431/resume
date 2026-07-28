@@ -1,4 +1,4 @@
-import type { MetadataRoute } from 'next';
+import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { getAllPosts } from '@/lib/blog';
@@ -55,18 +55,27 @@ function getRouteMetadata(route: string): { changeFrequency: 'weekly' | 'monthly
   return { changeFrequency: 'monthly', priority: 0.8 };
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+export async function GET() {
   const posts = getAllPosts();
   const staticRoutes = getStaticRoutesFromAppDir(appDirectory);
 
-  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${BASE_URL}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'monthly',
-    priority: 0.7,
-  }));
+  type SitemapEntry = {
+    url: string;
+    lastModified: Date;
+    changeFrequency: 'weekly' | 'monthly';
+    priority: number;
+  };
 
-  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => {
+  const staticEntries: SitemapEntry[] = staticRoutes.map((route) => {
     const { changeFrequency, priority } = getRouteMetadata(route);
     return {
       url: route === '/' ? BASE_URL : `${BASE_URL}${route}`,
@@ -76,9 +85,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  const sitemapEntries = [...staticEntries, ...blogEntries];
-  // Keep the last occurrence per URL; Map overwrite semantics mean later blog entries win for duplicate URLs.
-  const dedupedEntries = Array.from(new Map(sitemapEntries.map((entry) => [entry.url, entry])).values());
+  const blogEntries: SitemapEntry[] = posts.map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
 
-  return dedupedEntries;
+  const allEntries = [...staticEntries, ...blogEntries];
+  const dedupedEntries = Array.from(
+    new Map(allEntries.map((entry) => [entry.url, entry])).values(),
+  );
+
+  const urlElements = dedupedEntries
+    .map(
+      (entry) =>
+        `  <url>\n` +
+        `    <loc>${escapeXml(entry.url)}</loc>\n` +
+        `    <lastmod>${entry.lastModified.toISOString()}</lastmod>\n` +
+        `    <changefreq>${entry.changeFrequency}</changefreq>\n` +
+        `    <priority>${entry.priority.toFixed(1)}</priority>\n` +
+        `  </url>`,
+    )
+    .join('\n');
+
+  const xml =
+    `<?xml version="1.0" encoding="UTF-8"?>\n` +
+    `<?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>\n` +
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    urlElements +
+    `\n</urlset>`;
+
+  return new NextResponse(xml, {
+    headers: {
+      'Content-Type': 'application/xml; charset=utf-8',
+    },
+  });
 }
