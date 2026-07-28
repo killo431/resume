@@ -43,7 +43,7 @@ function getStaticRoutesFromAppDir(directory: string, currentPath = ''): string[
   return routes;
 }
 
-function getRouteMetadata(route: string): { changeFrequency: string; priority: number } {
+function getRouteMetadata(route: string): { changeFrequency: 'weekly' | 'monthly'; priority: number } {
   if (route === '/') {
     return { changeFrequency: 'weekly', priority: 1.0 };
   }
@@ -71,7 +71,7 @@ export async function GET() {
   type SitemapEntry = {
     url: string;
     lastModified: Date;
-    changeFrequency: string;
+    changeFrequency: 'weekly' | 'monthly';
     priority: number;
   };
 
@@ -88,7 +88,7 @@ export async function GET() {
   const blogEntries: SitemapEntry[] = posts.map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.date),
-    changeFrequency: 'monthly',
+    changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
 

@@ -41,7 +41,7 @@ ${blogPostLines}
 ## Work History
 
 - Systems Administrator — The Solutions Team (Dec 2025–Mar 2026)
-- Systems Administrator — TeamLogic IT (Nov 2021–Sept 2025)
+- Systems Administrator — TeamLogic IT (Nov 2021–Sep 2025)
 - Help Desk / Network Technician — Samsung (Jan 2019–Nov 2021)
 - Tech Support — Eagle Eye Networks (Feb 2017–Jan 2019)
 
