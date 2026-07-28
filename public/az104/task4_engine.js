@@ -343,7 +343,7 @@ const AZ104Engine = (() => {
         else btn.classList.add('az104-option-disabled');
         btn.disabled = true;
       }
-      btn.innerHTML = `<span class="az104-opt-letter">${'ABCD'[i]}</span> ${esc(opt)}`;
+      btn.innerHTML = `<span class="az104-opt-letter">${'ABCD'[i] || '?'}</span> ${esc(opt)}`;
       if (!answered) {
         btn.addEventListener('click', () => submitAnswer(i));
       }
@@ -482,7 +482,7 @@ const AZ104Engine = (() => {
     if (prevBtn && !prevBtn.disabled) prevBtn.addEventListener('click', () => reviewGoto(state.currentQuestion - 1));
     if (nextBtn && !nextBtn.disabled) nextBtn.addEventListener('click', () => reviewGoto(state.currentQuestion + 1));
     div.querySelectorAll('.az104-dot').forEach(dot => {
-      dot.addEventListener('click', () => reviewGoto(parseInt(dot.dataset.idx)));
+      dot.addEventListener('click', () => reviewGoto(parseInt(dot.dataset.idx, 10)));
     });
 
     return div;

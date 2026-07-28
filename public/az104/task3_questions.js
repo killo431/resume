@@ -527,7 +527,7 @@ const AZ104_QUESTIONS = [
       "190.7 TB"
     ],
     correct: 3,
-    explanation: "Azure Block Blob supports a maximum size of approximately 190.7 TB (200 GB × 50,000 blocks). This is achieved by using up to 50,000 blocks of up to 4000 MB each. Page blobs support up to 8 TB."
+    explanation: "Azure Block Blob supports a maximum size of approximately 190.7 TB. This is achieved by using up to 50,000 blocks of up to 4,000 MB each (50,000 × 4,000 MB = 200,000,000 MB ≈ 190.7 TiB). Page blobs support up to 8 TB."
   },
   {
     id: 38,
