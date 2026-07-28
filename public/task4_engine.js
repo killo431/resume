@@ -248,7 +248,7 @@
     });
 
     html += '</div>';
-    html += '<div class="explanation-card ' + (isAnswered ? 'visible' : 'hidden') + '" aria-hidden="' + (!isAnswered) + '"><div class="explanation-content"><b>Explanation:</b> ' + escapeHtml(question.explanation || '') + '</div></div>';
+    html += '<div class="explanation-card ' + (isAnswered ? 'visible' : 'hidden') + '" aria-hidden="' + String(!isAnswered) + '"><div class="explanation-content"><b>Explanation:</b> ' + escapeHtml(question.explanation || '') + '</div></div>';
 
     wrapper.innerHTML = html;
     return wrapper;
@@ -491,7 +491,7 @@
     html += '</div></div>';
 
     html += '<div class="card"><h3 style="margin-bottom:0.75rem;">Subnet Calculator</h3>' +
-      '<div class="subnet-input-row"><label for="cidr-input">CIDR:</label><input id="cidr-input" class="cidr-input" type="number" min="' + MIN_SUBNET_CIDR + '" max="' + MAX_SUBNET_CIDR + '" value="24" aria-label="Subnet CIDR value from ' + MIN_SUBNET_CIDR + ' to ' + MAX_SUBNET_CIDR + '" aria-describedby="cidr-help"><button id="btn-calc-subnet" class="btn btn-accent btn-sm">Calculate</button></div>' +
+      '<div class="subnet-input-row"><label for="cidr-input">CIDR:</label><input id="cidr-input" class="cidr-input" type="number" min="' + MIN_SUBNET_CIDR + '" max="' + MAX_SUBNET_CIDR + '" value="24" aria-describedby="cidr-help"><button id="btn-calc-subnet" class="btn btn-accent btn-sm">Calculate</button></div>' +
       '<p id="cidr-help" class="text-muted" style="font-size:0.75rem;">Enter a subnet CIDR between /' + MIN_SUBNET_CIDR + ' and /' + MAX_SUBNET_CIDR + '.</p>' +
       '<div id="subnet-output" class="subnet-result-card"></div></div>';
 
@@ -566,6 +566,10 @@
       .replace(/'/g, '&#39;');
   }
 
+  function calculateCompletedDays(pctAnswered) {
+    return Math.min(STUDY_DAYS, Math.round((pctAnswered / 100) * STUDY_DAYS));
+  }
+
   function init() {
     bindNavigation();
     bindTimer();
@@ -589,6 +593,3 @@
     init();
   }
 })();
-  function calculateCompletedDays(pctAnswered) {
-    return Math.min(STUDY_DAYS, Math.round((pctAnswered / 100) * STUDY_DAYS));
-  }
