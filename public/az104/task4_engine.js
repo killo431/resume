@@ -17,6 +17,10 @@ function ytLink(topic) {
   return 'https://www.youtube.com/results?search_query=' + encodeURIComponent('AZ-104 ' + topic);
 }
 
+function quizletLink(topic) {
+  return 'https://quizlet.com/search?query=' + encodeURIComponent('AZ-104 ' + topic) + '&type=sets';
+}
+
 let _toastTimer = null;
 function showToast(msg) {
   let el = document.getElementById('app-toast');
@@ -582,7 +586,7 @@ function renderDayContent(dayKey, containerId) {
     }
     if (kp.quizlet && kp.quizlet.length) {
       html += `<div class="quizlet-card"><div class="session-name">📚 Review Topics</div><div class="quizlet-links">`;
-      kp.quizlet.forEach(t => { html += `<a class="quizlet-link" href="${escHtml(ytLink(t + ' AZ-104'))}" target="_blank" rel="noopener">${escHtml(t)}</a>`; });
+      kp.quizlet.forEach(t => { html += `<a class="quizlet-link" href="${escHtml(quizletLink(t))}" target="_blank" rel="noopener">${escHtml(t)}</a>`; });
       html += `</div></div>`;
     }
   }
