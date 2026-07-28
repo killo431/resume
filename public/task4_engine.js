@@ -237,13 +237,13 @@
         if (letter === question.correct) optionClass += ' correct';
         else if (letter === answered) optionClass += ' wrong';
       }
-      html += '<button class="' + optionClass + '" data-qid="' + question.id + '" data-letter="' + letter + '" ' + (isAnswered ? 'disabled aria-disabled="true"' : '') + '>';
+      html += '<button class="' + optionClass + '" data-qid="' + question.id + '" data-letter="' + letter + '" ' + (isAnswered ? 'disabled' : '') + '>';
       html += '<strong>' + letter + '.</strong> <span>' + escapeHtml(opt) + '</span>';
       html += '</button>';
     });
 
     html += '</div>';
-    html += '<div class="explanation-card ' + (isAnswered ? 'visible' : 'hidden') + '" aria-hidden="' + (!isAnswered) + '" aria-live="polite"><div class="explanation-content"><b>Explanation:</b> ' + escapeHtml(question.explanation || '') + '</div></div>';
+    html += '<div class="explanation-card ' + (isAnswered ? 'visible' : 'hidden') + '" aria-hidden="' + (!isAnswered) + '"><div class="explanation-content"><b>Explanation:</b> ' + escapeHtml(question.explanation || '') + '</div></div>';
 
     wrapper.innerHTML = html;
     return wrapper;
@@ -336,8 +336,8 @@
     var nav = document.createElement('div');
     nav.className = 'exam-submit-area';
     nav.innerHTML =
-      '<button class="btn btn-outline" data-nav="prev" ' + (mockState.index === 0 ? 'disabled aria-disabled="true"' : '') + '>Previous</button> ' +
-      '<button class="btn btn-accent" data-nav="next" ' + (mockState.index >= total - 1 ? 'disabled aria-disabled="true"' : '') + '>Next</button>';
+      '<button class="btn btn-outline" data-nav="prev" ' + (mockState.index === 0 ? 'disabled' : '') + '>Previous</button> ' +
+      '<button class="btn btn-accent" data-nav="next" ' + (mockState.index >= total - 1 ? 'disabled' : '') + '>Next</button>';
     body.appendChild(nav);
 
     var oldCards = section.querySelectorAll('.card, .question-card, .exam-submit-area, .empty-state');
