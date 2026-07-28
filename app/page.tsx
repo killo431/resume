@@ -505,6 +505,49 @@ PROJECT HIGHLIGHTS
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-blue-200">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Randy DeRego',
+              url: 'https://devtest512.info',
+              email: 'rderego@devtest512.info',
+              jobTitle: 'Systems Administrator',
+              description: 'Systems Administrator with 10 years of experience specializing in infrastructure management, automation, and IT operations.',
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Austin',
+                addressRegion: 'TX',
+                addressCountry: 'US',
+              },
+              sameAs: [
+                'https://github.com/killo431',
+                'https://www.linkedin.com/in/randysderego/',
+              ],
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Randy DeRego',
+              url: 'https://devtest512.info',
+              description: 'Portfolio and technical blog of Randy DeRego, Systems Administrator.',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://devtest512.info/blog?q={search_term_string}',
+                },
+                'query-input': 'required name=search_term_string',
+              },
+            },
+          ]),
+        }}
+      />
+
       {/* HEADER / NAVIGATION */}
       <header 
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
