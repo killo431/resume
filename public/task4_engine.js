@@ -4,10 +4,13 @@
 
   var STORAGE_KEY = 'az104_dashboard_state_v2';
   var LEGACY_STORAGE_KEY = 'az104_app_state';
-  var TIMER_START_SECONDS = 20 * 60;
-  var STUDY_DAYS = 14;
+  var TIMER_START_MINUTES = 20; // Focus-session timer length.
+  var TIMER_START_SECONDS = TIMER_START_MINUTES * 60;
+  var STUDY_DAYS = 14; // Total planned AZ-104 study schedule length.
   var MIN_SUBNET_CIDR = 16;
   var MAX_SUBNET_CIDR = 30;
+  var MAX_KEYWORD_CARDS = 28;
+  var AZURE_RESERVED_IPS = 5; // Azure reserves 5 IPs in each subnet.
   var timerHandle = null;
 
   var state = loadState();
@@ -428,7 +431,7 @@
     section.appendChild(container);
 
     var grid = container.querySelector('#keyword-grid');
-    unique.slice(0, 28).forEach(function (entry) {
+    unique.slice(0, MAX_KEYWORD_CARDS).forEach(function (entry) {
       var card = document.createElement('div');
       card.className = 'keyword-card';
       card.innerHTML = '<div class="keyword-front">' + escapeHtml(entry.front) + '</div><div class="keyword-back">' + escapeHtml(entry.back) + '</div>';
@@ -500,14 +503,14 @@
         cidr = Math.max(MIN_SUBNET_CIDR, Math.min(MAX_SUBNET_CIDR, cidr));
         var hostBits = 32 - cidr;
         var totalIps = Math.pow(2, hostBits);
-        var usable = Math.max(0, totalIps - 5);
+        var usable = Math.max(0, totalIps - AZURE_RESERVED_IPS);
         var output = byId('subnet-output');
         if (!output) return;
         output.innerHTML =
           '<div class="subnet-stat"><span class="stat-label">CIDR</span><span class="stat-value">/' + cidr + '</span></div>' +
           '<div class="subnet-stat"><span class="stat-label">Total IPs</span><span class="stat-value">' + totalIps + '</span></div>' +
           '<div class="subnet-stat"><span class="stat-label">Usable IPs</span><span class="stat-value">' + usable + '</span></div>' +
-          '<div class="subnet-stat"><span class="stat-label">Reserved</span><span class="stat-value">5</span></div>';
+          '<div class="subnet-stat"><span class="stat-label">Reserved</span><span class="stat-value">' + AZURE_RESERVED_IPS + '</span></div>';
       });
       calcBtn.click();
     }
@@ -541,8 +544,9 @@
     var wrongCount = answered - correct;
 
     if (overviewProgress) overviewProgress.textContent = pctAnswered + '%';
-    if (overviewProgress && overviewProgress.nextElementSibling) {
-      overviewProgress.nextElementSibling.textContent = Math.min(STUDY_DAYS, Math.round((pctAnswered / 100) * STUDY_DAYS)) + ' of ' + STUDY_DAYS + ' days completed';
+    var overviewProgressSubtext = document.querySelector('#overview-progress-value + .stat-sub');
+    if (overviewProgressSubtext) {
+      overviewProgressSubtext.textContent = Math.min(STUDY_DAYS, Math.round((pctAnswered / 100) * STUDY_DAYS)) + ' of ' + STUDY_DAYS + ' days completed';
     }
 
     if (overviewQuestions) overviewQuestions.textContent = String(answered);
