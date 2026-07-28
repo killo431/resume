@@ -510,6 +510,7 @@ function renderStudyBlock(block, blockId) {
   if (block.video && typeof block.video === 'object') { videoUrl = block.video.url; videoLabel = block.video.label || '▶ Watch'; }
   else if (typeof block.video === 'string') { videoUrl = block.video; videoLabel = '▶ Watch: ' + title; }
   const video = videoUrl ? `<a class="lab-link" href="${escHtml(videoUrl)}" target="_blank" rel="noopener">${escHtml(videoLabel)}</a>` : '';
+  const quizlet = `<a class="lab-link" href="${escHtml(quizletLink(title))}" target="_blank" rel="noopener">📚 Quizlet: ${escHtml(title)}</a>`;
   const points = (block.points || []).map(p => `<li class="keypoint-item">${escHtml(p)}</li>`).join('');
   const body = points ? `<div class="study-block-body"><ul class="keypoints-list">${points}</ul></div>` : '';
   return `
@@ -521,6 +522,7 @@ function renderStudyBlock(block, blockId) {
       <div class="study-block-meta">⏱ ${escHtml(durText)}</div>
       <div class="study-block-actions">
         ${video}
+        ${quizlet}
         <button class="mark-complete-btn${done ? ' completed' : ''}" data-block="${escHtml(blockId)}">
           ${done ? '✓ Completed' : 'Mark Complete'}
         </button>
