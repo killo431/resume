@@ -237,8 +237,10 @@
         if (letter === question.correct) optionClass += ' correct';
         else if (letter === answered) optionClass += ' wrong';
       }
+      // Strip leading letter prefix (e.g. "A. ", "B. ") from option text if present
+      var optText = String(opt || '').replace(/^[A-Z]\.\s*/, '');
       html += '<button class="' + optionClass + '" data-qid="' + question.id + '" data-letter="' + letter + '" ' + (isAnswered ? 'disabled aria-disabled="true"' : '') + '>';
-      html += '<strong>' + letter + '.</strong> <span>' + escapeHtml(opt) + '</span>';
+      html += '<strong>' + letter + '.</strong> <span>' + escapeHtml(optText) + '</span>';
       html += '</button>';
     });
 
