@@ -505,6 +505,49 @@ PROJECT HIGHLIGHTS
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-blue-200">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Randy DeRego',
+              url: 'https://devtest512.info',
+              email: 'rderego@devtest512.info',
+              jobTitle: 'Systems Administrator',
+              description: 'Systems Administrator with 10 years of experience specializing in infrastructure management, automation, and IT operations.',
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Austin',
+                addressRegion: 'TX',
+                addressCountry: 'US',
+              },
+              sameAs: [
+                'https://github.com/killo431',
+                'https://www.linkedin.com/in/randysderego/',
+              ],
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Randy DeRego',
+              url: 'https://devtest512.info',
+              description: 'Portfolio and technical blog of Randy DeRego, Systems Administrator.',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://devtest512.info/blog?q={search_term_string}',
+                },
+                'query-input': 'required name=search_term_string',
+              },
+            },
+          ]),
+        }}
+      />
+
       {/* HEADER / NAVIGATION */}
       <header 
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -523,6 +566,7 @@ PROJECT HIGHLIGHTS
             <button onClick={() => scrollToSection('projects')} className="hover:text-blue-600 transition-colors cursor-pointer">Projects</button>
             <button onClick={() => scrollToSection('experience')} className="hover:text-blue-600 transition-colors cursor-pointer">Experience</button>
             <button onClick={() => scrollToSection('education')} className="hover:text-blue-600 transition-colors cursor-pointer">Education</button>
+            <Link href="/az104" className="hover:text-blue-600 transition-colors">AZ-104</Link>
             <Link href="/blog" className="hover:text-blue-600 transition-colors">Blog</Link>
 
             {/* Download Resume Button */}
@@ -569,6 +613,7 @@ PROJECT HIGHLIGHTS
             <button onClick={() => scrollToSection('projects')} className="text-left py-2 text-slate-600 font-medium">Projects</button>
             <button onClick={() => scrollToSection('experience')} className="text-left py-2 text-slate-600 font-medium">Experience</button>
             <button onClick={() => scrollToSection('education')} className="text-left py-2 text-slate-600 font-medium">Education</button>
+            <Link href="/az104" className="text-left py-2 text-slate-600 font-medium">AZ-104</Link>
             <Link href="/blog" className="text-left py-2 text-slate-600 font-medium">Blog</Link>
             <button onClick={() => scrollToSection('contact')} className="text-left py-2 text-blue-600 font-medium">Contact Me</button>
           </div>

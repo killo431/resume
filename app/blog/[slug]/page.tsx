@@ -55,7 +55,38 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const readingTime = Math.ceil(wordCount / 200);
   const mdxComponents = getMDXComponents({});
 
+  const BASE_URL = 'https://devtest512.info';
+  const postSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    url: `${BASE_URL}/blog/${post.slug}`,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+      url: BASE_URL,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Randy DeRego',
+      url: BASE_URL,
+    },
+    keywords: post.tags.join(', '),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${BASE_URL}/blog/${post.slug}`,
+    },
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(postSchema) }}
+      />
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
       <header className="bg-white border-b border-slate-200">
@@ -149,5 +180,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </footer>
       </article>
     </div>
+    </>
   );
 }
