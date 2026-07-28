@@ -193,11 +193,6 @@ export default function PortfolioPage() {
   // Dark mode state
   const [darkMode, setDarkMode] = useState(false);
 
-  // Contact form state
-  const [contactForm, setContactForm] = useState({ name: '', email: '', company: '', message: '' });
-  const [contactFormSubmitting, setContactFormSubmitting] = useState(false);
-  const [contactFormSuccess, setContactFormSuccess] = useState(false);
-
   // Research chat state
   const [researchChatOpen, setResearchChatOpen] = useState(false);
   const [researchQuery, setResearchQuery] = useState("");
@@ -357,24 +352,6 @@ Remember: You're having a real conversation, not filling out a form or reading a
     setChatMessages([initialMessage]);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('chatHistory');
-    }
-  };
-
-  // Contact form handler
-  const handleContactFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setContactFormSubmitting(true);
-
-    try {
-      // Simulate form submission - in production, integrate with email service
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setContactFormSuccess(true);
-      setContactForm({ name: '', email: '', company: '', message: '' });
-      setTimeout(() => setContactFormSuccess(false), 5000);
-    } catch (error) {
-      console.error('Form submission error:', error);
-    } finally {
-      setContactFormSubmitting(false);
     }
   };
 
@@ -1226,67 +1203,6 @@ PROJECT HIGHLIGHTS
               </a>
             </div>
 
-            {/* Contact Form */}
-            <div className="max-w-xl mx-auto mt-12">
-              <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
-              {contactFormSuccess ? (
-                <div className="bg-green-500/20 border border-green-500/50 text-green-100 p-4 rounded-xl mb-6">
-                  Thank you! Your message has been sent successfully.
-                </div>
-              ) : null}
-              <form onSubmit={handleContactFormSubmit} className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    value={contactForm.name}
-                    onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                    required
-                    className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    value={contactForm.email}
-                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                    required
-                    className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Company (Optional)"
-                  value={contactForm.company}
-                  onChange={(e) => setContactForm({ ...contactForm, company: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <textarea
-                  placeholder="Your Message"
-                  value={contactForm.message}
-                  onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                  required
-                  rows={4}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                ></textarea>
-                <button
-                  type="submit"
-                  disabled={contactFormSubmitting}
-                  className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:opacity-50 text-white font-medium rounded-xl transition-colors flex items-center justify-center gap-2"
-                >
-                  {contactFormSubmitting ? (
-                    <>
-                      <Loader2 size={18} className="animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send size={18} />
-                      Send Message
-                    </>
-                  )}
-                </button>
-              </form>
-            </div>
           </div>
         </section>
       </main>
