@@ -2,7 +2,7 @@
 
 ## Current Situation
 ```
-❌ Randal.devtest512.info
+❌ Randy.devtest512.info
    - Capital letter in subdomain (unusual)
    - Generic subdomain name
    - Could be clearer
@@ -34,12 +34,12 @@ Since you already own **devtest512.info**, you can simplify without buying a new
 **Setup Time:** 15 minutes (DNS change + Vercel update)
 
 **Steps:**
-1. Update DNS record from `Randal` to `resume`
+1. Update DNS record from `Randy` to `resume`
 2. Update Vercel domain setting
 3. Done!
 
 **Alternative subdomains:**
-- `randal.devtest512.info` - Personal branding (lowercase)
+- `randy.devtest512.info` - Personal branding (lowercase)
 - `portfolio.devtest512.info` - Professional focus
 - `www.devtest512.info` - Classic approach
 
@@ -76,7 +76,7 @@ Since you already own **devtest512.info**, you can simplify without buying a new
 
 ### Option 3: Free Vercel Subdomain (BACKUP) ⭐
 ```
-✅ randal-resume.vercel.app
+✅ randy-resume.vercel.app
 ```
 
 **Pros:**
@@ -96,15 +96,15 @@ Since you already own **devtest512.info**, you can simplify without buying a new
 
 **Steps:**
 1. Login to Vercel
-2. Change project name to `randal-resume`
+2. Change project name to `randy-resume`
 3. Done!
 
 ---
 
 ### Option 4: Buy New Premium Domain (FUTURE UPGRADE) ⭐⭐⭐⭐⭐
 ```
-✅ randal.dev
-✅ randalderego.com
+✅ randy.dev
+✅ randyderego.com
 ```
 
 **Pros:**
@@ -131,11 +131,11 @@ Since you already own **devtest512.info**, you can simplify without buying a new
 
 | Option | URL | Cost | Setup Time | Professional | Memorable |
 |--------|-----|------|------------|--------------|-----------|
-| **Current** | Randal.devtest512.info | $0 | N/A | ⭐⭐ | ⭐⭐ |
+| **Current** | Randy.devtest512.info | $0 | N/A | ⭐⭐ | ⭐⭐ |
 | **Option 1** | resume.devtest512.info | FREE | 15 min | ⭐⭐⭐ | ⭐⭐⭐ |
 | **Option 2** | devtest512.info | FREE | 15 min | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| **Option 3** | randal-resume.vercel.app | FREE | 2 min | ⭐⭐ | ⭐⭐ |
-| **Option 4** | randal.dev | $20-30/yr | 30 min | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Option 3** | randy-resume.vercel.app | FREE | 2 min | ⭐⭐ | ⭐⭐ |
+| **Option 4** | randy.dev | $20-30/yr | 30 min | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
 
 ---
 
@@ -164,7 +164,7 @@ resume.devtest512.info
 ## URL Length Comparison
 
 ```
-Current:  Randal.devtest512.info          [24 characters]
+Current:  Randy.devtest512.info          [24 characters]
           ████████████████████████
 
 Option 1: resume.devtest512.info          [24 characters]
@@ -173,10 +173,10 @@ Option 1: resume.devtest512.info          [24 characters]
 Option 2: devtest512.info                 [17 characters] ⭐
           █████████████████
 
-Option 3: randal-resume.vercel.app        [26 characters]
+Option 3: randy-resume.vercel.app        [26 characters]
           ██████████████████████████
 
-Option 4: randal.dev                      [10 characters] ⭐⭐
+Option 4: randy.dev                      [10 characters] ⭐⭐
           ██████████
 ```
 
@@ -242,10 +242,10 @@ A: No, the site stays online. Just update DNS and add the new domain in Vercel.
 **Q: Do I need to change any code?**
 A: No! All changes are in Vercel dashboard and DNS only.
 
-**Q: What about the capital R in Randal?**
+**Q: What about the capital R in Randy?**
 A: Subdomains are case-insensitive, but lowercase is the standard convention and looks cleaner.
 
-**Q: Should I buy a new domain like randal.dev?**
+**Q: Should I buy a new domain like randy.dev?**
 A: Only if you want a shorter, more professional URL without "devtest512". Your existing domain works great for free!
 
 ---
@@ -262,7 +262,7 @@ Do you want to spend money on a new domain?
 │        └─ Want clear purpose? → Option 1: resume.devtest512.info
 │                                  (15 minutes, FREE)
 │
-└─ Yes → Option 4: Buy randal.dev or randalderego.com
+└─ Yes → Option 4: Buy randy.dev or randyderego.com
          (30 minutes, $20-30/year)
 ```
 

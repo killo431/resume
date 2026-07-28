@@ -2,11 +2,11 @@
 
 ## Overview
 
-This PR provides comprehensive guidance and configuration for simplifying the website URL from `Randal.devtest512.info` to a cleaner, more professional alternative. Since you already own **devtest512.info**, you have FREE options to simplify without purchasing a new domain.
+This PR provides comprehensive guidance and configuration for simplifying the website URL from `Randy.devtest512.info` to a cleaner, more professional alternative. Since you already own **devtest512.info**, you have FREE options to simplify without purchasing a new domain.
 
 ## Key Finding
 
-✅ **No code changes required** - The domain `Randal.devtest512.info` is not hardcoded anywhere in the application. All URL management is handled through Vercel's dashboard and DNS configuration.
+✅ **No code changes required** - The domain `Randy.devtest512.info` is not hardcoded anywhere in the application. All URL management is handled through Vercel's dashboard and DNS configuration.
 
 ✅ **You own devtest512.info** - You can use the root domain or a cleaner subdomain at no additional cost!
 
@@ -18,7 +18,7 @@ This PR provides comprehensive guidance and configuration for simplifying the we
 - Fast-track guide for immediate URL simplification
 - Focus on free Vercel subdomain option
 - Takes 2 minutes to implement
-- Recommended first step: `randal-resume.vercel.app`
+- Recommended first step: `randy-resume.vercel.app`
 
 #### `DOMAIN_SETUP.md` (Comprehensive Guide)
 - Detailed step-by-step instructions for all domain scenarios
@@ -67,7 +67,7 @@ Since you already own **devtest512.info**, here are your FREE options:
 - **Best for:** Shortest URL with your domain
 
 ### 🏆 Option 2: Cleaner Subdomain (Great)
-- **URL:** `resume.devtest512.info` or `randal.devtest512.info`
+- **URL:** `resume.devtest512.info` or `randy.devtest512.info`
 - **Cost:** FREE (you already own it)
 - **Setup Time:** 15 minutes
 - **Best for:** Clear purpose, keeps root domain available
@@ -75,13 +75,13 @@ Since you already own **devtest512.info**, here are your FREE options:
 ### Alternative Options
 
 **Option 3: Free Vercel Subdomain**
-- **URL:** `randal-resume.vercel.app`
+- **URL:** `randy-resume.vercel.app`
 - **Cost:** FREE
 - **Setup Time:** 2 minutes
 - **Best for:** Quick backup option
 
 **Option 4: Buy Premium Domain (Future)**
-- **URL:** `randal.dev` or `randalderego.com`
+- **URL:** `randy.dev` or `randyderego.com`
 - **Cost:** $10-30/year
 - **Setup Time:** 30 minutes
 - **Best for:** If you want a shorter URL without "devtest512"
@@ -95,24 +95,24 @@ Since you already own **devtest512.info**, here are your FREE options:
 2. Add DNS CNAME: `www` → `cname.vercel-dns.com`
 3. Add domains in Vercel: `devtest512.info` and `www.devtest512.info`
 4. Set primary domain
-5. Remove `Randal.devtest512.info`
+5. Remove `Randy.devtest512.info`
 
 **Result:** `devtest512.info` - Shortest URL with your domain
 
 **Option B: Cleaner Subdomain (Clear Purpose)**
-1. Update DNS CNAME: `resume` → `cname.vercel-dns.com` (or change existing `Randal` record)
+1. Update DNS CNAME: `resume` → `cname.vercel-dns.com` (or change existing `Randy` record)
 2. Add domain in Vercel: `resume.devtest512.info`
 3. Set as primary (optional)
-4. Remove `Randal.devtest512.info`
+4. Remove `Randy.devtest512.info`
 
 **Result:** `resume.devtest512.info` - Clear and professional
 
 ### Alternative: Quick Vercel Subdomain (2 minutes)
-1. Change Vercel project name to `randal-resume`
-2. New URL: `randal-resume.vercel.app`
+1. Change Vercel project name to `randy-resume`
+2. New URL: `randy-resume.vercel.app`
 
 ### Future: Premium Domain Upgrade (Optional)
-1. Purchase `randal.dev` or similar
+1. Purchase `randy.dev` or similar
 2. Configure DNS and Vercel
 3. Keep `devtest512.info` for other projects
 
@@ -198,7 +198,7 @@ Value: cname.vercel-dns.com
 - ✅ Personal branding
 - ✅ Better for resume/portfolio
 - ✅ Memorable URL for networking
-- ✅ Custom email possible (e.g., contact@randal.dev)
+- ✅ Custom email possible (e.g., contact@randy.dev)
 - ✅ Full ownership and control
 
 ## Support Resources
@@ -213,8 +213,8 @@ All documentation includes:
 
 ## Conclusion
 
-This PR provides everything needed to simplify the website URL from `Randal.devtest512.info` to a professional alternative. The solution is flexible, well-documented, and requires no code changes - only Vercel dashboard and DNS configuration.
+This PR provides everything needed to simplify the website URL from `Randy.devtest512.info` to a professional alternative. The solution is flexible, well-documented, and requires no code changes - only Vercel dashboard and DNS configuration.
 
-**Recommended immediate action:** Follow [QUICK_URL_SETUP.md](./QUICK_URL_SETUP.md) to change to `randal-resume.vercel.app` (takes 2 minutes, free).
+**Recommended immediate action:** Follow [QUICK_URL_SETUP.md](./QUICK_URL_SETUP.md) to change to `randy-resume.vercel.app` (takes 2 minutes, free).
 
-**Recommended follow-up:** Purchase `randal.dev` and follow [DOMAIN_SETUP.md](./DOMAIN_SETUP.md) for maximum professionalism.
+**Recommended follow-up:** Purchase `randy.dev` and follow [DOMAIN_SETUP.md](./DOMAIN_SETUP.md) for maximum professionalism.

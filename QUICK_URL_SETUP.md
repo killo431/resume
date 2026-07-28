@@ -1,25 +1,25 @@
 # Quick Start: Simplify Your URL
 
-Since you already own **devtest512.info**, here are your best options to simplify from `Randal.devtest512.info`:
+Since you already own **devtest512.info**, here are your best options to simplify from `Randy.devtest512.info`:
 
 ## Option 1: Simplify Subdomain (Recommended) ⭐
 
 Use a cleaner subdomain on your existing domain:
 
-**Current:** `Randal.devtest512.info`
-**New:** `resume.devtest512.info` or `randal.devtest512.info` (lowercase)
+**Current:** `Randy.devtest512.info`
+**New:** `resume.devtest512.info` or `randy.devtest512.info` (lowercase)
 
 ### Steps:
 1. **Update DNS at your domain registrar:**
    - Go to your DNS management for `devtest512.info`
-   - Find the existing record for `Randal` subdomain
+   - Find the existing record for `Randy` subdomain
    - Either:
-     - Change `Randal` to `resume` or `randal` (lowercase)
+     - Change `Randy` to `resume` or `randy` (lowercase)
      - Or add a new CNAME record for your preferred subdomain
 
 2. **Update in Vercel Dashboard:**
    - Settings → Domains
-   - Remove `Randal.devtest512.info`
+   - Remove `Randy.devtest512.info`
    - Add `resume.devtest512.info` (or your chosen subdomain)
    - Vercel will provide the CNAME target value
 
@@ -33,7 +33,7 @@ Use a cleaner subdomain on your existing domain:
 
 **Better subdomain options:**
 - `resume.devtest512.info` - Clear purpose
-- `randal.devtest512.info` - Lowercase (cleaner)
+- `randy.devtest512.info` - Lowercase (cleaner)
 - `portfolio.devtest512.info` - Professional
 - `www.devtest512.info` - Use root domain
 
@@ -72,10 +72,10 @@ If DNS changes are difficult, use a free Vercel subdomain:
 
 1. **Go to Vercel Dashboard:**
    - Settings → General → Project Name
-   - Change to: `randal-resume`
+   - Change to: `randy-resume`
 
 2. **Your new URL will be:**
-   - `randal-resume.vercel.app`
+   - `randy-resume.vercel.app`
 
 3. **Keep devtest512.info as well (optional):**
    - You can have both domains pointing to the same site
@@ -86,10 +86,10 @@ If DNS changes are difficult, use a free Vercel subdomain:
 
 | Option | URL | Professional | Setup Time |
 |--------|-----|--------------|------------|
-| **Current** | Randal.devtest512.info | ⭐⭐ | - |
+| **Current** | Randy.devtest512.info | ⭐⭐ | - |
 | **Option 1** | resume.devtest512.info | ⭐⭐⭐ | 15 min |
 | **Option 2** | devtest512.info | ⭐⭐⭐⭐ | 15 min |
-| **Option 3** | randal-resume.vercel.app | ⭐⭐ | 2 min |
+| **Option 3** | randy-resume.vercel.app | ⭐⭐ | 2 min |
 
 **Recommended:** Option 1 (`resume.devtest512.info`) or Option 2 (`devtest512.info` root)
 

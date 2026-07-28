@@ -1,6 +1,6 @@
 # Blog Infrastructure Documentation
 
-This document explains the MDX blog infrastructure implemented for the Randal Derego portfolio website.
+This document explains the MDX blog infrastructure implemented for the Randy DeRego portfolio website.
 
 ## Overview
 
@@ -45,7 +45,7 @@ Each blog post is an MDX file with frontmatter:
 ---
 title: "Your Blog Post Title"
 date: "2026-03-08"
-author: "Randal Derego"
+author: "Randy DeRego"
 excerpt: "Brief description for listing page"
 tags: ["Tag1", "Tag2", "Tag3"]
 ---

@@ -54,14 +54,14 @@ const callGeminiAPI = async (prompt: string, systemInstruction: string = "") => 
   }
 };
 
-const resumeContext = `Randal Derego is a Systems Administrator with 10 years of experience.
+const resumeContext = `Randy DeRego is a Systems Administrator with 10 years of experience.
 Skills: VMware ESXi, Hyper-V, vSphere, TCP/IP, DNS, DHCP, VLANs, VPN, Cisco Switches, Active Directory, Group Policy, Exchange, Microsoft 365, Azure, AWS, Data Governance, Patch Management, PowerShell, Bash, VBA, Java, SQL, Python, AI Studio, LM Studio, VLLM, Ollama, NinjaOneRMM.
 Experience: 
 - Systems Administrator at TEAMLOGIC IT (Nov 2021-Sept 2025): Managed servers, automation scripts.
 - Help Desk at SAMSUNG (Jan 2019-Nov 2021): System setups, hardware deployment.
 - Tech Support at EAGLE EYE NETWORKS (Feb 2017-Jan 2019): Linux-based cloud video surveillance, CLI troubleshooting.
 Education: B.S. in Computer Science (Western Governors University), CompTIA A+.
-Contact: randalrd92@gmail.com, 512-653-0052, Austin, TX.`;
+Contact: randyrd92@gmail.com, 512-653-0052, Austin, TX.`;
 
 const renderFormattedText = (text: string) => {
   return text.split('\n').map((line, i) => (
@@ -87,7 +87,7 @@ export default function PortfolioPage() {
 
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
-    { role: 'model', text: "Hi! I'm Randal's AI Assistant. Ask me anything about his IT infrastructure experience, skills, or projects!" }
+    { role: 'model', text: "Hi! I'm Randy's AI Assistant. Ask me anything about his IT infrastructure experience, skills, or projects!" }
   ]);
   const [chatInput, setChatInput] = useState("");
   const [isChatting, setIsChatting] = useState(false);
@@ -104,9 +104,9 @@ export default function PortfolioPage() {
     setIsAnalyzing(true);
     setAnalyzerResult("");
     
-    const sysPrompt = "You are an expert IT recruiter AI assistant embedded in Randal Derego's portfolio. Your job is to analyze the provided Job Description against Randal's resume and generate a customized pitch on why he is a strong fit. Highlight overlapping skills. Be enthusiastic and professional. Format with **bold** for emphasis, but keep it concise (under 200 words).";
+    const sysPrompt = "You are an expert IT recruiter AI assistant embedded in Randy DeRego's portfolio. Your job is to analyze the provided Job Description against Randy's resume and generate a customized pitch on why he is a strong fit. Highlight overlapping skills. Be enthusiastic and professional. Format with **bold** for emphasis, but keep it concise (under 200 words).";
     
-    const prompt = `Here is Randal's Resume Context:\n${resumeContext}\n\nHere is the target Job Description:\n${jobDescription}\n\nPlease analyze the fit.`;
+    const prompt = `Here is Randy's Resume Context:\n${resumeContext}\n\nHere is the target Job Description:\n${jobDescription}\n\nPlease analyze the fit.`;
     
     const result = await callGeminiAPI(prompt, sysPrompt);
     setAnalyzerResult(result as string);
@@ -121,7 +121,7 @@ export default function PortfolioPage() {
     setChatInput("");
     setIsChatting(true);
 
-    const sysPrompt = `You are Randal Derego's AI career assistant, answering questions for recruiters and hiring managers. Base your answers strictly on this context: ${resumeContext}. If asked something outside this scope, politely pivot back to his IT skills. Be conversational, professional, and confident. Keep answers under 100 words.`;
+    const sysPrompt = `You are Randy DeRego's AI career assistant, answering questions for recruiters and hiring managers. Base your answers strictly on this context: ${resumeContext}. If asked something outside this scope, politely pivot back to his IT skills. Be conversational, professional, and confident. Keep answers under 100 words.`;
     
     // Format chat history for prompt
     const conversationHistory = chatMessages.map(m => `${m.role === 'user' ? 'Recruiter' : 'AI Assistant'}: ${m.text}`).join('\n');
@@ -160,7 +160,7 @@ export default function PortfolioPage() {
       >
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <div className="text-xl font-bold tracking-tight text-slate-900">
-            Randal<span className="text-blue-600">Derego</span>
+            Randy<span className="text-blue-600">Derego</span>
           </div>
           
           {/* Desktop Nav */}
@@ -455,11 +455,11 @@ export default function PortfolioPage() {
             </p>
             
             <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-              <a href="mailto:randalrd92@gmail.com" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+              <a href="mailto:randyrd92@gmail.com" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
                 <Mail className="text-blue-400" size={28} />
                 <div>
                   <div className="text-sm text-slate-400 mb-1">Email</div>
-                  <div className="font-medium">randalrd92@gmail.com</div>
+                  <div className="font-medium">randyrd92@gmail.com</div>
                 </div>
               </a>
               
@@ -559,7 +559,7 @@ export default function PortfolioPage() {
                   <Bot size={20} className="text-white" />
                 </div>
                 <div>
-                  <div className="font-bold text-sm">Randal&apos;s AI Assistant ✨</div>
+                  <div className="font-bold text-sm">Randy&apos;s AI Assistant ✨</div>
                   <div className="text-xs text-blue-200 flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse"></span> Online
                   </div>
@@ -643,7 +643,7 @@ export default function PortfolioPage() {
 
       {/* FOOTER */}
       <footer className="bg-slate-950 text-slate-500 py-8 text-center text-sm border-t border-white/10">
-        <p>© {new Date().getFullYear()} Randal Derego. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Randy DeRego. All rights reserved.</p>
       </footer>
     </div>
   );

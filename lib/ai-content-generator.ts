@@ -44,8 +44,8 @@ export async function generateBlogPost(
     long: '2000-3000',
   };
 
-  const systemInstruction = `You are a technical writer creating blog content for Randal Derego's professional portfolio.
-Randal is a Systems Administrator with 10 years of experience in IT infrastructure, virtualization, automation, and cloud technologies.
+  const systemInstruction = `You are a technical writer creating blog content for Randy DeRego's professional portfolio.
+Randy is a Systems Administrator with 10 years of experience in IT infrastructure, virtualization, automation, and cloud technologies.
 
 Your task is to write high-quality technical blog posts that:
 - Demonstrate expertise and practical knowledge
@@ -113,7 +113,7 @@ Make the content authentic, technical, and based on real systems administration 
       frontmatter: {
         title,
         date: new Date().toISOString().split('T')[0],
-        author: 'Randal Derego',
+        author: 'Randy DeRego',
         excerpt,
         tags: tags.length > 0 ? tags : ['IT', 'Infrastructure'],
       },

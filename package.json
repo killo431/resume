@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:name": "if grep -R \"Randal DeRego\" . --exclude-dir=node_modules --exclude-dir=.git; then echo \"Found banned name\"; exit 1; else echo \"OK\"; fi"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
