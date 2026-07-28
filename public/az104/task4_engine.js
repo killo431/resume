@@ -678,7 +678,7 @@ function renderQuestionCard(q, domainKey, index) {
 
   const header = document.createElement('div');
   header.className = 'question-header';
-  header.innerHTML = `<span class="topic-summary">${escHtml(q.scenarioTag || '')}</span><span>Q${index + 1}</span>`;
+  header.innerHTML = `<span class="topic-summary"><button class="reveal-topic-btn" onclick="this.style.display='none';this.nextElementSibling.style.display='inline'">&#9658; Reveal</button><span class="topic-hidden">${escHtml(q.scenarioTag || '')}</span></span><span>Q${index + 1}</span>`;
   card.appendChild(header);
 
   const qtext = document.createElement('div');
