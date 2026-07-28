@@ -3,91 +3,777 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AZ-104 Study App | Randy DeRego</title>
-  <meta name="description" content="Practice exam and study guide for Microsoft Azure Administrator (AZ-104) certification." />
+  <title>AZ-104 Master Dashboard | Randy DeRego</title>
+  <meta name="description" content="14-Day AZ-104 Microsoft Azure Administrator master study dashboard with timer, practice exams, keyword drills, and CLI reference." />
   <link rel="icon" href="/favicon.ico" />
-
-  <!-- AZ-104 app styles — scoped to #az104-app, no global side effects -->
-  <link rel="stylesheet" href="/az104/styles.css" />
-
   <style>
-    /* Page chrome only — minimal, non-conflicting */
+    :root {
+      --bg: #0f1117;
+      --bg2: #161822;
+      --bg3: #1c1f2e;
+      --border: #2a2d3e;
+      --text: #e0e0e6;
+      --text-muted: #94a3b8;
+      --accent: #6c8cff;
+      --accent-hover: #5275ed;
+      --green: #4ade80;
+      --green-bg: rgba(74, 222, 128, 0.1);
+      --orange: #fb923c;
+      --red: #f87171;
+      --red-bg: rgba(248, 113, 113, 0.1);
+      --cyan: #22d3ee;
+      --purple: #a78bfa;
+      --yellow: #facc15;
+      --sidebar-width: 310px;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f8fafc;
-      color: #1e293b;
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Sticky top nav bar */
-    .site-header {
-      background: #fff;
-      border-bottom: 1px solid #e2e8f0;
-      padding: 0.875rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      position: sticky;
+    a { color: var(--accent); }
+
+    /* ---------- Sidebar ---------- */
+    .sidebar {
+      position: fixed;
       top: 0;
-      z-index: 200;
-    }
-    .site-header__brand {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: #1e293b;
-      text-decoration: none;
-    }
-    .site-header__brand span { color: #2563eb; }
-    .site-header__nav {
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 1.5rem 0;
       display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      font-size: 0.875rem;
+      flex-direction: column;
+      z-index: 100;
     }
-    .site-header__nav a {
-      color: #475569;
+    .sidebar-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 0 1.5rem 1rem;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    /* ---------- Timer HUD ---------- */
+    .timer-hud {
+      margin: 0 1.5rem 1.25rem;
+      padding: 1rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+    }
+    #timer-display {
+      font-size: 2.4rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+    }
+    #timer-mode {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+    .timer-btns {
+      display: flex;
+      gap: 0.4rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- Progress ---------- */
+    .progress-section { padding: 0 1.5rem 1.25rem; }
+    .progress-bar-wrap {
+      height: 10px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+    .progress-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      text-align: right;
+    }
+
+    /* ---------- Navigation ---------- */
+    .sidebar-nav { display: flex; flex-direction: column; gap: 2px; padding: 0 0.75rem; }
+    .nav-item {
+      display: block;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      color: var(--text-muted);
       text-decoration: none;
-      font-weight: 500;
-      transition: color 0.15s;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
     }
-    .site-header__nav a:hover,
-    .site-header__nav a[aria-current="page"] {
-      color: #2563eb;
+    .nav-item:hover { background: var(--bg3); color: var(--text); }
+    .nav-item.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
     }
-    .site-header__nav a[aria-current="page"] {
+
+    /* ---------- Main ---------- */
+    .main-viewport {
+      margin-left: var(--sidebar-width);
+      min-height: 100vh;
+      background: var(--bg);
+      padding: 2rem;
+    }
+    .view-section { display: none; animation: fade 0.3s ease; }
+    .view-section.active { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .page-title { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .page-subtitle { color: var(--text-muted); margin-bottom: 1.5rem; }
+    .section-heading {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ---------- Stats ---------- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .stat-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .stat-number { font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    /* ---------- Domain link cards ---------- */
+    .domain-link-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .domain-link-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      cursor: pointer;
+      font-weight: 700;
+      line-height: 1.7;
+      transition: transform 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .domain-link-card span { color: var(--cyan); font-weight: 500; font-size: 0.9rem; }
+    .domain-link-card small { color: var(--text-muted); font-weight: 500; }
+    .domain-link-card:hover { transform: translateY(-3px); border-color: var(--accent); background: var(--bg3); }
+
+    /* ---------- Day tabs ---------- */
+    .day-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .day-tab {
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+    .day-tab:hover { color: var(--text); border-color: var(--accent); }
+    .day-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+
+    .domain-content { display: block; }
+
+    /* ---------- Cards ---------- */
+    .card, .session-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .session-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--cyan);
+    }
+
+    /* ---------- Study blocks ---------- */
+    .study-block {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+    }
+    .study-block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .study-block-body { color: var(--text-muted); font-size: 0.9rem; }
+    .study-block-body ul { margin: 0.4rem 0 0.4rem 1.1rem; }
+    .study-block-meta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+    .study-block-actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; align-items: center; }
+    .stop-badge {
+      display: inline-block;
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
       font-weight: 700;
     }
 
-    /* App content area */
-    #az104-app {
-      /* styles.css handles everything inside */
+    .break-block {
+      background: var(--green-bg);
+      border: 1px dashed var(--green);
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      margin-bottom: 0.85rem;
+      color: var(--green);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* ---------- Mark complete ---------- */
+    .mark-complete-btn {
+      background: transparent;
+      border: 1px solid var(--green);
+      color: var(--green);
+      padding: 0.35rem 0.7rem;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .mark-complete-btn:hover { background: var(--green-bg); }
+    .mark-complete-btn.completed { background: var(--green); color: #06210f; border-color: var(--green); }
+
+    /* ---------- Lab / CLI ---------- */
+    .lab-card {
+      background: var(--bg2);
+      border: 1px solid var(--purple);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .lab-link {
+      display: inline-block;
+      color: var(--purple);
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+    }
+    .lab-link:hover { text-decoration: underline; }
+    .cli-block {
+      position: relative;
+      background: #0a0c12;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 0.9rem;
+      margin: 0.5rem 0;
+      overflow-x: auto;
+    }
+    .cli-command {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.82rem;
+      color: var(--cyan);
+      white-space: pre;
+    }
+
+    /* ---------- Key points ---------- */
+    .keypoints-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .keypoints-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .keypoint-item {
+      background: var(--bg3);
+      border-left: 3px solid var(--yellow);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+    }
+
+    /* ---------- Cheat sheet (per-day) ---------- */
+    .cheatsheet-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .cheatsheet-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .cheatsheet-table td { padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .cheat-cmd {
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      color: var(--cyan);
+      white-space: nowrap;
+    }
+    .cheat-desc { color: var(--text-muted); }
+
+    /* ---------- Quizlet ---------- */
+    .quizlet-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .quizlet-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .quizlet-link {
+      display: inline-block;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+    .quizlet-link:hover { border-color: var(--accent); background: var(--bg); }
+
+    /* ---------- Exam ---------- */
+    .exam-container { display: flex; flex-direction: column; gap: 1rem; }
+    .question-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .question-text { font-weight: 600; margin-bottom: 0.9rem; }
+    .options-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .option-btn {
+      text-align: left;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.7rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.15s;
+    }
+    .option-btn:hover { border-color: var(--accent); }
+    .option-btn.correct { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+    .option-btn.wrong { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+    .option-btn.disabled { cursor: default; opacity: 0.85; }
+
+    .explanation-card {
+      margin-top: 0.9rem;
+      padding: 0.9rem 1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+    }
+    .explanation-card.correct { border-color: var(--green); background: var(--green-bg); }
+    .explanation-card.wrong { border-color: var(--red); background: var(--red-bg); }
+
+    .exam-submit-area {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .submit-quiz-btn {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .submit-quiz-btn:hover { background: var(--accent-hover); }
+
+    /* ---------- Grade report ---------- */
+    .grade-report {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+    .grade-score { font-size: 2.6rem; font-weight: 800; }
+    .grade-pass { color: var(--green); }
+    .grade-warn { color: var(--orange); }
+    .grade-fail { color: var(--red); }
+
+    .missed-section { margin-top: 1.25rem; text-align: left; }
+    .missed-item {
+      background: var(--bg3);
+      border-left: 3px solid var(--red);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.88rem;
+    }
+    .missed-video-link { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .missed-video-link:hover { text-decoration: underline; }
+    .topic-summary { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.75rem; }
+
+    /* ---------- Study guide ---------- */
+    .study-guide { display: flex; flex-direction: column; gap: 1rem; }
+    .sg-section {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .sg-heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 0.75rem;
+    }
+    .sg-content { font-size: 0.9rem; color: var(--text); }
+    .sg-content ul { margin: 0.4rem 0 0.4rem 1.2rem; }
+    .sg-content li { margin-bottom: 0.35rem; }
+    .sg-content b { color: var(--text); }
+
+    /* ---------- Keyword grid ---------- */
+    .keyword-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .keyword-card {
+      position: relative;
+      min-height: 120px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .keyword-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .keyword-card.flipped { border-color: var(--cyan); background: var(--bg3); }
+    .keyword-front { font-weight: 700; font-size: 0.98rem; }
+    .keyword-back { font-size: 0.82rem; color: var(--text-muted); display: none; }
+    .keyword-card.flipped .keyword-front { display: none; }
+    .keyword-card.flipped .keyword-back { display: block; }
+
+    /* ---------- Error / weakness log ---------- */
+    .error-log-entry {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--red);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+    }
+    .error-scenario-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--orange);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .error-question { font-weight: 600; margin-bottom: 0.4rem; }
+    .error-correct { font-size: 0.85rem; color: var(--green); }
+    .error-log-empty {
+      background: var(--bg2);
+      border: 1px dashed var(--green);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--green);
+    }
+
+    /* ---------- Cheat table (CLI reference) ---------- */
+    .cheat-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    .cheat-table th, .cheat-table td {
+      padding: 0.5rem 0.7rem;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+    .cheat-table th { background: var(--bg3); color: var(--cyan); }
+    .cheat-category {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin: 1.5rem 0 0.75rem;
+    }
+    .code-block {
+      position: relative;
+      background: #0a0c12;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 0.85rem;
+      overflow-x: auto;
+    }
+    .code-block pre {
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.82rem;
+      color: var(--cyan);
+      white-space: pre;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      cursor: pointer;
+    }
+    .copy-btn:hover { color: var(--text); border-color: var(--accent); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-block;
+      border: none;
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-accent:hover { background: var(--accent-hover); }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-danger { background: var(--red); color: #2a0808; }
+    .btn-danger:hover { opacity: 0.9; }
+    .btn-sm { padding: 0.35rem 0.65rem; font-size: 0.75rem; }
+
+    /* ---------- Toast ---------- */
+    .toast-notification {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--bg3);
+      border: 1px solid var(--accent);
+      color: var(--text);
+      padding: 0.9rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 500;
+    }
+    .toast-notification.show { opacity: 1; transform: translateY(0); }
+
+    /* ---------- Callout ---------- */
+    .callout {
+      padding: 0.9rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      font-size: 0.88rem;
+      margin: 0.75rem 0;
+    }
+    .callout.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+    .callout.wrong { border-color: var(--red); background: var(--red-bg); color: var(--red); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 960px) {
+      :root { --sidebar-width: 260px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 0;
+      }
+      .main-viewport { margin-left: 0; padding: 1.25rem; }
+      .sidebar-nav { flex-direction: row; flex-wrap: wrap; }
+      .nav-item { flex: 1 1 auto; text-align: center; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">AZ-104 Master Dashboard</div>
 
-  <!-- Site navigation (matches main site style without importing global CSS) -->
-  <header class="site-header">
-    <a href="/" class="site-header__brand">Randy<span>DeRego</span></a>
-    <nav class="site-header__nav" aria-label="Main">
-      <a href="/#about">About</a>
-      <a href="/#skills">Skills</a>
-      <a href="/#projects">Projects</a>
-      <a href="/#experience">Experience</a>
-      <a href="/blog">Blog</a>
-      <a href="/az104" aria-current="page">AZ-104</a>
+    <!-- Timer HUD -->
+    <div class="timer-hud">
+      <div id="timer-display">20:00</div>
+      <div id="timer-mode">STUDY MODE</div>
+      <div class="timer-btns">
+        <button id="btn-start" class="btn btn-accent btn-sm">▶ Start</button>
+        <button id="btn-pause" class="btn btn-outline btn-sm">⏸ Pause</button>
+        <button id="btn-reset" class="btn btn-outline btn-sm">↺ Reset</button>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-section">
+      <div class="progress-bar-wrap"><div id="progress-fill" class="progress-fill" style="width:0%"></div></div>
+      <div id="progressText" class="progress-text">0% Complete</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+      <a class="nav-item active" id="nav-overview" href="#overview">📊 Overview</a>
+      <a class="nav-item" id="nav-dom1" href="#dom1">🔐 Domain 1: Identity &amp; Governance</a>
+      <a class="nav-item" id="nav-dom2" href="#dom2">💾 Domain 2: Storage</a>
+      <a class="nav-item" id="nav-dom3" href="#dom3">💻 Domain 3: Compute</a>
+      <a class="nav-item" id="nav-dom4" href="#dom4">🌐 Domain 4: Networking</a>
+      <a class="nav-item" id="nav-dom5" href="#dom5">📈 Domain 5: Monitoring</a>
+      <a class="nav-item" id="nav-mock" href="#mock">📝 Mock Review</a>
+      <a class="nav-item" id="nav-keywords" href="#keywords">🎯 Keyword Speed Drill</a>
+      <a class="nav-item" id="nav-errorlog" href="#errorlog">⚠️ Weakness Log</a>
+      <a class="nav-item" id="nav-cheat" href="#cheat">🧮 CLI &amp; Subnetting Reference</a>
     </nav>
-  </header>
 
-  <!-- AZ-104 app mount point — all JS/CSS scoped here -->
-  <div id="az104-app" role="main" aria-label="AZ-104 Study Application"></div>
+    <!-- Back to portfolio link -->
+    <div style="padding: 1rem 1.5rem; margin-top: auto;">
+      <a href="/" style="color: var(--text-muted); font-size: 0.8rem; text-decoration: none;">← Back to Portfolio</a>
+    </div>
+  </aside>
 
-  <!-- Load data, questions, then engine (order matters) -->
+  <main class="main-viewport">
+    <!-- Overview -->
+    <section id="section-overview" class="view-section active">
+      <h1 class="page-title">📊 AZ-104 Study Dashboard</h1>
+      <p class="page-subtitle">Microsoft Azure Administrator — 14-Day Master Study Plan</p>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-number">14</div><div class="stat-label">Study Days</div></div>
+        <div class="stat-card"><div class="stat-number">125</div><div class="stat-label">Practice Questions</div></div>
+        <div class="stat-card"><div class="stat-number">5</div><div class="stat-label">Domains</div></div>
+        <div class="stat-card"><div class="stat-number">700</div><div class="stat-label">Pass Score</div></div>
+      </div>
+      <h2 class="section-heading">Exam Domains</h2>
+      <div class="domain-link-cards">
+        <div class="domain-link-card" id="dlc-dom1">🔐 Domain 1<br><span>Identity &amp; Governance (20-25%)</span><br><small>Days 1–2</small></div>
+        <div class="domain-link-card" id="dlc-dom2">💾 Domain 2<br><span>Storage (15-20%)</span><br><small>Days 3–4</small></div>
+        <div class="domain-link-card" id="dlc-dom3">💻 Domain 3<br><span>Compute (20-25%)</span><br><small>Days 5–7</small></div>
+        <div class="domain-link-card" id="dlc-dom4">🌐 Domain 4<br><span>Networking (25-30%)</span><br><small>Days 8–10</small></div>
+        <div class="domain-link-card" id="dlc-dom5">📈 Domain 5<br><span>Monitoring (10-15%)</span><br><small>Days 11–12</small></div>
+      </div>
+    </section>
+
+    <!-- Domain sections -->
+    <section id="section-dom1" class="view-section"><div id="dom1-tabs" class="day-tabs"></div><div id="dom1-content" class="domain-content"></div></section>
+    <section id="section-dom2" class="view-section"><div id="dom2-tabs" class="day-tabs"></div><div id="dom2-content" class="domain-content"></div></section>
+    <section id="section-dom3" class="view-section"><div id="dom3-tabs" class="day-tabs"></div><div id="dom3-content" class="domain-content"></div></section>
+    <section id="section-dom4" class="view-section"><div id="dom4-tabs" class="day-tabs"></div><div id="dom4-content" class="domain-content"></div></section>
+    <section id="section-dom5" class="view-section"><div id="dom5-tabs" class="day-tabs"></div><div id="dom5-content" class="domain-content"></div></section>
+
+    <!-- Mock Review -->
+    <section id="section-mock" class="view-section">
+      <h1 class="page-title">📝 Mock Review — Days 13–14</h1>
+      <div id="mock-tabs" class="day-tabs"></div>
+      <div id="mock-content" class="domain-content"></div>
+    </section>
+
+    <!-- Keyword Speed Drill -->
+    <section id="section-keywords" class="view-section">
+      <h1 class="page-title">🎯 Keyword Speed Drill</h1>
+      <p class="page-subtitle">Click a card to reveal the answer. Master these terms before exam day.</p>
+      <div id="keyword-grid" class="keyword-grid"></div>
+    </section>
+
+    <!-- Weakness Log -->
+    <section id="section-errorlog" class="view-section">
+      <h1 class="page-title">⚠️ Weakness Log</h1>
+      <p class="page-subtitle">Questions you answered incorrectly. Study these to fill knowledge gaps.</p>
+      <div id="errorLogContainer"></div>
+      <div id="retry-area" style="margin-top:1.5rem"></div>
+    </section>
+
+    <!-- CLI & Subnetting Reference -->
+    <section id="section-cheat" class="view-section">
+      <h1 class="page-title">🧮 CLI &amp; Subnetting Reference</h1>
+      <div id="cheat-content"></div>
+    </section>
+  </main>
+
   <script src="/az104/task2_data.js"></script>
   <script src="/az104/task3_questions.js"></script>
   <script src="/az104/task4_engine.js"></script>
-
 </body>
 </html>
