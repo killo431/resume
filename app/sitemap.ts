@@ -36,6 +36,18 @@ function getStaticRoutesFromAppDir(directory: string, currentPath = ''): string[
   return routes;
 }
 
+function getRouteMetadata(route: string): { changeFrequency: 'weekly' | 'monthly'; priority: number } {
+  if (route === '/') {
+    return { changeFrequency: 'weekly', priority: 1.0 };
+  }
+
+  if (route === '/blog') {
+    return { changeFrequency: 'weekly', priority: 0.9 };
+  }
+
+  return { changeFrequency: 'monthly', priority: 0.8 };
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const staticRoutes = getStaticRoutesFromAppDir(appDirectory);
@@ -47,14 +59,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
-    url: route === '/' ? BASE_URL : `${BASE_URL}${route}`,
-    lastModified: new Date(),
-    changeFrequency: route === '/' || route === '/blog' ? 'weekly' : 'monthly',
-    priority: route === '/' ? 1.0 : route === '/blog' ? 0.9 : 0.8,
-  }));
+  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => {
+    const { changeFrequency, priority } = getRouteMetadata(route);
+    return {
+      url: route === '/' ? BASE_URL : `${BASE_URL}${route}`,
+      lastModified: new Date(),
+      changeFrequency,
+      priority,
+    };
+  });
 
   const sitemapEntries = [...staticEntries, ...blogEntries];
+  // Keep the last occurrence per URL so blog entries can override static placeholders.
   const dedupedEntries = Array.from(new Map(sitemapEntries.map((entry) => [entry.url, entry])).values());
 
   return dedupedEntries;
