@@ -516,6 +516,7 @@ PROJECT HIGHLIGHTS
               name: 'Randy DeRego',
               url: 'https://devtest512.info',
               email: 'rderego@devtest512.info',
+              telephone: '(512) 891-4201',
               jobTitle: 'Systems Administrator',
               description: 'Systems Administrator with 10 years of experience specializing in infrastructure management, automation, and IT operations.',
               address: {
@@ -524,9 +525,25 @@ PROJECT HIGHLIGHTS
                 addressRegion: 'TX',
                 addressCountry: 'US',
               },
+              knowsAbout: [
+                'VMware ESXi', 'Hyper-V', 'vSphere', 'Active Directory', 'Group Policy',
+                'Microsoft 365', 'Azure', 'AWS', 'PowerShell', 'Bash', 'Python',
+                'TCP/IP', 'DNS', 'DHCP', 'VPN', 'Cisco networking',
+                'NinjaOneRMM', 'Patch Management', 'IT Automation',
+              ],
+              alumniOf: {
+                '@type': 'CollegeOrUniversity',
+                name: 'Western Governors University',
+              },
+              hasCredential: {
+                '@type': 'EducationalOccupationalCredential',
+                name: 'CompTIA A+',
+              },
               sameAs: [
                 'https://github.com/killo431',
                 'https://www.linkedin.com/in/randysderego/',
+                'https://profile.indeed.com/p/randyd-mh1efpj',
+                'https://devtest512.info/blog',
               ],
             },
             {
