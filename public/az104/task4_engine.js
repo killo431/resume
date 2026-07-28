@@ -26,6 +26,16 @@ const AZ104Engine = (() => {
     return a;
   }
 
+  // Utility: escape HTML to prevent XSS when injecting data into innerHTML
+  function esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   // Filter questions based on domain and difficulty
   function filterQuestions(domain, difficulty) {
     let questions = [...AZ104_QUESTIONS];
@@ -167,18 +177,18 @@ const AZ104Engine = (() => {
     div.innerHTML = `
       <div class="az104-hero">
         <div class="az104-badge">Microsoft Certified</div>
-        <h1 class="az104-title">${AZ104_STUDY_DATA.examTitle}</h1>
-        <p class="az104-subtitle">Practice exam · Study guide · ${AZ104_QUESTIONS.length} questions</p>
+        <h1 class="az104-title">${esc(AZ104_STUDY_DATA.examTitle)}</h1>
+        <p class="az104-subtitle">Practice exam · Study guide · ${esc(String(AZ104_QUESTIONS.length))} questions</p>
         <div class="az104-exam-meta">
-          <span>⏱ ${AZ104_STUDY_DATA.timeLimit} min</span>
-          <span>📋 ~${AZ104_STUDY_DATA.totalQuestions} questions</span>
-          <span>🎯 Pass score: ${AZ104_STUDY_DATA.passingScore}/${AZ104_STUDY_DATA.maxScore}</span>
+          <span>⏱ ${esc(String(AZ104_STUDY_DATA.timeLimit))} min</span>
+          <span>📋 ~${esc(String(AZ104_STUDY_DATA.totalQuestions))} questions</span>
+          <span>🎯 Pass score: ${esc(String(AZ104_STUDY_DATA.passingScore))}/${esc(String(AZ104_STUDY_DATA.maxScore))}</span>
         </div>
       </div>
 
       <div class="az104-actions">
         <button class="az104-btn az104-btn-primary" id="btn-start-full">
-          🚀 Start Full Practice Exam (${AZ104_QUESTIONS.length} Qs)
+          🚀 Start Full Practice Exam (${esc(String(AZ104_QUESTIONS.length))} Qs)
         </button>
         <button class="az104-btn az104-btn-secondary" id="btn-start-quick">
           ⚡ Quick Quiz (10 Questions)
@@ -193,7 +203,7 @@ const AZ104Engine = (() => {
 
       <h2 class="az104-section-title">Study Tips</h2>
       <ul class="az104-tips-list">
-        ${AZ104_STUDY_DATA.studyTips.map(t => `<li>${t}</li>`).join('')}
+        ${AZ104_STUDY_DATA.studyTips.map(t => `<li>${esc(t)}</li>`).join('')}
       </ul>
     `;
 
@@ -204,13 +214,13 @@ const AZ104Engine = (() => {
       card.style.borderTopColor = d.color;
       card.innerHTML = `
         <div class="az104-domain-header">
-          <span class="az104-domain-name">${d.name}</span>
-          <span class="az104-domain-weight" style="background:${d.color}20;color:${d.color}">${d.weight}</span>
+          <span class="az104-domain-name">${esc(d.name)}</span>
+          <span class="az104-domain-weight" style="background:${esc(d.color)}20;color:${esc(d.color)}">${esc(d.weight)}</span>
         </div>
         <ul class="az104-topic-list">
-          ${d.topics.map(t => `<li>${t.name}</li>`).join('')}
+          ${d.topics.map(t => `<li>${esc(t.name)}</li>`).join('')}
         </ul>
-        <button class="az104-btn az104-btn-sm" data-domain="${d.id}">Practice this domain →</button>
+        <button class="az104-btn az104-btn-sm" data-domain="${esc(d.id)}">Practice this domain →</button>
       `;
       card.querySelector('button').addEventListener('click', () => startQuiz(d.id, 'all', 15));
       grid.appendChild(card);
@@ -230,18 +240,18 @@ const AZ104Engine = (() => {
       const domain = getDomain(state.studyDomain);
       div.innerHTML = `
         <button class="az104-back-btn" id="back-study">← Back to Domains</button>
-        <h2 class="az104-page-title" style="color:${domain.color}">${domain.name}</h2>
-        <div class="az104-domain-weight-badge" style="background:${domain.color}20;color:${domain.color}">Exam weight: ${domain.weight}</div>
+        <h2 class="az104-page-title" style="color:${esc(domain.color)}">${esc(domain.name)}</h2>
+        <div class="az104-domain-weight-badge" style="background:${esc(domain.color)}20;color:${esc(domain.color)}">Exam weight: ${esc(domain.weight)}</div>
         ${domain.topics.map(topic => `
           <div class="az104-study-topic">
-            <h3 class="az104-topic-title">${topic.name}</h3>
+            <h3 class="az104-topic-title">${esc(topic.name)}</h3>
             <ul class="az104-subtopic-list">
-              ${topic.subtopics.map(s => `<li>${s}</li>`).join('')}
+              ${topic.subtopics.map(s => `<li>${esc(s)}</li>`).join('')}
             </ul>
           </div>
         `).join('')}
         <button class="az104-btn az104-btn-primary" id="quiz-domain" style="margin-top:1.5rem">
-          Practice ${domain.name} Questions →
+          Practice ${esc(domain.name)} Questions →
         </button>
       `;
       div.querySelector('#back-study').addEventListener('click', () => goStudy());
@@ -255,9 +265,9 @@ const AZ104Engine = (() => {
         <div class="az104-services-grid">
           ${Object.entries(AZ104_STUDY_DATA.keyServices).map(([cat, svcs]) => `
             <div class="az104-services-category">
-              <h4>${cat.charAt(0).toUpperCase() + cat.slice(1)}</h4>
+              <h4>${esc(cat.charAt(0).toUpperCase() + cat.slice(1))}</h4>
               <div class="az104-service-tags">
-                ${svcs.map(s => `<span class="az104-service-tag">${s}</span>`).join('')}
+                ${svcs.map(s => `<span class="az104-service-tag">${esc(s)}</span>`).join('')}
               </div>
             </div>
           `).join('')}
@@ -272,10 +282,10 @@ const AZ104Engine = (() => {
         card.style.cursor = 'pointer';
         card.innerHTML = `
           <div class="az104-domain-header">
-            <span class="az104-domain-name">${d.name}</span>
-            <span class="az104-domain-weight" style="background:${d.color}20;color:${d.color}">${d.weight}</span>
+            <span class="az104-domain-name">${esc(d.name)}</span>
+            <span class="az104-domain-weight" style="background:${esc(d.color)}20;color:${esc(d.color)}">${esc(d.weight)}</span>
           </div>
-          <p style="font-size:0.85rem;color:#64748b;margin:0.5rem 0 0">${d.topics.length} topic areas</p>
+          <p style="font-size:0.85rem;color:#64748b;margin:0.5rem 0 0">${esc(String(d.topics.length))} topic areas</p>
         `;
         card.addEventListener('click', () => goStudy(d.id));
         domainsGrid.appendChild(card);
@@ -298,24 +308,24 @@ const AZ104Engine = (() => {
     div.innerHTML = `
       <div class="az104-quiz-header">
         <div class="az104-quiz-meta">
-          <span>Question ${state.currentQuestion + 1} of ${state.quizQuestions.length}</span>
-          <span class="az104-diff-badge" style="background:${diffColors[q.difficulty]}20;color:${diffColors[q.difficulty]}">${q.difficulty}</span>
-          <span class="az104-domain-pill" style="background:${domain.color}15;color:${domain.color}">${domain.name}</span>
+          <span>Question ${esc(String(state.currentQuestion + 1))} of ${esc(String(state.quizQuestions.length))}</span>
+          <span class="az104-diff-badge" style="background:${esc(diffColors[q.difficulty])}20;color:${esc(diffColors[q.difficulty])}">${esc(q.difficulty)}</span>
+          <span class="az104-domain-pill" style="background:${esc(domain.color)}15;color:${esc(domain.color)}">${esc(domain.name)}</span>
         </div>
         <div class="az104-progress-bar">
-          <div class="az104-progress-fill" style="width:${progress}%"></div>
+          <div class="az104-progress-fill" style="width:${esc(String(progress))}%"></div>
         </div>
-        <div class="az104-score-display">Score: ${state.score}/${state.currentQuestion + (answered ? 1 : 0)}</div>
+        <div class="az104-score-display">Score: ${esc(String(state.score))}/${esc(String(state.currentQuestion + (answered ? 1 : 0)))}</div>
       </div>
 
-      <div class="az104-question-text">${q.question}</div>
+      <div class="az104-question-text">${esc(q.question)}</div>
 
       <div class="az104-options" id="options-container"></div>
 
       ${answered ? `
         <div class="az104-explanation ${state.selectedAnswer === q.correct ? 'az104-correct-exp' : 'az104-wrong-exp'}">
           <strong>${state.selectedAnswer === q.correct ? '✅ Correct!' : '❌ Incorrect'}</strong>
-          <p>${q.explanation}</p>
+          <p>${esc(q.explanation)}</p>
         </div>
         <button class="az104-btn az104-btn-primary az104-next-btn" id="btn-next">
           ${state.currentQuestion < state.quizQuestions.length - 1 ? 'Next Question →' : 'View Results →'}
@@ -333,7 +343,7 @@ const AZ104Engine = (() => {
         else btn.classList.add('az104-option-disabled');
         btn.disabled = true;
       }
-      btn.innerHTML = `<span class="az104-opt-letter">${'ABCD'[i]}</span> ${opt}`;
+      btn.innerHTML = `<span class="az104-opt-letter">${'ABCD'[i]}</span> ${esc(opt)}`;
       if (!answered) {
         btn.addEventListener('click', () => submitAnswer(i));
       }
@@ -375,13 +385,13 @@ const AZ104Engine = (() => {
         <div class="az104-result-icon">${passed ? '🎉' : '📚'}</div>
         <h2>${passed ? 'Congratulations! You Passed!' : 'Keep Studying — You Can Do It!'}</h2>
         <div class="az104-score-circle">
-          <span class="az104-score-big">${azureScore}</span>
-          <span class="az104-score-out">/ ${AZ104_STUDY_DATA.maxScore}</span>
+          <span class="az104-score-big">${esc(String(azureScore))}</span>
+          <span class="az104-score-out">/ ${esc(String(AZ104_STUDY_DATA.maxScore))}</span>
         </div>
         <div class="az104-result-details">
-          <span>${state.score} / ${state.quizQuestions.length} correct (${percent}%)</span>
-          <span>Time: ${formatTime(elapsed)}</span>
-          <span class="az104-pass-fail-badge">${passed ? '✅ PASS' : '❌ FAIL'} (Pass: ${AZ104_STUDY_DATA.passingScore})</span>
+          <span>${esc(String(state.score))} / ${esc(String(state.quizQuestions.length))} correct (${esc(String(percent))}%)</span>
+          <span>Time: ${esc(formatTime(elapsed))}</span>
+          <span class="az104-pass-fail-badge">${passed ? '✅ PASS' : '❌ FAIL'} (Pass: ${esc(String(AZ104_STUDY_DATA.passingScore))})</span>
         </div>
       </div>
 
@@ -401,11 +411,11 @@ const AZ104Engine = (() => {
       const row = el('div', 'az104-breakdown-row');
       row.innerHTML = `
         <div class="az104-breakdown-label">
-          <span style="color:${d.color}">${d.name}</span>
-          <span>${d.correct}/${d.total} (${pct}%)</span>
+          <span style="color:${esc(d.color)}">${esc(d.name)}</span>
+          <span>${esc(String(d.correct))}/${esc(String(d.total))} (${esc(String(pct))}%)</span>
         </div>
         <div class="az104-breakdown-bar">
-          <div class="az104-breakdown-fill" style="width:${pct}%;background:${d.color}"></div>
+          <div class="az104-breakdown-fill" style="width:${esc(String(pct))}%;background:${esc(d.color)}"></div>
         </div>
       `;
       breakdown.appendChild(row);
@@ -428,29 +438,29 @@ const AZ104Engine = (() => {
     div.innerHTML = `
       <div class="az104-review-header">
         <button class="az104-back-btn" id="back-results">← Back to Results</button>
-        <span>Review: ${state.currentQuestion + 1} / ${state.quizQuestions.length}</span>
+        <span>Review: ${esc(String(state.currentQuestion + 1))} / ${esc(String(state.quizQuestions.length))}</span>
       </div>
 
       <div class="az104-quiz-meta" style="margin-bottom:1rem">
-        <span class="az104-diff-badge" style="background:${diffColors[q.difficulty]}20;color:${diffColors[q.difficulty]}">${q.difficulty}</span>
-        <span class="az104-domain-pill" style="background:${domain.color}15;color:${domain.color}">${domain.name}</span>
+        <span class="az104-diff-badge" style="background:${esc(diffColors[q.difficulty])}20;color:${esc(diffColors[q.difficulty])}">${esc(q.difficulty)}</span>
+        <span class="az104-domain-pill" style="background:${esc(domain.color)}15;color:${esc(domain.color)}">${esc(domain.name)}</span>
         ${ans ? `<span class="${ans.isCorrect ? 'az104-correct-badge' : 'az104-wrong-badge'}">${ans.isCorrect ? '✅ Correct' : '❌ Incorrect'}</span>` : ''}
       </div>
 
-      <div class="az104-question-text">${q.question}</div>
+      <div class="az104-question-text">${esc(q.question)}</div>
 
       <div class="az104-options az104-options-review">
         ${q.options.map((opt, i) => {
           let cls = 'az104-option az104-option-disabled';
           if (i === q.correct) cls += ' az104-option-correct';
           else if (ans && i === ans.selected && !ans.isCorrect) cls += ' az104-option-wrong';
-          return `<button class="${cls}" disabled><span class="az104-opt-letter">${'ABCD'[i]}</span> ${opt}</button>`;
+          return `<button class="${cls}" disabled><span class="az104-opt-letter">${'ABCD'[i]}</span> ${esc(opt)}</button>`;
         }).join('')}
       </div>
 
       <div class="az104-explanation ${ans && ans.isCorrect ? 'az104-correct-exp' : 'az104-wrong-exp'}">
         <strong>Explanation:</strong>
-        <p>${q.explanation}</p>
+        <p>${esc(q.explanation)}</p>
       </div>
 
       <div class="az104-review-nav">
@@ -459,7 +469,7 @@ const AZ104Engine = (() => {
           ${state.quizQuestions.map((_, i) => {
             const a = state.answers[i];
             const cls = a ? (a.isCorrect ? 'az104-dot-correct' : 'az104-dot-wrong') : 'az104-dot-neutral';
-            return `<button class="az104-dot ${cls} ${i === state.currentQuestion ? 'az104-dot-active' : ''}" data-idx="${i}">${i + 1}</button>`;
+            return `<button class="az104-dot ${cls} ${i === state.currentQuestion ? 'az104-dot-active' : ''}" data-idx="${esc(String(i))}">${esc(String(i + 1))}</button>`;
           }).join('')}
         </div>
         <button class="az104-btn az104-btn-outline" id="btn-next-review" ${state.currentQuestion === state.quizQuestions.length - 1 ? 'disabled' : ''}>Next →</button>
