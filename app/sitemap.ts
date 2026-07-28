@@ -70,7 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
 
   const sitemapEntries = [...staticEntries, ...blogEntries];
-  // Keep the last occurrence per URL so blog entries can override static placeholders.
+  // Keep the last occurrence per URL; static entries are listed first so blog entries win on duplicates.
   const dedupedEntries = Array.from(new Map(sitemapEntries.map((entry) => [entry.url, entry])).values());
 
   return dedupedEntries;
