@@ -11,9 +11,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Entra ID users and groups",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=0m00s",
-            "stopBadge": "Watch 00:00 – 20:00"
+            "topic": "Enter Entra ID",
+            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=18m52s",
+            "stopBadge": "Watch 18:52 – 38:01"
           },
           {
             "type": "break",
@@ -22,9 +22,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Dynamic membership rules",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=10m00s",
-            "stopBadge": "Watch 10:00 – 30:00"
+            "topic": "Entra ID Objects",
+            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=38m01s",
+            "stopBadge": "Watch 38:01 – 57:46"
           },
           {
             "type": "break",
@@ -33,9 +33,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Administrative units",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=20m00s",
-            "stopBadge": "Watch 20:00 – 40:00"
+            "topic": "AD to Entra ID Sync & Authentication",
+            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=57m46s",
+            "stopBadge": "Watch 57:46 – 1:13:41"
           }
         ]
       },
@@ -45,9 +45,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Role-based access control (RBAC)",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=30m00s",
-            "stopBadge": "Watch 30:00 – 50:00"
+            "topic": "Roles and Administrative Units",
+            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=1h13m41s",
+            "stopBadge": "Watch 1:13:41 – 1:27:31"
           },
           {
             "type": "break",
@@ -56,9 +56,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Custom RBAC role definitions",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=40m00s",
-            "stopBadge": "Watch 40:00 – 60:00"
+            "topic": "Privileged Identity Management",
+            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=1h27m31s",
+            "stopBadge": "Watch 1:27:31 – 1:39:13"
           },
           {
             "type": "break",
@@ -67,9 +67,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Conditional Access policies",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=50m00s",
-            "stopBadge": "Watch 50:00 – 70:00"
+            "topic": "MFA and Strong Authentication",
+            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=1h39m13s",
+            "stopBadge": "Watch 1:39:13 – 1:58:09"
           }
         ]
       },
@@ -79,9 +79,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Multi-factor authentication (MFA)",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=60m00s",
-            "stopBadge": "Watch 60:00 – 80:00"
+            "topic": "Conditional Access Policies",
+            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=1h58m09s",
+            "stopBadge": "Watch 1:58:09 – 2:05:53"
           },
           {
             "type": "break",
@@ -90,9 +90,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Self-service password reset (SSPR)",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=70m00s",
-            "stopBadge": "Watch 70:00 – 90:00"
+            "topic": "B2B and External Identities",
+            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=2h05m53s",
+            "stopBadge": "Watch 2:05:53 – 2:17:52"
           },
           {
             "type": "break",
@@ -101,9 +101,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Privileged Identity Management (PIM)",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=80m00s",
-            "stopBadge": "Watch 80:00 – 100:00"
+            "topic": "Microsoft Entra ID Overview",
+            "video": "https://www.youtube.com/watch?v=sVq7qjU9LNE",
+            "stopBadge": "Watch Full video (4 min)"
           }
         ]
       }
@@ -130,9 +130,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Azure Policy definitions and initiatives",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=90m00s",
-            "stopBadge": "Watch 90:00 – 110:00"
+            "topic": "Management Groups & Scope",
+            "video": "https://www.youtube.com/watch?v=t-i4XrygWCc&t=12m41s",
+            "stopBadge": "Watch 12:41 – 20:12"
           },
           {
             "type": "break",
@@ -141,9 +141,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Management groups hierarchy",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=100m00s",
-            "stopBadge": "Watch 100:00 – 120:00"
+            "topic": "Subscriptions & Organizing",
+            "video": "https://www.youtube.com/watch?v=t-i4XrygWCc&t=20m12s",
+            "stopBadge": "Watch 20:12 – 32:16"
           },
           {
             "type": "break",
@@ -152,9 +152,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Resource locks",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=110m00s",
-            "stopBadge": "Watch 110:00 – 130:00"
+            "topic": "Naming Standards & Tags",
+            "video": "https://www.youtube.com/watch?v=t-i4XrygWCc&t=32m16s",
+            "stopBadge": "Watch 32:16 – 42:16"
           }
         ]
       },
@@ -164,9 +164,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Cost Management, budgets and alerts",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=120m00s",
-            "stopBadge": "Watch 120:00 – 140:00"
+            "topic": "Azure Policy & Governance Types",
+            "video": "https://www.youtube.com/watch?v=t-i4XrygWCc&t=42m16s",
+            "stopBadge": "Watch 42:16 – 54:28"
           },
           {
             "type": "break",
@@ -175,9 +175,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Subscriptions and tags",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=130m00s",
-            "stopBadge": "Watch 130:00 – 150:00"
+            "topic": "Role Based Access Control (RBAC)",
+            "video": "https://www.youtube.com/watch?v=t-i4XrygWCc&t=54m28s",
+            "stopBadge": "Watch 54:28 – 1:04:20"
           },
           {
             "type": "break",
@@ -186,9 +186,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: B2B external collaboration",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=140m00s",
-            "stopBadge": "Watch 140:00 – 160:00"
+            "topic": "Custom Roles & PIM Usage",
+            "video": "https://www.youtube.com/watch?v=t-i4XrygWCc&t=1h04m20s",
+            "stopBadge": "Watch 1:04:20 – 1:07:50"
           }
         ]
       },
@@ -198,9 +198,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Access reviews and entitlement",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=150m00s",
-            "stopBadge": "Watch 150:00 – 170:00"
+            "topic": "RBAC Deep Dive",
+            "video": "https://www.youtube.com/watch?v=qFoHDTxkQII",
+            "stopBadge": "Watch Full video"
           },
           {
             "type": "break",
@@ -209,9 +209,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Licensing and group-based licensing",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=160m00s",
-            "stopBadge": "Watch 160:00 – 180:00"
+            "topic": "Managed Identity Deep Dive",
+            "video": "https://www.youtube.com/watch?v=rC1TV0_sIrM&t=0m0s",
+            "stopBadge": "Watch 0:00 – 18:20"
           },
           {
             "type": "break",
@@ -220,9 +220,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Identity & Governance: Enterprise applications and SSO",
-            "video": "https://www.youtube.com/watch?v=megA6BPpYqo&t=170m00s",
-            "stopBadge": "Watch 170:00 – 190:00"
+            "topic": "Using Managed Identities",
+            "video": "https://www.youtube.com/watch?v=rC1TV0_sIrM&t=18m20s",
+            "stopBadge": "Watch 18:20 – 32:06"
           }
         ]
       }
@@ -249,9 +249,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Storage account types and performance tiers",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=0m00s",
-            "stopBadge": "Watch 00:00 – 20:00"
+            "topic": "Azure Storage 101 & Account Basics",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=6m14s",
+            "stopBadge": "Watch 6:14 – 16:29"
           },
           {
             "type": "break",
@@ -260,9 +260,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Blob access tiers: Hot, Cool, Cold, Archive",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=5m00s",
-            "stopBadge": "Watch 05:00 – 25:00"
+            "topic": "Storage Durability & Resiliency Options",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=16m29s",
+            "stopBadge": "Watch 16:29 – 25:16"
           },
           {
             "type": "break",
@@ -271,9 +271,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Shared Access Signatures (SAS)",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=10m00s",
-            "stopBadge": "Watch 10:00 – 30:00"
+            "topic": "Storage Account Failover & Object Replication",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=23m12s",
+            "stopBadge": "Watch 23:12 – 35:14"
           }
         ]
       },
@@ -283,9 +283,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Stored access policies",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=15m00s",
-            "stopBadge": "Watch 15:00 – 35:00"
+            "topic": "Blob Storage Offerings",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=35m39s",
+            "stopBadge": "Watch 35:39 – 45:08"
           },
           {
             "type": "break",
@@ -294,9 +294,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Managed identity for storage",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=20m00s",
-            "stopBadge": "Watch 20:00 – 40:00"
+            "topic": "Azure Files, Table & Queue",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=45m08s",
+            "stopBadge": "Watch 45:08 – 51:26"
           },
           {
             "type": "break",
@@ -305,9 +305,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Azure Files and SMB shares",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=25m00s",
-            "stopBadge": "Watch 25:00 – 45:00"
+            "topic": "Pricing & Tiering",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=51m26s",
+            "stopBadge": "Watch 51:26 – 1:01:58"
           }
         ]
       },
@@ -317,9 +317,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Azure File Sync",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=30m00s",
-            "stopBadge": "Watch 30:00 – 50:00"
+            "topic": "Provisioned Billing & Data Lake Features",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=1h01m58s",
+            "stopBadge": "Watch 1:01:58 – 1:15:46"
           },
           {
             "type": "break",
@@ -328,9 +328,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Blob lifecycle management policies",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=35m00s",
-            "stopBadge": "Watch 35:00 – 55:00"
+            "topic": "Hosting a Website on Storage",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=1h15m46s",
+            "stopBadge": "Watch 1:15:46 – 1:18:46"
           },
           {
             "type": "break",
@@ -339,9 +339,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Redundancy: LRS, ZRS, GRS, GZRS",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=40m00s",
-            "stopBadge": "Watch 40:00 – 60:00"
+            "topic": "Types of Storage & Intro Review",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=0m35s",
+            "stopBadge": "Watch 0:35 – 6:14"
           }
         ]
       }
@@ -368,9 +368,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Encryption and customer-managed keys",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=45m00s",
-            "stopBadge": "Watch 45:00 – 65:00"
+            "topic": "Account Keys & Blob Anonymous Access",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=1h18m46s",
+            "stopBadge": "Watch 1:18:46 – 1:26:33"
           },
           {
             "type": "break",
@@ -379,9 +379,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Static website hosting",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=50m00s",
-            "stopBadge": "Watch 50:00 – 70:00"
+            "topic": "Entra ID Data Plane RBAC",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=1h23m24s",
+            "stopBadge": "Watch 1:23:24 – 1:26:33"
           },
           {
             "type": "break",
@@ -390,9 +390,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Azure Data Lake Storage Gen2",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=55m00s",
-            "stopBadge": "Watch 55:00 – 75:00"
+            "topic": "Shared Access Signatures (SAS)",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=1h26m33s",
+            "stopBadge": "Watch 1:26:33 – 1:34:01"
           }
         ]
       },
@@ -402,9 +402,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Storage firewalls and private endpoints",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=60m00s",
-            "stopBadge": "Watch 60:00 – 80:00"
+            "topic": "Encryption & Encryption Scopes",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=1h34m01s",
+            "stopBadge": "Watch 1:34:01 – 1:39:16"
           },
           {
             "type": "break",
@@ -413,9 +413,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: AzCopy and Storage Explorer",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=65m00s",
-            "stopBadge": "Watch 65:00 – 85:00"
+            "topic": "Network Protection (Firewalls, Private Endpoints)",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=1h39m16s",
+            "stopBadge": "Watch 1:39:16 – 1:44:48"
           },
           {
             "type": "break",
@@ -424,9 +424,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Object replication and versioning",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=70m00s",
-            "stopBadge": "Watch 70:00 – 90:00"
+            "topic": "Lifecycle Management Policies",
+            "video": "https://www.youtube.com/watch?v=YnFkgLxqrKQ&t=1h44m48s",
+            "stopBadge": "Watch 1:44:48 – 1:50:00"
           }
         ]
       },
@@ -436,9 +436,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Soft delete and blob snapshots",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=75m00s",
-            "stopBadge": "Watch 75:00 – 95:00"
+            "topic": "B2B & B2C Today",
+            "video": "https://www.youtube.com/watch?v=9P10hgPDRZg&t=0m37s",
+            "stopBadge": "Watch 0:37 – 7:48"
           },
           {
             "type": "break",
@@ -447,9 +447,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Import/Export and Data Box",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=80m00s",
-            "stopBadge": "Watch 80:00 – 100:00"
+            "topic": "External Identities Overview & User Flows",
+            "video": "https://www.youtube.com/watch?v=9P10hgPDRZg&t=7m48s",
+            "stopBadge": "Watch 7:48 – 18:40"
           },
           {
             "type": "break",
@@ -458,9 +458,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Storage: Access keys rotation",
-            "video": "https://www.youtube.com/watch?v=x7YLcQOHQAQ&t=85m00s",
-            "stopBadge": "Watch 85:00 – 105:00"
+            "topic": "External IDs: Sample App & Licensing",
+            "video": "https://www.youtube.com/watch?v=9P10hgPDRZg&t=18m40s",
+            "stopBadge": "Watch 18:40 – 27:18"
           }
         ]
       }
@@ -486,9 +486,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: VM sizes and families",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=0m00s",
-            "stopBadge": "Watch 00:00 – 20:00"
+            "topic": "VM Basics & Introduction",
+            "video": "https://www.youtube.com/watch?v=KRBFVqgxyo4&t=0m35s",
+            "stopBadge": "Watch 0:35 – 5:56"
           },
           {
             "type": "break",
@@ -497,9 +497,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Availability zones and availability sets",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=5m33s",
-            "stopBadge": "Watch 05:33 – 25:33"
+            "topic": "VM Series and Sizes",
+            "video": "https://www.youtube.com/watch?v=KRBFVqgxyo4&t=5m56s",
+            "stopBadge": "Watch 5:56 – 31:16"
           },
           {
             "type": "break",
@@ -508,9 +508,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Virtual Machine Scale Sets (VMSS)",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=11m06s",
-            "stopBadge": "Watch 11:06 – 31:06"
+            "topic": "VM Generations & Choosing a Size",
+            "video": "https://www.youtube.com/watch?v=KRBFVqgxyo4&t=31m16s",
+            "stopBadge": "Watch 31:16 – 37:39"
           }
         ]
       },
@@ -520,9 +520,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: ARM templates",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=16m39s",
-            "stopBadge": "Watch 16:39 – 36:39"
+            "topic": "VM Building Blocks",
+            "video": "https://www.youtube.com/watch?v=KRBFVqgxyo4&t=37m39s",
+            "stopBadge": "Watch 37:39 – 59:16"
           },
           {
             "type": "break",
@@ -531,9 +531,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Bicep authoring",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=22m12s",
-            "stopBadge": "Watch 22:12 – 42:12"
+            "topic": "Supported OS & Maintenance",
+            "video": "https://www.youtube.com/watch?v=KRBFVqgxyo4&t=59m16s",
+            "stopBadge": "Watch 59:16 – 1:17:51"
           },
           {
             "type": "break",
@@ -542,9 +542,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: App Service plans and tiers",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=27m45s",
-            "stopBadge": "Watch 27:45 – 47:45"
+            "topic": "Creating Your First Azure VM",
+            "video": "https://www.youtube.com/watch?v=_UuO52KgwGk",
+            "stopBadge": "Watch Full video (43 min)"
           }
         ]
       },
@@ -554,9 +554,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Deployment slots and swap",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=33m18s",
-            "stopBadge": "Watch 33:18 – 53:18"
+            "topic": "Understanding Availability Zones",
+            "video": "https://www.youtube.com/watch?v=4nDRvZR2EjU&t=1m45s",
+            "stopBadge": "Watch 1:45 – 9:49"
           },
           {
             "type": "break",
@@ -565,9 +565,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Azure Kubernetes Service (AKS)",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=38m51s",
-            "stopBadge": "Watch 38:51 – 58:51"
+            "topic": "Using AZs, Resilient Solutions",
+            "video": "https://www.youtube.com/watch?v=4nDRvZR2EjU&t=9m49s",
+            "stopBadge": "Watch 9:49 – 14:24"
           },
           {
             "type": "break",
@@ -576,9 +576,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Azure Container Instances (ACI)",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=44m24s",
-            "stopBadge": "Watch 44:24 – 64:24"
+            "topic": "Patching, IMDS & Compute Gallery",
+            "video": "https://www.youtube.com/watch?v=KRBFVqgxyo4&t=1h17m51s",
+            "stopBadge": "Watch 1:17:51 – 1:32:30"
           }
         ]
       }
@@ -605,9 +605,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Azure Container Apps",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=50m00s",
-            "stopBadge": "Watch 50:00 – 70:00"
+            "topic": "VMSS Overview & Orchestration",
+            "video": "https://www.youtube.com/watch?v=KRBFVqgxyo4&t=1h47m05s",
+            "stopBadge": "Watch 1:47:05 – 1:56:07"
           },
           {
             "type": "break",
@@ -616,9 +616,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: VM extensions and custom script",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=55m33s",
-            "stopBadge": "Watch 55:33 – 75:33"
+            "topic": "VMSS Features & Compute Fleet",
+            "video": "https://www.youtube.com/watch?v=KRBFVqgxyo4&t=1h56m49s",
+            "stopBadge": "Watch 1:56:49 – 2:01:24"
           },
           {
             "type": "break",
@@ -627,9 +627,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Azure Bastion",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=61m06s",
-            "stopBadge": "Watch 61:06 – 81:06"
+            "topic": "Resiliency: Availability Sets vs Zones vs VMSS",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=1h20m21s",
+            "stopBadge": "Watch 1:20:21 – 1:36:19"
           }
         ]
       },
@@ -639,9 +639,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Managed disks and disk types",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=66m39s",
-            "stopBadge": "Watch 66:39 – 86:39"
+            "topic": "Azure App Services Overview",
+            "video": "https://www.youtube.com/watch?v=bMlkYLX4ZfQ&t=1h34m47s",
+            "stopBadge": "Watch 1:34:47 – 1:52:40"
           },
           {
             "type": "break",
@@ -650,9 +650,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: VM images and generalization",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=72m12s",
-            "stopBadge": "Watch 72:12 – 92:12"
+            "topic": "Azure Functions",
+            "video": "https://www.youtube.com/watch?v=bMlkYLX4ZfQ&t=1h52m40s",
+            "stopBadge": "Watch 1:52:40 – 1:58:14"
           },
           {
             "type": "break",
@@ -661,9 +661,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Autoscale rules",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=77m45s",
-            "stopBadge": "Watch 77:45 – 97:45"
+            "topic": "Azure Logic Apps & Static Web Apps",
+            "video": "https://www.youtube.com/watch?v=bMlkYLX4ZfQ&t=1h58m14s",
+            "stopBadge": "Watch 1:58:14 – 2:08:50"
           }
         ]
       },
@@ -673,9 +673,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Spot VMs and reservations",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=83m18s",
-            "stopBadge": "Watch 83:18 – 103:18"
+            "topic": "VM Replication & Resiliency",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=2h05m34s",
+            "stopBadge": "Watch 2:05:34 – 2:13:42"
           },
           {
             "type": "break",
@@ -684,9 +684,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: App Service scaling and networking",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=88m51s",
-            "stopBadge": "Watch 88:51 – 108:51"
+            "topic": "Clustering in Azure IaaS",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=2h13m42s",
+            "stopBadge": "Watch 2:13:42 – 2:17:18"
           },
           {
             "type": "break",
@@ -695,9 +695,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Container registries (ACR)",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=94m24s",
-            "stopBadge": "Watch 94:24 – 114:24"
+            "topic": "Azure Backup Deep Dive",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=2h17m18s",
+            "stopBadge": "Watch 2:17:18 – 2:27:24"
           }
         ]
       }
@@ -724,9 +724,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: VM sizes and families",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=100m00s",
-            "stopBadge": "Watch 100:00 – 120:00"
+            "topic": "Container Basics & Images",
+            "video": "https://www.youtube.com/watch?v=bMlkYLX4ZfQ&t=3m58s",
+            "stopBadge": "Watch 3:58 – 32:46"
           },
           {
             "type": "break",
@@ -735,9 +735,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Availability zones and availability sets",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=105m33s",
-            "stopBadge": "Watch 105:33 – 125:33"
+            "topic": "Azure Container Instances (ACI)",
+            "video": "https://www.youtube.com/watch?v=bMlkYLX4ZfQ&t=32m46s",
+            "stopBadge": "Watch 32:46 – 39:01"
           },
           {
             "type": "break",
@@ -746,9 +746,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Virtual Machine Scale Sets (VMSS)",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=111m06s",
-            "stopBadge": "Watch 111:06 – 131:06"
+            "topic": "Azure Kubernetes Service (AKS)",
+            "video": "https://www.youtube.com/watch?v=bMlkYLX4ZfQ&t=39m01s",
+            "stopBadge": "Watch 39:01 – 1:23:40"
           }
         ]
       },
@@ -758,9 +758,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: ARM templates",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=116m39s",
-            "stopBadge": "Watch 116:39 – 136:39"
+            "topic": "Kubernetes Overview & Nodes",
+            "video": "https://www.youtube.com/watch?v=r6YIlPEC4y4&t=46m45s",
+            "stopBadge": "Watch 46:45 – 56:15"
           },
           {
             "type": "break",
@@ -769,9 +769,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Bicep authoring",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=122m12s",
-            "stopBadge": "Watch 122:12 – 142:12"
+            "topic": "Kubernetes Workloads & Deployments",
+            "video": "https://www.youtube.com/watch?v=r6YIlPEC4y4&t=59m40s",
+            "stopBadge": "Watch 59:40 – 1:08:20"
           },
           {
             "type": "break",
@@ -780,9 +780,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: App Service plans and tiers",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=127m45s",
-            "stopBadge": "Watch 127:45 – 147:45"
+            "topic": "Autoscale, Networking & Storage",
+            "video": "https://www.youtube.com/watch?v=r6YIlPEC4y4&t=1h08m20s",
+            "stopBadge": "Watch 1:08:20 – 1:19:32"
           }
         ]
       },
@@ -792,9 +792,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Deployment slots and swap",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=133m18s",
-            "stopBadge": "Watch 133:18 – 153:18"
+            "topic": "Azure Container Apps",
+            "video": "https://www.youtube.com/watch?v=bMlkYLX4ZfQ&t=1h23m40s",
+            "stopBadge": "Watch 1:23:40 – 1:34:47"
           },
           {
             "type": "break",
@@ -803,9 +803,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Azure Kubernetes Service (AKS)",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=138m51s",
-            "stopBadge": "Watch 138:51 – 158:51"
+            "topic": "Deployments, GitOps & Helm",
+            "video": "https://www.youtube.com/watch?v=r6YIlPEC4y4&t=1h19m32s",
+            "stopBadge": "Watch 1:19:32 – 1:33:08"
           },
           {
             "type": "break",
@@ -814,9 +814,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Compute: Azure Container Instances (ACI)",
-            "video": "https://www.youtube.com/watch?v=0GCR6MqYvOs&t=144m24s",
-            "stopBadge": "Watch 144:24 – 164:24"
+            "topic": "Container Basics (VMs vs Containers)",
+            "video": "https://www.youtube.com/watch?v=r6YIlPEC4y4&t=0m0s",
+            "stopBadge": "Watch 0:00 – 9:20"
           }
         ]
       }
@@ -842,9 +842,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Virtual networks and subnets",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=0m00s",
-            "stopBadge": "Watch 00:00 – 20:00"
+            "topic": "Virtual Network Basics",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=0m41s",
+            "stopBadge": "Watch 0:41 – 14:26"
           },
           {
             "type": "break",
@@ -853,9 +853,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: VNet peering",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=6m40s",
-            "stopBadge": "Watch 06:40 – 26:40"
+            "topic": "VM NIC & Supported Traffic Types",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=14m26s",
+            "stopBadge": "Watch 14:26 – 29:56"
           },
           {
             "type": "break",
@@ -864,9 +864,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Network Security Groups (NSG)",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=13m20s",
-            "stopBadge": "Watch 13:20 – 33:20"
+            "topic": "IPv6 & External (Internet) Access",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=29m56s",
+            "stopBadge": "Watch 29:56 – 47:38"
           }
         ]
       },
@@ -876,9 +876,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Application Security Groups (ASG)",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=20m00s",
-            "stopBadge": "Watch 20:00 – 40:00"
+            "topic": "Bring Your Own IP & Connecting VNets",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=47m38s",
+            "stopBadge": "Watch 47:38 – 55:50"
           },
           {
             "type": "break",
@@ -887,9 +887,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Azure DNS zones",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=26m40s",
-            "stopBadge": "Watch 26:40 – 46:40"
+            "topic": "VNet Peering",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=55m50s",
+            "stopBadge": "Watch 55:50 – 1:05:51"
           },
           {
             "type": "break",
@@ -898,9 +898,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Private Endpoints",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=33m20s",
-            "stopBadge": "Watch 33:20 – 53:20"
+            "topic": "User Defined Routes & Appliances",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=1h05m51s",
+            "stopBadge": "Watch 1:05:51 – 1:14:59"
           }
         ]
       },
@@ -910,9 +910,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Service Endpoints",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=40m00s",
-            "stopBadge": "Watch 40:00 – 60:00"
+            "topic": "Connecting to On-Premises & S2S VPN",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=1h14m59s",
+            "stopBadge": "Watch 1:14:59 – 1:22:52"
           },
           {
             "type": "break",
@@ -921,9 +921,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: VPN Gateway (S2S / P2S)",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=46m40s",
-            "stopBadge": "Watch 46:40 – 66:40"
+            "topic": "ExpressRoute Fundamentals",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=1h22m52s",
+            "stopBadge": "Watch 1:22:52 – 1:38:34"
           },
           {
             "type": "break",
@@ -932,9 +932,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: ExpressRoute",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=53m20s",
-            "stopBadge": "Watch 53:20 – 73:20"
+            "topic": "ExpressRoute: GlobalReach, FastPath",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=1h38m34s",
+            "stopBadge": "Watch 1:38:34 – 1:49:19"
           }
         ]
       }
@@ -960,9 +960,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Azure Load Balancer",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=60m00s",
-            "stopBadge": "Watch 60:00 – 80:00"
+            "topic": "Network Security Groups (NSGs)",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=1h49m19s",
+            "stopBadge": "Watch 1:49:19 – 1:52:05"
           },
           {
             "type": "break",
@@ -971,9 +971,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Application Gateway and WAF",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=66m40s",
-            "stopBadge": "Watch 66:40 – 86:40"
+            "topic": "Service Tags & Application Security Groups",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=1h52m05s",
+            "stopBadge": "Watch 1:52:05 – 2:02:08"
           },
           {
             "type": "break",
@@ -982,9 +982,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Azure Bastion",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=73m20s",
-            "stopBadge": "Watch 73:20 – 93:20"
+            "topic": "Azure Virtual WAN & Network Manager",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=2h02m08s",
+            "stopBadge": "Watch 2:02:08 – 2:18:02"
           }
         ]
       },
@@ -994,9 +994,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Network Watcher",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=80m00s",
-            "stopBadge": "Watch 80:00 – 100:00"
+            "topic": "Service Endpoints",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=2h18m02s",
+            "stopBadge": "Watch 2:18:02 – 2:25:00"
           },
           {
             "type": "break",
@@ -1005,9 +1005,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Traffic Manager",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=86m40s",
-            "stopBadge": "Watch 86:40 – 106:40"
+            "topic": "Azure Firewall Deep Dive",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=1h45m01s",
+            "stopBadge": "Watch 1:45:01 – 1:49:19"
           },
           {
             "type": "break",
@@ -1016,9 +1016,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Virtual WAN",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=93m20s",
-            "stopBadge": "Watch 93:20 – 113:20"
+            "topic": "VPN vs ExpressRoute: When to Use Which",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=1h19m06s",
+            "stopBadge": "Watch 1:19:06 – 1:22:52"
           }
         ]
       },
@@ -1028,9 +1028,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Route tables and UDR",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=100m00s",
-            "stopBadge": "Watch 100:00 – 120:00"
+            "topic": "AZ-104 Study Cram: Virtual Network",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1h09m28s",
+            "stopBadge": "Watch 1:09:28 – 1:20:00"
           },
           {
             "type": "break",
@@ -1039,9 +1039,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Azure Firewall",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=106m40s",
-            "stopBadge": "Watch 106:40 – 126:40"
+            "topic": "AZ-104 Study Cram: Peering & NSG",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1h20m00s",
+            "stopBadge": "Watch 1:20:00 – 1:36:27"
           },
           {
             "type": "break",
@@ -1050,9 +1050,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: NAT Gateway",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=113m20s",
-            "stopBadge": "Watch 113:20 – 133:20"
+            "topic": "AZ-104 Study Cram: Azure Firewall & DNS",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1h36m27s",
+            "stopBadge": "Watch 1:36:27 – 1:46:51"
           }
         ]
       }
@@ -1078,9 +1078,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Virtual networks and subnets",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=120m00s",
-            "stopBadge": "Watch 120:00 – 140:00"
+            "topic": "Azure DNS: Public Zones & Record Sets",
+            "video": "https://www.youtube.com/watch?v=nDtCSQyG_I8&t=1h38m41s",
+            "stopBadge": "Watch 1:38:41 – 1:46:51"
           },
           {
             "type": "break",
@@ -1089,9 +1089,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: VNet peering",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=126m40s",
-            "stopBadge": "Watch 126:40 – 146:40"
+            "topic": "Azure Private DNS & Auto-registration",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1h38m41s",
+            "stopBadge": "Watch 1:38:41 – 1:46:51"
           },
           {
             "type": "break",
@@ -1100,9 +1100,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Network Security Groups (NSG)",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=133m20s",
-            "stopBadge": "Watch 133:20 – 153:20"
+            "topic": "Resiliency: Multi-Region Deployments",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=1h50m03s",
+            "stopBadge": "Watch 1:50:03 – 2:00:05"
           }
         ]
       },
@@ -1112,9 +1112,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Application Security Groups (ASG)",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=140m00s",
-            "stopBadge": "Watch 140:00 – 160:00"
+            "topic": "Infrastructure as Code for DR",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=2h00m05s",
+            "stopBadge": "Watch 2:00:05 – 2:05:34"
           },
           {
             "type": "break",
@@ -1123,9 +1123,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Azure DNS zones",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=146m40s",
-            "stopBadge": "Watch 146:40 – 166:40"
+            "topic": "Replication & Non-Stateful Components",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=2h03m47s",
+            "stopBadge": "Watch 2:03:47 – 2:12:15"
           },
           {
             "type": "break",
@@ -1134,9 +1134,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Private Endpoints",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=153m20s",
-            "stopBadge": "Watch 153:20 – 173:20"
+            "topic": "Master the Azure Pricing Calculator",
+            "video": "https://www.youtube.com/watch?v=rMKmbZ1SYQg&t=0m0s",
+            "stopBadge": "Watch 0:00 – 13:13"
           }
         ]
       },
@@ -1146,9 +1146,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: Service Endpoints",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=160m00s",
-            "stopBadge": "Watch 160:00 – 180:00"
+            "topic": "Pricing Calculator Example Scenarios",
+            "video": "https://www.youtube.com/watch?v=rMKmbZ1SYQg&t=13m13s",
+            "stopBadge": "Watch 13:13 – 29:15"
           },
           {
             "type": "break",
@@ -1157,9 +1157,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: VPN Gateway (S2S / P2S)",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=166m40s",
-            "stopBadge": "Watch 166:40 – 186:40"
+            "topic": "Understanding Availability Zones",
+            "video": "https://www.youtube.com/watch?v=4nDRvZR2EjU&t=0m0s",
+            "stopBadge": "Watch 0:00 – 14:24"
           },
           {
             "type": "break",
@@ -1168,9 +1168,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Networking: ExpressRoute",
-            "video": "https://www.youtube.com/watch?v=uQB2WYuJXBc&t=173m20s",
-            "stopBadge": "Watch 173:20 – 193:20"
+            "topic": "Network Considerations & Global Services",
+            "video": "https://www.youtube.com/watch?v=4nDRvZR2EjU&t=13m00s",
+            "stopBadge": "Watch 13:00 – 14:24"
           }
         ]
       }
@@ -1196,9 +1196,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Azure Monitor overview",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=0m00s",
-            "stopBadge": "Watch 00:00 – 20:00"
+            "topic": "Monitoring in Azure Overview",
+            "video": "https://www.youtube.com/watch?v=gzBXFnfvoXo&t=0m51s",
+            "stopBadge": "Watch 0:51 – 16:58"
           },
           {
             "type": "break",
@@ -1207,9 +1207,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Log Analytics workspaces",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=5m00s",
-            "stopBadge": "Watch 05:00 – 25:00"
+            "topic": "Diagnostic Settings",
+            "video": "https://www.youtube.com/watch?v=gzBXFnfvoXo&t=16m58s",
+            "stopBadge": "Watch 16:58 – 22:52"
           },
           {
             "type": "break",
@@ -1218,9 +1218,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Kusto Query Language (KQL)",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=10m00s",
-            "stopBadge": "Watch 10:00 – 30:00"
+            "topic": "Azure Monitor Agent & Guest Monitoring",
+            "video": "https://www.youtube.com/watch?v=gzBXFnfvoXo&t=22m52s",
+            "stopBadge": "Watch 22:52 – 37:21"
           }
         ]
       },
@@ -1230,9 +1230,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Application Insights",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=15m00s",
-            "stopBadge": "Watch 15:00 – 35:00"
+            "topic": "Types of Logs",
+            "video": "https://www.youtube.com/watch?v=gzBXFnfvoXo&t=37m21s",
+            "stopBadge": "Watch 37:21 – 47:14"
           },
           {
             "type": "break",
@@ -1241,9 +1241,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Metrics and metric alerts",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=20m00s",
-            "stopBadge": "Watch 20:00 – 40:00"
+            "topic": "Alerting Fundamentals",
+            "video": "https://www.youtube.com/watch?v=gzBXFnfvoXo&t=47m14s",
+            "stopBadge": "Watch 47:14 – 1:12:21"
           },
           {
             "type": "break",
@@ -1252,9 +1252,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Log alerts and action groups",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=25m00s",
-            "stopBadge": "Watch 25:00 – 45:00"
+            "topic": "Action Groups & Alert Processing Rules",
+            "video": "https://www.youtube.com/watch?v=gzBXFnfvoXo&t=1h12m21s",
+            "stopBadge": "Watch 1:12:21 – 1:20:12"
           }
         ]
       },
@@ -1264,9 +1264,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Diagnostic settings",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=30m00s",
-            "stopBadge": "Watch 30:00 – 50:00"
+            "topic": "Security Basics & Zero Trust",
+            "video": "https://www.youtube.com/watch?v=gzBXFnfvoXo&t=1h20m12s",
+            "stopBadge": "Watch 1:20:12 – 1:31:25"
           },
           {
             "type": "break",
@@ -1275,9 +1275,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Azure Backup",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=35m00s",
-            "stopBadge": "Watch 35:00 – 55:00"
+            "topic": "Microsoft Defender for Cloud",
+            "video": "https://www.youtube.com/watch?v=gzBXFnfvoXo&t=1h31m25s",
+            "stopBadge": "Watch 1:31:25 – 1:43:01"
           },
           {
             "type": "break",
@@ -1286,9 +1286,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Recovery Services vault",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=40m00s",
-            "stopBadge": "Watch 40:00 – 60:00"
+            "topic": "Managed Identity & Azure Key Vault",
+            "video": "https://www.youtube.com/watch?v=gzBXFnfvoXo&t=1h51m29s",
+            "stopBadge": "Watch 1:51:29 – 2:06:54"
           }
         ]
       }
@@ -1315,9 +1315,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Backup policies",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=45m00s",
-            "stopBadge": "Watch 45:00 – 65:00"
+            "topic": "DR: Planned vs Unplanned & Protection",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=0m45s",
+            "stopBadge": "Watch 0:45 – 12:03"
           },
           {
             "type": "break",
@@ -1326,9 +1326,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Azure Site Recovery (ASR)",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=50m00s",
-            "stopBadge": "Watch 50:00 – 70:00"
+            "topic": "Infra Failures & Replication Requirements",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=12m03s",
+            "stopBadge": "Watch 12:03 – 30:48"
           },
           {
             "type": "break",
@@ -1337,9 +1337,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Failover and failback",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=55m00s",
-            "stopBadge": "Watch 55:00 – 75:00"
+            "topic": "Safe Deployment & Avoiding Pets",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=30m48s",
+            "stopBadge": "Watch 30:48 – 49:36"
           }
         ]
       },
@@ -1349,9 +1349,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Workbooks and dashboards",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=60m00s",
-            "stopBadge": "Watch 60:00 – 80:00"
+            "topic": "Knowing Services to Protect",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=49m36s",
+            "stopBadge": "Watch 49:36 – 1:12:05"
           },
           {
             "type": "break",
@@ -1360,9 +1360,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Activity log and alerts",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=65m00s",
-            "stopBadge": "Watch 65:00 – 85:00"
+            "topic": "Test, Chaos Engineering & Resiliency",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=1h12m05s",
+            "stopBadge": "Watch 1:12:05 – 1:20:21"
           },
           {
             "type": "break",
@@ -1371,9 +1371,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Autoscale monitoring",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=70m00s",
-            "stopBadge": "Watch 70:00 – 90:00"
+            "topic": "Azure Backup Deep Dive",
+            "video": "https://www.youtube.com/watch?v=tGr1KqnuxeM&t=2h17m18s",
+            "stopBadge": "Watch 2:17:18 – 2:27:24"
           }
         ]
       },
@@ -1383,9 +1383,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: VM insights and Change Analysis",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=75m00s",
-            "stopBadge": "Watch 75:00 – 95:00"
+            "topic": "Disaster Recovery in Azure",
+            "video": "https://www.youtube.com/watch?v=8fvO3WArG-Y&t=0m0s",
+            "stopBadge": "Watch 0:00 – 13:20"
           },
           {
             "type": "break",
@@ -1394,9 +1394,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Network Watcher diagnostics",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=80m00s",
-            "stopBadge": "Watch 80:00 – 100:00"
+            "topic": "DR Requirements & Replication Options",
+            "video": "https://www.youtube.com/watch?v=8fvO3WArG-Y&t=13m20s",
+            "stopBadge": "Watch 13:20 – 32:52"
           },
           {
             "type": "break",
@@ -1405,9 +1405,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Monitoring: Cost and capacity monitoring",
-            "video": "https://www.youtube.com/watch?v=BNkMt4QfuEY&t=85m00s",
-            "stopBadge": "Watch 85:00 – 105:00"
+            "topic": "Making Failover Simple & Active-Active",
+            "video": "https://www.youtube.com/watch?v=8fvO3WArG-Y&t=41m45s",
+            "stopBadge": "Watch 41:45 – 54:09"
           }
         ]
       }
@@ -1433,9 +1433,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Full Mock Exam 1 (125 Qs)",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=0m00s",
-            "stopBadge": "Watch 00:00 – 20:00"
+            "topic": "AZ-104 Study Cram: Entra ID",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=2m20s",
+            "stopBadge": "Watch 2:20 – 25:00"
           },
           {
             "type": "break",
@@ -1444,9 +1444,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Review Weak Areas",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=6m40s",
-            "stopBadge": "Watch 06:40 – 26:40"
+            "topic": "AZ-104 Study Cram: Subscriptions & Policy",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=34m48s",
+            "stopBadge": "Watch 34:48 – 54:35"
           },
           {
             "type": "break",
@@ -1455,9 +1455,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Identity & Governance rapid review",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=13m20s",
-            "stopBadge": "Watch 13:20 – 33:20"
+            "topic": "AZ-104 Study Cram: Azure Policy & RBAC",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=54m35s",
+            "stopBadge": "Watch 54:35 – 1:09:28"
           }
         ]
       },
@@ -1467,9 +1467,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Storage rapid review",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=20m00s",
-            "stopBadge": "Watch 20:00 – 40:00"
+            "topic": "AZ-104 Study Cram: Networking",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1h09m28s",
+            "stopBadge": "Watch 1:09:28 – 1:46:51"
           },
           {
             "type": "break",
@@ -1478,9 +1478,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Compute rapid review",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=26m40s",
-            "stopBadge": "Watch 26:40 – 46:40"
+            "topic": "Practice Exam: Domain 1 & 2 Questions",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1h46m51s",
+            "stopBadge": "Watch 1:46:51 – 2:00:00"
           },
           {
             "type": "break",
@@ -1489,9 +1489,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Networking rapid review",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=33m20s",
-            "stopBadge": "Watch 33:20 – 53:20"
+            "topic": "Review Answers: Identity & Storage",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=0m44s",
+            "stopBadge": "Watch 0:44 – 2:20"
           }
         ]
       },
@@ -1501,9 +1501,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Monitoring rapid review",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=40m00s",
-            "stopBadge": "Watch 40:00 – 60:00"
+            "topic": "Deep Dive: Missed Questions Analysis",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=2m20s",
+            "stopBadge": "Watch 2:20 – 25:00"
           },
           {
             "type": "break",
@@ -1512,9 +1512,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Exam objective walkthrough",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=46m40s",
-            "stopBadge": "Watch 46:40 – 66:40"
+            "topic": "Score Breakdown: Identify Weakest Domains",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=25m00s",
+            "stopBadge": "Watch 25:00 – 34:48"
           },
           {
             "type": "break",
@@ -1523,9 +1523,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Case-study question strategy",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=53m20s",
-            "stopBadge": "Watch 53:20 – 73:20"
+            "topic": "Practice Exam: Domain 3 & 4 Questions",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1h09m28s",
+            "stopBadge": "Watch 1:09:28 – 1:46:51"
           }
         ]
       }
@@ -1542,9 +1542,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Full Mock Exam 2 (125 Qs)",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=60m00s",
-            "stopBadge": "Watch 60:00 – 80:00"
+            "topic": "Targeted Review: Weakest Domain",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=2m20s",
+            "stopBadge": "Watch 2:20 – 25:00"
           },
           {
             "type": "break",
@@ -1553,9 +1553,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Final Cram Session",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=66m40s",
-            "stopBadge": "Watch 66:40 – 86:40"
+            "topic": "Targeted Review: Second Weakest Domain",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1h09m28s",
+            "stopBadge": "Watch 1:09:28 – 1:46:51"
           },
           {
             "type": "break",
@@ -1564,9 +1564,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Command-line (az CLI) cheat sheet",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=73m20s",
-            "stopBadge": "Watch 73:20 – 93:20"
+            "topic": "Scenario-Based Questions: Complex Multi-Domain",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=54m35s",
+            "stopBadge": "Watch 54:35 – 1:09:28"
           }
         ]
       },
@@ -1576,9 +1576,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: PowerShell Az module review",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=80m00s",
-            "stopBadge": "Watch 80:00 – 100:00"
+            "topic": "Azure CLI & PowerShell Command Review",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=34m48s",
+            "stopBadge": "Watch 34:48 – 54:35"
           },
           {
             "type": "break",
@@ -1587,9 +1587,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Common pitfalls and gotchas",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=86m40s",
-            "stopBadge": "Watch 86:40 – 106:40"
+            "topic": "Networking Diagrams & Subnetting Review",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=1h09m28s",
+            "stopBadge": "Watch 1:09:28 – 1:20:00"
           },
           {
             "type": "break",
@@ -1598,9 +1598,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Time-management drills",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=93m20s",
-            "stopBadge": "Watch 93:20 – 113:20"
+            "topic": "Exam Strategy: Time Management & Flagging",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=0m44s",
+            "stopBadge": "Watch 0:44 – 2:20"
           }
         ]
       },
@@ -1610,9 +1610,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Flashcard blitz",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=100m00s",
-            "stopBadge": "Watch 100:00 – 120:00"
+            "topic": "AZ-104 Exam Format: Case Studies, Labs",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=2m20s",
+            "stopBadge": "Watch 2:20 – 25:00"
           },
           {
             "type": "break",
@@ -1621,9 +1621,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Whiteboard architecture drills",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=106m40s",
-            "stopBadge": "Watch 106:40 – 126:40"
+            "topic": "Top 50 AZ-104 Exam Tips & Common Pitfalls",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=25m00s",
+            "stopBadge": "Watch 25:00 – 34:48"
           },
           {
             "type": "break",
@@ -1632,9 +1632,9 @@ const dailySchedules = {
           {
             "type": "study",
             "duration": 20,
-            "topic": "Mock Review: Final confidence check",
-            "video": "https://www.youtube.com/watch?v=vWUBspbL6C0&t=113m20s",
-            "stopBadge": "Watch 113:20 – 133:20"
+            "topic": "Final Confidence Check: Quick Domain 1-5 Review",
+            "video": "https://www.youtube.com/watch?v=0Knf9nub4-k&t=34m48s",
+            "stopBadge": "Watch 34:48 – 54:35"
           }
         ]
       }
