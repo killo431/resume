@@ -18,7 +18,7 @@ function ytLink(topic) {
 }
 
 function quizletLink(topic) {
-  return 'https://quizlet.com/search?query=' + encodeURIComponent('AZ-104 ' + topic) + '&type=sets';
+  return 'https://quizlet.com/search?query=' + encodeURIComponent(topic + ' AZ-104') + '&type=sets';
 }
 
 let _toastTimer = null;
