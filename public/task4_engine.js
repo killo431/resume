@@ -1,290 +1,530 @@
-// AZ-104 Study Engine - Task 4: Application Engine
-// Manages quiz state, progress tracking, and UI interactions for the AZ-104 dashboard.
-
-var STATE_KEY = 'az104_app_state';
-
-var AZ104Engine = (function() {
+// AZ-104 Study Engine - dashboard interaction layer
+(function () {
   'use strict';
 
-  // ── State Management ─────────────────────────────────────────────────────────
-
-  var defaultState = {
-    currentDomain: null,
-    currentQuestionIndex: 0,
-    answeredQuestions: {},
-    score: { correct: 0, total: 0 },
-    activeTab: 'overview',
-    completedDomains: [],
-    startTime: null,
-    lastSaved: null
-  };
-
-  function loadState() {
-    try {
-      var saved = localStorage.getItem(STATE_KEY);
-      if (saved) {
-        var parsed = JSON.parse(saved);
-        return Object.assign({}, defaultState, parsed);
-      }
-    } catch (e) {
-      console.warn('[AZ104Engine] Failed to load state:', e);
-    }
-    return Object.assign({}, defaultState);
-  }
-
-  function saveState(state) {
-    try {
-      state.lastSaved = new Date().toISOString();
-      localStorage.setItem(STATE_KEY, JSON.stringify(state));
-    } catch (e) {
-      console.warn('[AZ104Engine] Failed to save state:', e);
-    }
-  }
-
-  function clearState() {
-    try {
-      localStorage.removeItem(STATE_KEY);
-    } catch (e) {
-      console.warn('[AZ104Engine] Failed to clear state:', e);
-    }
-  }
-
-  // ── Current State ─────────────────────────────────────────────────────────────
+  var STORAGE_KEY = 'az104_dashboard_state_v2';
+  var timerHandle = null;
 
   var state = loadState();
 
-  // ── Tab Navigation ────────────────────────────────────────────────────────────
+  function loadState() {
+    var defaults = {
+      activeSection: 'overview',
+      timerSeconds: 20 * 60,
+      timerRunning: false,
+      answers: {},
+      completedDomains: [],
+      weaknessNotes: {}
+    };
 
-  function switchTab(tabId) {
-    state.activeTab = tabId;
-    saveState(state);
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return defaults;
+      return Object.assign({}, defaults, JSON.parse(raw));
+    } catch (_err) {
+      return defaults;
+    }
+  }
 
-    // Update tab button styles
-    var tabs = document.querySelectorAll('.az104-tab-btn');
-    tabs.forEach(function(btn) {
-      if (btn.dataset.tab === tabId) {
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-      } else {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (_err) {
+      // no-op
+    }
+  }
+
+  function byId(id) {
+    return document.getElementById(id);
+  }
+
+  function sectionFromKey(key) {
+    return byId('section-' + key);
+  }
+
+  function showToast(message) {
+    var el = byId('toast-notification');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'toast-notification';
+      el.className = 'toast-notification';
+      document.body.appendChild(el);
+    }
+    el.textContent = message;
+    el.classList.add('show');
+    setTimeout(function () { el.classList.remove('show'); }, 1700);
+  }
+
+  function sectionIds() {
+    return ['overview', 'dom1', 'dom2', 'dom3', 'dom4', 'dom5', 'mock', 'keywords', 'errorlog', 'cheat'];
+  }
+
+  function showSection(key) {
+    sectionIds().forEach(function (id) {
+      var section = sectionFromKey(id);
+      var nav = byId('nav-' + id);
+      if (section) section.classList.toggle('active', id === key);
+      if (nav) nav.classList.toggle('active', id === key);
+    });
+
+    state.activeSection = key;
+    saveState();
+
+    if (key === 'errorlog') renderWeaknessLog();
+  }
+
+  function bindNavigation() {
+    sectionIds().forEach(function (id) {
+      var nav = byId('nav-' + id);
+      if (nav) {
+        nav.addEventListener('click', function () {
+          showSection(id);
+        });
       }
     });
 
-    // Show/hide tab panels
-    var panels = document.querySelectorAll('.az104-tab-panel');
-    panels.forEach(function(panel) {
-      if (panel.id === 'tab-' + tabId) {
-        panel.classList.remove('hidden');
-        panel.setAttribute('aria-hidden', 'false');
-      } else {
-        panel.classList.add('hidden');
-        panel.setAttribute('aria-hidden', 'true');
+    ['dom1', 'dom2', 'dom3', 'dom4', 'dom5'].forEach(function (id) {
+      var card = byId('dlc-' + id);
+      if (card) {
+        card.addEventListener('click', function () {
+          showSection(id);
+        });
       }
     });
   }
 
-  // ── Quiz Logic ────────────────────────────────────────────────────────────────
-
-  function startQuiz(domainId) {
-    var questions = domainId === 'all'
-      ? (typeof az104Questions !== 'undefined' ? az104Questions : [])
-      : (typeof getQuestionsByDomain !== 'undefined' ? getQuestionsByDomain(domainId) : []);
-
-    if (!questions || questions.length === 0) {
-      showMessage('No questions available for this domain.', 'warning');
-      return;
-    }
-
-    state.currentDomain = domainId;
-    state.currentQuestionIndex = 0;
-    state.startTime = new Date().toISOString();
-    saveState(state);
-
-    renderQuestion(questions, 0);
-    switchTab('quiz');
+  function formatSeconds(totalSeconds) {
+    var mins = Math.floor(totalSeconds / 60);
+    var secs = totalSeconds % 60;
+    return String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
   }
 
-  function renderQuestion(questions, index) {
-    var container = document.getElementById('quiz-container');
-    if (!container) return;
+  function updateTimerUI() {
+    var timerDisplay = byId('timer-display');
+    var timerMode = byId('timer-mode');
+    if (timerDisplay) timerDisplay.textContent = formatSeconds(state.timerSeconds);
+    if (timerMode) timerMode.textContent = state.timerRunning ? 'FOCUS MODE' : 'STUDY MODE';
+  }
 
-    var q = questions[index];
-    if (!q) {
-      renderQuizComplete(questions);
-      return;
+  function tickTimer() {
+    if (!state.timerRunning) return;
+
+    state.timerSeconds = Math.max(0, state.timerSeconds - 1);
+    updateTimerUI();
+    saveState();
+
+    if (state.timerSeconds === 0) {
+      state.timerRunning = false;
+      clearInterval(timerHandle);
+      timerHandle = null;
+      updateTimerUI();
+      showToast('Timer complete');
+      saveState();
+    }
+  }
+
+  function startTimer() {
+    if (state.timerRunning) return;
+    state.timerRunning = true;
+    updateTimerUI();
+    saveState();
+    if (!timerHandle) timerHandle = setInterval(tickTimer, 1000);
+  }
+
+  function pauseTimer() {
+    state.timerRunning = false;
+    updateTimerUI();
+    saveState();
+  }
+
+  function resetTimer() {
+    state.timerRunning = false;
+    state.timerSeconds = 20 * 60;
+    updateTimerUI();
+    saveState();
+  }
+
+  function bindTimer() {
+    var startBtn = byId('btn-start');
+    var pauseBtn = byId('btn-pause');
+    var resetBtn = byId('btn-reset');
+    if (startBtn) startBtn.addEventListener('click', startTimer);
+    if (pauseBtn) pauseBtn.addEventListener('click', pauseTimer);
+    if (resetBtn) resetBtn.addEventListener('click', resetTimer);
+
+    if (state.timerRunning && !timerHandle) {
+      timerHandle = setInterval(tickTimer, 1000);
     }
 
-    var answered = state.answeredQuestions[q.id];
-    var progressPct = Math.round(((index) / questions.length) * 100);
+    updateTimerUI();
+  }
 
-    var html = '<div class="az104-question-card">';
-    html += '<div class="az104-progress-bar" role="progressbar" aria-valuenow="' + progressPct + '" aria-valuemin="0" aria-valuemax="100">';
-    html += '<div class="az104-progress-fill" style="width:' + progressPct + '%"></div></div>';
-    html += '<p class="az104-progress-text">Question ' + (index + 1) + ' of ' + questions.length + '</p>';
-    html += '<div class="az104-domain-badge">' + getDomainName(q.domain) + ' &bull; ' + capitalize(q.difficulty) + '</div>';
-    html += '<h3 class="az104-question-text">' + escapeHtml(q.question) + '</h3>';
-    html += '<div class="az104-options" role="group" aria-label="Answer options">';
+  function domainNumberFromId(domainId) {
+    var match = String(domainId || '').match(/(\d+)/);
+    return match ? Number(match[1]) : 0;
+  }
 
-    q.options.forEach(function(opt, i) {
+  function questionsForDomain(domainId) {
+    if (typeof az104Questions === 'undefined') return [];
+    return az104Questions.filter(function (q) { return q.domain === domainId; });
+  }
+
+  function allQuestions() {
+    return typeof az104Questions === 'undefined' ? [] : az104Questions.slice();
+  }
+
+  function answerForQuestion(question) {
+    return state.answers[String(question.id)] || null;
+  }
+
+  function setAnswer(question, letter) {
+    state.answers[String(question.id)] = letter;
+    if (letter !== question.correct) {
+      state.weaknessNotes[String(question.id)] = question.question;
+    }
+    saveState();
+    renderWeaknessLog();
+    updateStats();
+  }
+
+  function createQuestionCard(question, index, total) {
+    var wrapper = document.createElement('div');
+    wrapper.className = 'question-card';
+
+    var answered = answerForQuestion(question);
+    var isAnswered = !!answered;
+    var isCorrect = isAnswered && answered === question.correct;
+    if (isAnswered) wrapper.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+    var html = '';
+    html += '<div class="question-header">';
+    html += '<div class="question-number">Question ' + (index + 1) + ' / ' + total + '</div>';
+    html += '<div class="scenario-badge">' + (question.difficulty || 'mixed').toUpperCase() + '</div>';
+    html += '</div>';
+    html += '<div class="question-text">' + escapeHtml(question.question) + '</div>';
+    html += '<div class="options-grid">';
+
+    (question.options || []).forEach(function (opt, i) {
       var letter = String.fromCharCode(65 + i);
-      var isCorrect = letter === q.correct;
-      var isSelected = answered === letter;
-      var cls = 'az104-option';
-      if (answered) {
-        if (isCorrect) cls += ' correct';
-        else if (isSelected) cls += ' incorrect';
-        else cls += ' disabled';
+      var optionClass = 'option-btn';
+      if (isAnswered) {
+        if (letter === question.correct) optionClass += ' correct';
+        else if (letter === answered) optionClass += ' wrong';
       }
-      html += '<button class="' + cls + '" data-letter="' + letter + '" data-qid="' + q.id + '"';
-      if (answered) html += ' disabled';
-      html += '>' + escapeHtml(opt) + '</button>';
+      html += '<button class="' + optionClass + '" data-qid="' + question.id + '" data-letter="' + letter + '" ' + (isAnswered ? 'disabled' : '') + '>';
+      html += '<strong>' + letter + '.</strong> <span>' + escapeHtml(opt) + '</span>';
+      html += '</button>';
     });
 
     html += '</div>';
+    html += '<div class="explanation-card ' + (isAnswered ? 'visible' : 'hidden') + '"><div class="explanation-content"><b>Explanation:</b> ' + escapeHtml(question.explanation || '') + '</div></div>';
 
-    if (answered) {
-      var isRight = answered === q.correct;
-      html += '<div class="az104-explanation ' + (isRight ? 'correct' : 'incorrect') + '">';
-      html += '<strong>' + (isRight ? '✓ Correct!' : '✗ Incorrect') + '</strong> ' + escapeHtml(q.explanation);
-      html += '</div>';
+    wrapper.innerHTML = html;
+    return wrapper;
+  }
+
+  function renderDomainSections() {
+    if (typeof az104Domains === 'undefined') return;
+
+    az104Domains.forEach(function (domain) {
+      var sectionId = 'dom' + domainNumberFromId(domain.id);
+      var section = sectionFromKey(sectionId);
+      if (!section) return;
+
+      var qCount = questionsForDomain(domain.id).length;
+      var topicsHtml = (domain.topics || []).map(function (topic) {
+        return '<li class="protocol-item"><span class="pi-bullet">•</span><span>' + escapeHtml(topic) + '</span></li>';
+      }).join('');
+
+      var block = document.createElement('div');
+      block.className = 'protocol-block';
+      block.innerHTML =
+        '<div class="pb-header">' +
+        '<div class="pb-title">Study Focus</div>' +
+        '<div class="pb-duration">' + escapeHtml(domain.weight || '') + '</div>' +
+        '</div>' +
+        '<div class="card-subtitle">' + qCount + ' practice questions available for this domain.</div>' +
+        '<div class="protocol-list">' + topicsHtml + '</div>' +
+        '<div class="mt-2"><button class="btn btn-accent" data-start-domain="' + domain.id + '">Start Domain Quiz</button></div>';
+
+      section.appendChild(block);
+    });
+  }
+
+  var mockState = {
+    activeDomain: 'all',
+    index: 0
+  };
+
+  function domainLabel(id) {
+    if (id === 'all') return 'All Domains';
+    if (typeof az104Domains === 'undefined') return id;
+    var found = az104Domains.find(function (d) { return d.id === id; });
+    return found ? found.name : id;
+  }
+
+  function activeQuizQuestions() {
+    return mockState.activeDomain === 'all' ? allQuestions() : questionsForDomain(mockState.activeDomain);
+  }
+
+  function renderMockReview() {
+    var section = sectionFromKey('mock');
+    if (!section) return;
+
+    var questions = activeQuizQuestions();
+    var total = questions.length;
+    if (mockState.index >= total) mockState.index = Math.max(0, total - 1);
+
+    var answeredCount = questions.filter(function (q) { return !!answerForQuestion(q); }).length;
+
+    var controlsHtml = '<div class="card">' +
+      '<div class="flex items-center justify-between gap-2" style="flex-wrap:wrap;">' +
+      '<div><div class="card-title">Practice Exam</div><div class="card-subtitle">' + escapeHtml(domainLabel(mockState.activeDomain)) + '</div></div>' +
+      '<div class="flex gap-1" style="flex-wrap:wrap;">' +
+      '<button class="btn btn-outline btn-sm" data-mock-domain="all">All</button>' +
+      '<button class="btn btn-outline btn-sm" data-mock-domain="domain1">D1</button>' +
+      '<button class="btn btn-outline btn-sm" data-mock-domain="domain2">D2</button>' +
+      '<button class="btn btn-outline btn-sm" data-mock-domain="domain3">D3</button>' +
+      '<button class="btn btn-outline btn-sm" data-mock-domain="domain4">D4</button>' +
+      '<button class="btn btn-outline btn-sm" data-mock-domain="domain5">D5</button>' +
+      '</div></div>' +
+      '<div class="exam-progress mt-2"><div class="progress-bar"><div class="progress-fill" style="width:' + (total ? Math.round((answeredCount / total) * 100) : 0) + '%"></div></div><div class="progress-text">' + answeredCount + ' / ' + total + ' answered</div></div>' +
+      '</div>';
+
+    var body = document.createElement('div');
+    body.innerHTML = controlsHtml;
+
+    if (!total) {
+      var empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.textContent = 'No questions are available for this domain.';
+      body.appendChild(empty);
+      section.appendChild(body);
+      return;
     }
 
-    html += '<div class="az104-nav-btns">';
-    if (index > 0) html += '<button class="az104-btn secondary" id="btn-prev">← Previous</button>';
-    if (index < questions.length - 1) {
-      html += '<button class="az104-btn primary" id="btn-next">Next →</button>';
-    } else {
-      html += '<button class="az104-btn success" id="btn-finish">Finish Quiz</button>';
-    }
-    html += '</div></div>';
+    var question = questions[mockState.index];
+    var card = createQuestionCard(question, mockState.index, total);
+    body.appendChild(card);
 
-    container.innerHTML = html;
+    var nav = document.createElement('div');
+    nav.className = 'exam-submit-area';
+    nav.innerHTML =
+      '<button class="btn btn-outline" data-nav="prev" ' + (mockState.index === 0 ? 'disabled' : '') + '>Previous</button> ' +
+      '<button class="btn btn-accent" data-nav="next" ' + (mockState.index >= total - 1 ? 'disabled' : '') + '>Next</button>';
+    body.appendChild(nav);
 
-    // Bind option click handlers
-    container.querySelectorAll('.az104-option:not([disabled])').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        answerQuestion(questions, index, btn.dataset.letter, btn.dataset.qid);
+    var oldCards = section.querySelectorAll('.card, .question-card, .exam-submit-area, .empty-state');
+    oldCards.forEach(function (el) { el.remove(); });
+    section.appendChild(body);
+
+    body.querySelectorAll('[data-mock-domain]').forEach(function (btn) {
+      if (btn.getAttribute('data-mock-domain') === mockState.activeDomain) {
+        btn.classList.remove('btn-outline');
+        btn.classList.add('btn-accent');
+      }
+      btn.addEventListener('click', function () {
+        mockState.activeDomain = btn.getAttribute('data-mock-domain');
+        mockState.index = 0;
+        renderMockReview();
       });
     });
 
-    // Bind nav buttons
-    var prevBtn = document.getElementById('btn-prev');
-    var nextBtn = document.getElementById('btn-next');
-    var finishBtn = document.getElementById('btn-finish');
+    body.querySelectorAll('.option-btn:not([disabled])').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var qid = btn.getAttribute('data-qid');
+        var q = questions.find(function (item) { return String(item.id) === qid; });
+        if (!q) return;
+        setAnswer(q, btn.getAttribute('data-letter'));
+        renderMockReview();
+      });
+    });
 
-    if (prevBtn) prevBtn.addEventListener('click', function() { renderQuestion(questions, index - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function() { renderQuestion(questions, index + 1); });
-    if (finishBtn) finishBtn.addEventListener('click', function() { renderQuizComplete(questions); });
+    body.querySelectorAll('[data-nav]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.getAttribute('data-nav') === 'prev') mockState.index -= 1;
+        if (btn.getAttribute('data-nav') === 'next') mockState.index += 1;
+        renderMockReview();
+      });
+    });
   }
 
-  function answerQuestion(questions, index, letter, qid) {
-    var q = questions[index];
-    if (!q || state.answeredQuestions[qid]) return;
+  function startDomainQuiz(domainId) {
+    mockState.activeDomain = domainId;
+    mockState.index = 0;
+    showSection('mock');
+    renderMockReview();
+  }
 
-    state.answeredQuestions[qid] = letter;
-    if (letter === q.correct) {
-      state.score.correct++;
+  function bindDomainQuizButtons() {
+    document.querySelectorAll('[data-start-domain]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var domainId = btn.getAttribute('data-start-domain');
+        startDomainQuiz(domainId);
+      });
+    });
+  }
+
+  function renderKeywords() {
+    var section = sectionFromKey('keywords');
+    if (!section) return;
+
+    var words = [];
+    if (typeof az104Domains !== 'undefined') {
+      az104Domains.forEach(function (d) {
+        (d.topics || []).forEach(function (topic) {
+          var term = String(topic).split('(')[0].trim();
+          words.push({
+            front: term,
+            back: d.name
+          });
+        });
+      });
     }
-    state.score.total++;
-    saveState(state);
 
-    renderQuestion(questions, index);
+    var unique = [];
+    var seen = {};
+    words.forEach(function (w) {
+      var key = w.front.toLowerCase();
+      if (seen[key]) return;
+      seen[key] = true;
+      unique.push(w);
+    });
+
+    var container = document.createElement('div');
+    container.className = 'card';
+    container.innerHTML =
+      '<div class="keyword-header"><h2>Flip Cards</h2><p class="text-muted">Click a keyword card to reveal its domain context.</p></div>' +
+      '<div class="keyword-grid" id="keyword-grid"></div>';
+
+    var old = section.querySelector('.card');
+    if (old) old.remove();
+    section.appendChild(container);
+
+    var grid = container.querySelector('#keyword-grid');
+    unique.slice(0, 28).forEach(function (entry) {
+      var card = document.createElement('div');
+      card.className = 'keyword-card';
+      card.innerHTML = '<div class="keyword-front">' + escapeHtml(entry.front) + '</div><div class="keyword-back">' + escapeHtml(entry.back) + '</div>';
+      card.addEventListener('click', function () {
+        card.classList.toggle('flipped');
+      });
+      grid.appendChild(card);
+    });
   }
 
-  function renderQuizComplete(questions) {
-    var container = document.getElementById('quiz-container');
+  function renderWeaknessLog() {
+    var container = byId('errorLogContainer');
     if (!container) return;
 
-    var answered = Object.keys(state.answeredQuestions).length;
-    var correct = 0;
-    questions.forEach(function(q) {
-      if (state.answeredQuestions[q.id] === q.correct) correct++;
+    var ids = Object.keys(state.answers).filter(function (qid) {
+      var q = allQuestions().find(function (item) { return String(item.id) === qid; });
+      return q && state.answers[qid] !== q.correct;
     });
-    var pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
-    var passed = pct >= 70;
 
-    var html = '<div class="az104-result-card ' + (passed ? 'pass' : 'fail') + '">';
-    html += '<div class="az104-result-icon">' + (passed ? '🎉' : '📚') + '</div>';
-    html += '<h3>' + (passed ? 'Great Job!' : 'Keep Studying!') + '</h3>';
-    html += '<div class="az104-score">' + pct + '%</div>';
-    html += '<p>' + correct + ' correct out of ' + answered + ' answered</p>';
-    html += '<p class="az104-pass-note">' + (passed ? 'You passed! Score ≥ 70%' : 'Score below 70% — review explanations and retry.') + '</p>';
-    html += '<div class="az104-nav-btns">';
-    html += '<button class="az104-btn secondary" onclick="AZ104Engine.resetQuiz()">Reset Quiz</button>';
-    html += '<button class="az104-btn primary" onclick="AZ104Engine.switchTab(\'overview\')">Back to Overview</button>';
-    html += '</div></div>';
-
-    container.innerHTML = html;
-  }
-
-  function resetQuiz() {
-    state.answeredQuestions = {};
-    state.score = { correct: 0, total: 0 };
-    state.currentDomain = null;
-    state.currentQuestionIndex = 0;
-    saveState(state);
-
-    var container = document.getElementById('quiz-container');
-    if (container) {
-      container.innerHTML = '<p class="az104-placeholder">Select a domain above to begin a quiz.</p>';
+    if (!ids.length) {
+      container.innerHTML = '<div class="empty-state">No weak areas logged yet. Incorrect answers will appear here.</div>';
+      return;
     }
-    switchTab('overview');
-  }
-
-  // ── Reference / Flashcards ────────────────────────────────────────────────────
-
-  function renderDomainList() {
-    var container = document.getElementById('domain-list');
-    if (!container || typeof az104Domains === 'undefined') return;
 
     var html = '';
-    az104Domains.forEach(function(d) {
-      var qCount = typeof getQuestionsByDomain !== 'undefined' ? getQuestionsByDomain(d.id).length : 0;
-      html += '<div class="az104-domain-card">';
-      html += '<div class="az104-domain-header">';
-      html += '<h4>' + escapeHtml(d.name) + '</h4>';
-      html += '<span class="az104-weight-badge">' + d.weight + '</span>';
-      html += '</div>';
-      html += '<ul class="az104-topic-list">';
-      d.topics.forEach(function(t) {
-        html += '<li>' + escapeHtml(t) + '</li>';
-      });
-      html += '</ul>';
-      html += '<div class="az104-domain-footer">';
-      html += '<span>' + qCount + ' practice questions</span>';
-      html += '<button class="az104-btn small primary" onclick="AZ104Engine.startQuiz(\'' + d.id + '\')">Practice Domain</button>';
-      html += '</div>';
+    ids.forEach(function (qid) {
+      var q = allQuestions().find(function (item) { return String(item.id) === qid; });
+      if (!q) return;
+      html += '<div class="error-log-entry">';
+      html += '<div class="ele-header"><div class="ele-tag">Review Needed</div><div class="text-muted">Q' + qid + '</div></div>';
+      html += '<div class="ele-question">' + escapeHtml(q.question) + '</div>';
+      html += '<div class="ele-note"><b>Your answer:</b> ' + escapeHtml(state.answers[qid]) + ' &nbsp; <b>Correct:</b> ' + escapeHtml(q.correct) + '</div>';
       html += '</div>';
     });
 
     container.innerHTML = html;
   }
 
-  // ── Utilities ─────────────────────────────────────────────────────────────────
+  function renderCheatSheet() {
+    var section = sectionFromKey('cheat');
+    if (!section) return;
 
-  function getDomainName(domainId) {
-    if (typeof az104Domains === 'undefined') return domainId;
-    var domain = az104Domains.find(function(d) { return d.id === domainId; });
-    return domain ? domain.name : domainId;
+    var commands = [
+      { title: 'List Resource Groups', cmd: 'az group list -o table' },
+      { title: 'List VMs', cmd: 'az vm list -d -o table' },
+      { title: 'Check NSG Rules', cmd: 'az network nsg rule list -g <rg> --nsg-name <nsg> -o table' },
+      { title: 'Storage Account Keys', cmd: 'az storage account keys list -g <rg> -n <account>' },
+      { title: 'List Subscriptions', cmd: 'az account list --output table' }
+    ];
+
+    var html = '<div class="cheatsheet-card"><div class="cheatsheet-title">AZ CLI Quick Reference</div><div class="cheatsheet-items">';
+    commands.forEach(function (item) {
+      html += '<div class="cheatsheet-item"><div class="cs-header"><div class="cs-desc">' + escapeHtml(item.title) + '</div></div><pre class="cs-code">' + escapeHtml(item.cmd) + '</pre></div>';
+    });
+    html += '</div></div>';
+
+    html += '<div class="card"><h3 style="margin-bottom:0.75rem;">Subnet Calculator</h3>' +
+      '<div class="subnet-input-row"><label for="cidr-input">CIDR:</label><input id="cidr-input" class="cidr-input" type="number" min="16" max="30" value="24"><button id="btn-calc-subnet" class="btn btn-accent btn-sm">Calculate</button></div>' +
+      '<div id="subnet-output" class="subnet-result-card"></div></div>';
+
+    var old = section.querySelectorAll('.cheatsheet-card, .card');
+    old.forEach(function (n) { n.remove(); });
+    section.insertAdjacentHTML('beforeend', html);
+
+    var calcBtn = byId('btn-calc-subnet');
+    if (calcBtn) {
+      calcBtn.addEventListener('click', function () {
+        var cidr = Number((byId('cidr-input') || {}).value || 24);
+        var hostBits = Math.max(2, 32 - cidr);
+        var totalIps = Math.pow(2, hostBits);
+        var usable = Math.max(0, totalIps - 5);
+        var output = byId('subnet-output');
+        if (!output) return;
+        output.innerHTML =
+          '<div class="subnet-stat"><span class="stat-label">CIDR</span><span class="stat-value">/' + cidr + '</span></div>' +
+          '<div class="subnet-stat"><span class="stat-label">Total IPs</span><span class="stat-value">' + totalIps + '</span></div>' +
+          '<div class="subnet-stat"><span class="stat-label">Usable IPs</span><span class="stat-value">' + usable + '</span></div>' +
+          '<div class="subnet-stat"><span class="stat-label">Reserved</span><span class="stat-value">5</span></div>';
+      });
+      calcBtn.click();
+    }
   }
 
-  function showMessage(msg, type) {
-    var el = document.getElementById('az104-message');
-    if (!el) return;
-    el.textContent = msg;
-    el.className = 'az104-message ' + (type || 'info');
-    el.classList.remove('hidden');
-    setTimeout(function() { el.classList.add('hidden'); }, 4000);
-  }
+  function updateStats() {
+    var questions = allQuestions();
+    var answered = 0;
+    var correct = 0;
 
-  function capitalize(str) {
-    return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+    questions.forEach(function (q) {
+      var ans = answerForQuestion(q);
+      if (!ans) return;
+      answered += 1;
+      if (ans === q.correct) correct += 1;
+    });
+
+    var pctAnswered = questions.length ? Math.round((answered / questions.length) * 100) : 0;
+    var accuracy = answered ? Math.round((correct / answered) * 100) : 0;
+
+    var progressFill = byId('progress-fill');
+    var progressText = byId('progressText');
+    if (progressFill) progressFill.style.width = pctAnswered + '%';
+    if (progressText) progressText.textContent = pctAnswered + '% Complete';
+
+    var overviewProgress = byId('overview-progress-value');
+    var overviewQuestions = byId('overview-questions-value');
+    var overviewAccuracy = byId('overview-accuracy-value');
+    var overviewWeaknesses = byId('overview-weaknesses-value');
+
+    var wrongCount = answered - correct;
+
+    if (overviewProgress) overviewProgress.textContent = pctAnswered + '%';
+    if (overviewProgress && overviewProgress.nextElementSibling) {
+      overviewProgress.nextElementSibling.textContent = Math.min(14, Math.round((pctAnswered / 100) * 14)) + ' of 14 days completed';
+    }
+
+    if (overviewQuestions) overviewQuestions.textContent = String(answered);
+    if (overviewAccuracy) overviewAccuracy.textContent = answered ? (accuracy + '%') : '—';
+    if (overviewWeaknesses) overviewWeaknesses.textContent = String(wrongCount);
   }
 
   function escapeHtml(str) {
-    if (!str) return '';
-    return String(str)
+    return String(str || '')
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
@@ -292,82 +532,26 @@ var AZ104Engine = (function() {
       .replace(/'/g, '&#39;');
   }
 
-  function getProgressSummary() {
-    var totalQ = typeof az104Questions !== 'undefined' ? az104Questions.length : 0;
-    var answered = Object.keys(state.answeredQuestions).length;
-    return {
-      total: totalQ,
-      answered: answered,
-      correct: state.score.correct,
-      pct: answered > 0 ? Math.round((state.score.correct / answered) * 100) : 0
-    };
-  }
-
-  function renderProgressSummary() {
-    var el = document.getElementById('progress-summary');
-    if (!el) return;
-    var p = getProgressSummary();
-    el.innerHTML =
-      '<div class="az104-stat"><span class="az104-stat-num">' + p.answered + '/' + p.total + '</span><span class="az104-stat-label">Questions Attempted</span></div>' +
-      '<div class="az104-stat"><span class="az104-stat-num">' + p.correct + '</span><span class="az104-stat-label">Correct</span></div>' +
-      '<div class="az104-stat"><span class="az104-stat-num">' + p.pct + '%</span><span class="az104-stat-label">Accuracy</span></div>';
-  }
-
-  // ── Initialization ────────────────────────────────────────────────────────────
-
   function init() {
-    // Restore active tab
-    if (state.activeTab) {
-      switchTab(state.activeTab);
+    bindNavigation();
+    bindTimer();
+    renderDomainSections();
+    bindDomainQuizButtons();
+    renderKeywords();
+    renderCheatSheet();
+    renderWeaknessLog();
+    renderMockReview();
+    updateStats();
+
+    if (!sectionFromKey(state.activeSection)) {
+      state.activeSection = 'overview';
     }
-
-    // Bind tab buttons
-    document.querySelectorAll('.az104-tab-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        switchTab(btn.dataset.tab);
-      });
-    });
-
-    // Bind domain start buttons in overview
-    document.querySelectorAll('[data-start-domain]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        startQuiz(btn.dataset.startDomain);
-      });
-    });
-
-    // Bind reset button
-    var resetBtn = document.getElementById('btn-reset-all');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', function() {
-        if (confirm('Reset all quiz progress? This cannot be undone.')) {
-          clearState();
-          state = loadState();
-          resetQuiz();
-          renderProgressSummary();
-          renderDomainList();
-        }
-      });
-    }
-
-    // Render initial UI
-    renderDomainList();
-    renderProgressSummary();
+    showSection(state.activeSection);
   }
 
-  // Auto-init when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-
-  // Public API
-  return {
-    init: init,
-    switchTab: switchTab,
-    startQuiz: startQuiz,
-    resetQuiz: resetQuiz,
-    getState: function() { return state; },
-    getProgressSummary: getProgressSummary
-  };
 })();
