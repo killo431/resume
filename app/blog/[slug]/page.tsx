@@ -31,13 +31,23 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   return {
     title: `${post.title} | Randy DeRego`,
     description: post.excerpt,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
+      url: `/blog/${slug}`,
       type: 'article',
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
+      siteName: 'Randy DeRego',
+    },
+    twitter: {
+      card: 'summary',
+      title: post.title,
+      description: post.excerpt,
     },
   };
 }

@@ -5,6 +5,10 @@ import { ArrowLeft } from 'lucide-react';
 export const metadata = {
   title: 'AI Blog Generator | Randy DeRego',
   description: 'Generate professional technical blog posts using AI',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function GenerateBlogPage() {
