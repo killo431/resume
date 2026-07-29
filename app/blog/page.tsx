@@ -5,7 +5,22 @@ const BASE_URL = 'https://devtest512.info';
 
 export const metadata = {
   title: 'Blog | Randy DeRego',
-  description: 'Technical insights on systems administration, automation, and IT infrastructure',
+  description: 'Technical insights on systems administration, automation, and IT infrastructure by Randy DeRego.',
+  alternates: {
+    canonical: '/blog',
+  },
+  openGraph: {
+    type: 'website',
+    url: '/blog',
+    title: 'Blog | Randy DeRego',
+    description: 'Technical insights on systems administration, automation, and IT infrastructure by Randy DeRego.',
+    siteName: 'Randy DeRego',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Blog | Randy DeRego',
+    description: 'Technical insights on systems administration, automation, and IT infrastructure by Randy DeRego.',
+  },
 };
 
 export default function BlogPage() {
