@@ -67,7 +67,6 @@ function QDB() { return (typeof domainQuestionDatabase !== 'undefined' && domain
 function SCHED() { return (typeof dailySchedules !== 'undefined' && dailySchedules) ? dailySchedules : {}; }
 
 const MOCK_DOMAINS = ['dom1', 'dom2', 'dom3', 'dom4', 'dom5'];
-const DOMAIN_EXAM_ORDER = {};
 const MIN_QUESTIONS_FOR_DIFFICULTY_INFERENCE = 2;
 const MEDIUM_DIFFICULTY_THRESHOLD = 0.35;
 const HARD_DIFFICULTY_THRESHOLD = 0.7;
@@ -106,9 +105,10 @@ function inferDifficulty(index, total) {
   return 'easy';
 }
 function qDifficulty(q, domainKey) {
+  const resolvedDomainKey = domainKey || (String(q.id || '').split('-')[0]) || '';
   const explicitDifficulty = normalizeDifficulty(q.difficulty || q.level || q.complexity);
   if (explicitDifficulty) return DIFFICULTY_META[explicitDifficulty] || DIFFICULTY_META.medium;
-  const domainQuestions = QDB()[domainKey] || [];
+  const domainQuestions = QDB()[resolvedDomainKey] || [];
   const sourceIndex = domainQuestions.findIndex(item => item.id === q.id);
   if (sourceIndex < 0 || !domainQuestions.length) return DIFFICULTY_META.medium;
   const key = inferDifficulty(sourceIndex, domainQuestions.length);
@@ -116,10 +116,10 @@ function qDifficulty(q, domainKey) {
 }
 function getDomainExamQuestions(domainKey) {
   const questions = (QDB()[domainKey] || []).slice();
-  const orderedIds = DOMAIN_EXAM_ORDER[domainKey];
+  const orderedIds = (AppState.loadState().examOrder || {})[domainKey];
   if (!orderedIds) return questions;
   if (orderedIds.length !== questions.length) {
-    delete DOMAIN_EXAM_ORDER[domainKey];
+    AppState.setDomainExamOrder(domainKey, undefined);
     console.warn('Resetting stale practice exam order for domain:', domainKey);
     return questions;
   }
@@ -133,7 +133,7 @@ function getDomainExamQuestions(domainKey) {
   return orderedQuestions.concat(questions.filter(q => !seen.has(q.id)));
 }
 function setDomainExamQuestions(domainKey, questions) {
-  DOMAIN_EXAM_ORDER[domainKey] = questions.map(q => q.id);
+  AppState.setDomainExamOrder(domainKey, questions.map(q => q.id));
 }
 
 /* ============================================================
@@ -423,12 +423,15 @@ const domainStudyGuides = {
    ============================================================ */
 const AppState = (() => {
   const KEY = 'az104_app_state';
-  let _state = { answers: {}, completedBlocks: [], weaknessLog: [], timerState: { mode: 'study', timeLeft: 1200, isRunning: false } };
+  let _state = { answers: {}, completedBlocks: [], weaknessLog: [], examOrder: {}, timerState: { mode: 'study', timeLeft: 1200, isRunning: false } };
 
   function loadState() {
     try {
       const s = localStorage.getItem(KEY);
-      if (s) _state = { ..._state, ...JSON.parse(s) };
+      if (s) {
+        const parsed = JSON.parse(s);
+        _state = { ..._state, ...parsed, examOrder: { ..._state.examOrder, ...(parsed.examOrder || {}) } };
+      }
     } catch(e) {}
     return _state;
   }
@@ -442,6 +445,11 @@ const AppState = (() => {
   function clearDomainAnswers(domainKey) { const qs = (typeof domainQuestionDatabase!=='undefined'?domainQuestionDatabase[domainKey]:null) || []; qs.forEach(q => delete _state.answers[q.id]); saveState(); }
   function clearAllAnswers() { _state.answers = {}; saveState(); }
   function getWeaknessLog() { return _state.weaknessLog; }
+  function setDomainExamOrder(domainKey, order) {
+    if (order === undefined) delete _state.examOrder[domainKey];
+    else _state.examOrder[domainKey] = order;
+    saveState();
+  }
   function getTotalBlocks() {
     let total = 0;
     Object.values(dailySchedules).forEach(day => {
@@ -451,7 +459,7 @@ const AppState = (() => {
     return total;
   }
   function getCompletedCount() { return _state.completedBlocks.length; }
-  return { loadState, saveState, getAnswer, setAnswer, addCompletedBlock, isBlockCompleted, addToWeaknessLog, removeFromWeaknessLog, clearDomainAnswers, clearAllAnswers, getWeaknessLog, getTotalBlocks, getCompletedCount };
+  return { loadState, saveState, getAnswer, setAnswer, addCompletedBlock, isBlockCompleted, addToWeaknessLog, removeFromWeaknessLog, clearDomainAnswers, clearAllAnswers, getWeaknessLog, setDomainExamOrder, getTotalBlocks, getCompletedCount };
 })();
 
 /* ============================================================
@@ -770,6 +778,7 @@ function renderQuestionCard(q, domainKey, index) {
 
   const qNum = document.createElement('span');
   qNum.textContent = 'Q' + (index + 1);
+  qNum.setAttribute('aria-label', 'Question ' + (index + 1));
 
   const difficulty = qDifficulty(q, domainKey);
   const difficultyBadge = document.createElement('span');
