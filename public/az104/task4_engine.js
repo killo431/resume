@@ -68,6 +68,9 @@ function SCHED() { return (typeof dailySchedules !== 'undefined' && dailySchedul
 
 const MOCK_DOMAINS = ['dom1', 'dom2', 'dom3', 'dom4', 'dom5'];
 const DOMAIN_EXAM_ORDER = {};
+const MIN_QUESTIONS_FOR_DIFFICULTY_INFERENCE = 2;
+const MEDIUM_DIFFICULTY_THRESHOLD = 0.35;
+const HARD_DIFFICULTY_THRESHOLD = 0.7;
 const DIFFICULTY_META = {
   easy: { label: 'Easy', className: 'difficulty-easy' },
   medium: { label: 'Medium', className: 'difficulty-medium' },
@@ -97,21 +100,29 @@ function normalizeDifficulty(value) {
   return '';
 }
 function inferDifficulty(index, total) {
-  if (total <= 2) return 'medium';
-  if (index >= Math.ceil(total * 0.7)) return 'hard';
-  if (index >= Math.ceil(total * 0.35)) return 'medium';
+  if (total <= MIN_QUESTIONS_FOR_DIFFICULTY_INFERENCE) return 'medium';
+  if (index >= Math.ceil(total * HARD_DIFFICULTY_THRESHOLD)) return 'hard';
+  if (index >= Math.ceil(total * MEDIUM_DIFFICULTY_THRESHOLD)) return 'medium';
   return 'easy';
 }
 function qDifficulty(q, domainKey) {
+  const explicitDifficulty = normalizeDifficulty(q.difficulty || q.level || q.complexity);
+  if (explicitDifficulty) return DIFFICULTY_META[explicitDifficulty] || DIFFICULTY_META.medium;
   const domainQuestions = QDB()[domainKey] || [];
-  const sourceIndex = Math.max(domainQuestions.findIndex(item => item.id === q.id), 0);
-  const key = normalizeDifficulty(q.difficulty || q.level || q.complexity) || inferDifficulty(sourceIndex, domainQuestions.length);
+  const sourceIndex = domainQuestions.findIndex(item => item.id === q.id);
+  if (sourceIndex < 0 || !domainQuestions.length) return DIFFICULTY_META.medium;
+  const key = inferDifficulty(sourceIndex, domainQuestions.length);
   return DIFFICULTY_META[key] || DIFFICULTY_META.medium;
 }
 function getDomainExamQuestions(domainKey) {
   const questions = (QDB()[domainKey] || []).slice();
   const orderedIds = DOMAIN_EXAM_ORDER[domainKey];
-  if (!orderedIds || orderedIds.length !== questions.length) return questions;
+  if (!orderedIds) return questions;
+  if (orderedIds.length !== questions.length) {
+    delete DOMAIN_EXAM_ORDER[domainKey];
+    console.warn('Resetting stale practice exam order for domain:', domainKey);
+    return questions;
+  }
   const byId = new Map(questions.map(q => [q.id, q]));
   const seen = new Set();
   const orderedQuestions = orderedIds.map((id) => {
