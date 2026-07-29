@@ -67,6 +67,12 @@ function QDB() { return (typeof domainQuestionDatabase !== 'undefined' && domain
 function SCHED() { return (typeof dailySchedules !== 'undefined' && dailySchedules) ? dailySchedules : {}; }
 
 const MOCK_DOMAINS = ['dom1', 'dom2', 'dom3', 'dom4', 'dom5'];
+const DOMAIN_EXAM_ORDER = {};
+const DIFFICULTY_META = {
+  easy: { label: 'Easy', className: 'difficulty-easy' },
+  medium: { label: 'Medium', className: 'difficulty-medium' },
+  hard: { label: 'Hard', className: 'difficulty-hard' }
+};
 function allQuestions() {
   let out = [];
   MOCK_DOMAINS.forEach((k) => { out = out.concat(QDB()[k] || []); });
@@ -75,6 +81,49 @@ function allQuestions() {
 // Normalize a question explanation/video across possible field names.
 function qExplanation(q) { return q.guide || q.explanation || ''; }
 function qVideo(q) { return q.videoLink || q.video || ytLink((q.scenarioTag || q.question || '').slice(0, 60)); }
+function shuffleList(list) {
+  const out = list.slice();
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+function normalizeDifficulty(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  if (normalized === 'easy' || normalized === 'beginner' || normalized === 'basic') return 'easy';
+  if (normalized === 'hard' || normalized === 'advanced' || normalized === 'expert') return 'hard';
+  if (normalized === 'medium' || normalized === 'moderate' || normalized === 'intermediate') return 'medium';
+  return '';
+}
+function inferDifficulty(index, total) {
+  if (total <= 2) return 'medium';
+  if (index >= Math.ceil(total * 0.7)) return 'hard';
+  if (index >= Math.ceil(total * 0.35)) return 'medium';
+  return 'easy';
+}
+function qDifficulty(q, domainKey) {
+  const domainQuestions = QDB()[domainKey] || [];
+  const sourceIndex = Math.max(domainQuestions.findIndex(item => item.id === q.id), 0);
+  const key = normalizeDifficulty(q.difficulty || q.level || q.complexity) || inferDifficulty(sourceIndex, domainQuestions.length);
+  return DIFFICULTY_META[key] || DIFFICULTY_META.medium;
+}
+function getDomainExamQuestions(domainKey) {
+  const questions = (QDB()[domainKey] || []).slice();
+  const orderedIds = DOMAIN_EXAM_ORDER[domainKey];
+  if (!orderedIds || orderedIds.length !== questions.length) return questions;
+  const byId = new Map(questions.map(q => [q.id, q]));
+  const seen = new Set();
+  const orderedQuestions = orderedIds.map((id) => {
+    const q = byId.get(id);
+    if (q) seen.add(id);
+    return q;
+  }).filter(Boolean);
+  return orderedQuestions.concat(questions.filter(q => !seen.has(q.id)));
+}
+function setDomainExamQuestions(domainKey, questions) {
+  DOMAIN_EXAM_ORDER[domainKey] = questions.map(q => q.id);
+}
 
 /* ============================================================
    DAY KEY POINTS DATA
@@ -705,11 +754,22 @@ function renderQuestionCard(q, domainKey, index) {
   topicWrap.appendChild(revealBtn);
   topicWrap.appendChild(topicText);
 
+  const metaWrap = document.createElement('div');
+  metaWrap.className = 'question-meta';
+
   const qNum = document.createElement('span');
   qNum.textContent = 'Q' + (index + 1);
 
+  const difficulty = qDifficulty(q, domainKey);
+  const difficultyBadge = document.createElement('span');
+  difficultyBadge.className = 'difficulty-badge ' + difficulty.className;
+  difficultyBadge.textContent = difficulty.label;
+
+  metaWrap.appendChild(qNum);
+  metaWrap.appendChild(difficultyBadge);
+
   header.appendChild(topicWrap);
-  header.appendChild(qNum);
+  header.appendChild(metaWrap);
   card.appendChild(header);
 
   const qtext = document.createElement('div');
@@ -769,7 +829,7 @@ function handleAnswer(qid, selectedIdx, q, domainKey, optionEls, explanationEl) 
 function renderDomainExam(domainKey, containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  const questions = QDB()[domainKey] || [];
+  const questions = getDomainExamQuestions(domainKey);
   container.innerHTML = '';
 
   const wrap = document.createElement('div');
@@ -787,12 +847,14 @@ function renderDomainExam(domainKey, containerId) {
   submitArea.className = 'exam-submit-area';
   submitArea.innerHTML = `
     <button class="submit-quiz-btn btn btn-accent" id="submit-${domainKey}">Submit &amp; Grade</button>
+    <button class="btn btn-outline" id="reshuffle-${domainKey}">🔀 Reshuffle Questions</button>
     <button class="btn btn-outline" id="clear-${domainKey}">↺ Clear Answers</button>
     <div id="grade-${domainKey}"></div>`;
   wrap.appendChild(submitArea);
   container.appendChild(wrap);
 
   document.getElementById('submit-' + domainKey)?.addEventListener('click', () => submitQuiz(domainKey, questions, 'grade-' + domainKey));
+  document.getElementById('reshuffle-' + domainKey)?.addEventListener('click', () => reshuffleDomainExam(domainKey, containerId));
   document.getElementById('clear-' + domainKey)?.addEventListener('click', () => clearDomainAnswers(domainKey, containerId));
 }
 
@@ -844,6 +906,13 @@ function clearDomainAnswers(domainKey, containerId) {
   AppState.clearDomainAnswers(domainKey);
   renderDomainExam(domainKey, containerId);
   showToast('↺ Answers cleared');
+}
+
+function reshuffleDomainExam(domainKey, containerId) {
+  const questions = shuffleList(QDB()[domainKey] || []);
+  setDomainExamQuestions(domainKey, questions);
+  renderDomainExam(domainKey, containerId);
+  showToast('🔀 Questions reshuffled');
 }
 
 /* ============================================================
