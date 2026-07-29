@@ -500,20 +500,22 @@ export default function AZ104Page() {
     setRevealed((prev) => ({ ...prev, [questionId]: !prev[questionId] }));
   };
 
-  const handleSubmit = () => {
-    setSubmitted(true);
-    setRevealed(
-      Object.fromEntries(ALL_QUESTIONS.map((q) => [q.id, true]))
-    );
-  };
-
   const visibleQuestions =
     filterDifficulty === "All"
       ? questions
       : questions.filter((q) => q.difficulty === filterDifficulty);
 
-  const answeredCount = Object.keys(selected).length;
+  const handleSubmit = () => {
+    setSubmitted(true);
+    setRevealed(
+      Object.fromEntries(visibleQuestions.map((q) => [q.id, true]))
+    );
+  };
+
   const totalVisible = visibleQuestions.length;
+  const answeredCount = visibleQuestions.filter(
+    (q) => selected[q.id] !== undefined
+  ).length;
 
   const score = submitted
     ? visibleQuestions.filter((q) => selected[q.id] === q.correctIndex).length
