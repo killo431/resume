@@ -67,7 +67,7 @@ function QDB() { return (typeof domainQuestionDatabase !== 'undefined' && domain
 function SCHED() { return (typeof dailySchedules !== 'undefined' && dailySchedules) ? dailySchedules : {}; }
 
 const MOCK_DOMAINS = ['dom1', 'dom2', 'dom3', 'dom4', 'dom5'];
-const MAX_QUESTIONS_FOR_DEFAULT_DIFFICULTY = 2;
+const MIN_QUESTIONS_FOR_INFERRED_DIFFICULTY = 2;
 const MEDIUM_DIFFICULTY_THRESHOLD = 0.35;
 const HARD_DIFFICULTY_THRESHOLD = 0.7;
 const DIFFICULTY_META = {
@@ -99,7 +99,7 @@ function normalizeDifficulty(value) {
   return '';
 }
 function inferDifficulty(index, total) {
-  if (total <= MAX_QUESTIONS_FOR_DEFAULT_DIFFICULTY) return 'medium';
+  if (total <= MIN_QUESTIONS_FOR_INFERRED_DIFFICULTY) return 'medium';
   const position = (index + 1) / total;
   if (position > HARD_DIFFICULTY_THRESHOLD) return 'hard';
   if (position > MEDIUM_DIFFICULTY_THRESHOLD) return 'medium';
@@ -120,18 +120,17 @@ function getDomainExamQuestions(domainKey) {
   const orderedIds = (AppState.loadState().examOrder || {})[domainKey];
   if (!orderedIds) return questions;
   if (orderedIds.length !== questions.length) {
-    AppState.setDomainExamOrder(domainKey, undefined);
+    AppState.clearDomainExamOrder(domainKey);
     console.warn('Resetting stale practice exam order for domain:', domainKey);
     return questions;
   }
   const byId = new Map(questions.map(q => [q.id, q]));
-  const seen = new Set();
   const orderedQuestions = orderedIds.map((id) => {
     const q = byId.get(id);
-    if (q) seen.add(id);
+    if (q) byId.delete(id);
     return q;
   }).filter(Boolean);
-  return orderedQuestions.concat(questions.filter(q => !seen.has(q.id)));
+  return orderedQuestions.concat(Array.from(byId.values()));
 }
 function setDomainExamQuestions(domainKey, questions) {
   AppState.setDomainExamOrder(domainKey, questions.map(q => q.id));
@@ -447,8 +446,11 @@ const AppState = (() => {
   function clearAllAnswers() { _state.answers = {}; saveState(); }
   function getWeaknessLog() { return _state.weaknessLog; }
   function setDomainExamOrder(domainKey, order) {
-    if (order === undefined) delete _state.examOrder[domainKey];
-    else _state.examOrder[domainKey] = order;
+    _state.examOrder[domainKey] = order;
+    saveState();
+  }
+  function clearDomainExamOrder(domainKey) {
+    delete _state.examOrder[domainKey];
     saveState();
   }
   function getTotalBlocks() {
@@ -460,7 +462,7 @@ const AppState = (() => {
     return total;
   }
   function getCompletedCount() { return _state.completedBlocks.length; }
-  return { loadState, saveState, getAnswer, setAnswer, addCompletedBlock, isBlockCompleted, addToWeaknessLog, removeFromWeaknessLog, clearDomainAnswers, clearAllAnswers, getWeaknessLog, setDomainExamOrder, getTotalBlocks, getCompletedCount };
+  return { loadState, saveState, getAnswer, setAnswer, addCompletedBlock, isBlockCompleted, addToWeaknessLog, removeFromWeaknessLog, clearDomainAnswers, clearAllAnswers, getWeaknessLog, setDomainExamOrder, clearDomainExamOrder, getTotalBlocks, getCompletedCount };
 })();
 
 /* ============================================================
@@ -785,6 +787,7 @@ function renderQuestionCard(q, domainKey, index) {
   const difficultyBadge = document.createElement('span');
   difficultyBadge.className = 'difficulty-badge ' + difficulty.className;
   difficultyBadge.textContent = difficulty.label;
+  difficultyBadge.setAttribute('aria-label', 'Difficulty: ' + difficulty.label);
 
   metaWrap.appendChild(qNum);
   metaWrap.appendChild(difficultyBadge);
