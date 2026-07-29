@@ -67,7 +67,7 @@ function QDB() { return (typeof domainQuestionDatabase !== 'undefined' && domain
 function SCHED() { return (typeof dailySchedules !== 'undefined' && dailySchedules) ? dailySchedules : {}; }
 
 const MOCK_DOMAINS = ['dom1', 'dom2', 'dom3', 'dom4', 'dom5'];
-const MIN_QUESTIONS_FOR_DIFFICULTY_INFERENCE = 2;
+const MAX_QUESTIONS_FOR_DEFAULT_DIFFICULTY = 2;
 const MEDIUM_DIFFICULTY_THRESHOLD = 0.35;
 const HARD_DIFFICULTY_THRESHOLD = 0.7;
 const DIFFICULTY_META = {
@@ -99,9 +99,10 @@ function normalizeDifficulty(value) {
   return '';
 }
 function inferDifficulty(index, total) {
-  if (total <= MIN_QUESTIONS_FOR_DIFFICULTY_INFERENCE) return 'medium';
-  if (index >= Math.ceil(total * HARD_DIFFICULTY_THRESHOLD)) return 'hard';
-  if (index >= Math.ceil(total * MEDIUM_DIFFICULTY_THRESHOLD)) return 'medium';
+  if (total <= MAX_QUESTIONS_FOR_DEFAULT_DIFFICULTY) return 'medium';
+  const position = (index + 1) / total;
+  if (position > HARD_DIFFICULTY_THRESHOLD) return 'hard';
+  if (position > MEDIUM_DIFFICULTY_THRESHOLD) return 'medium';
   return 'easy';
 }
 function qDifficulty(q, domainKey) {
@@ -430,7 +431,7 @@ const AppState = (() => {
       const s = localStorage.getItem(KEY);
       if (s) {
         const parsed = JSON.parse(s);
-        _state = { ..._state, ...parsed, examOrder: { ..._state.examOrder, ...(parsed.examOrder || {}) } };
+        _state = { ..._state, ...parsed, examOrder: parsed.examOrder || {} };
       }
     } catch(e) {}
     return _state;
