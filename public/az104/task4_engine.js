@@ -67,6 +67,14 @@ function QDB() { return (typeof domainQuestionDatabase !== 'undefined' && domain
 function SCHED() { return (typeof dailySchedules !== 'undefined' && dailySchedules) ? dailySchedules : {}; }
 
 const MOCK_DOMAINS = ['dom1', 'dom2', 'dom3', 'dom4', 'dom5'];
+const MIN_QUESTIONS_FOR_INFERRED_DIFFICULTY = 2;
+const MEDIUM_DIFFICULTY_THRESHOLD = 0.35;
+const HARD_DIFFICULTY_THRESHOLD = 0.7;
+const DIFFICULTY_META = {
+  easy: { label: 'Easy', className: 'difficulty-easy' },
+  medium: { label: 'Medium', className: 'difficulty-medium' },
+  hard: { label: 'Hard', className: 'difficulty-hard' }
+};
 function allQuestions() {
   let out = [];
   MOCK_DOMAINS.forEach((k) => { out = out.concat(QDB()[k] || []); });
@@ -75,6 +83,58 @@ function allQuestions() {
 // Normalize a question explanation/video across possible field names.
 function qExplanation(q) { return q.guide || q.explanation || ''; }
 function qVideo(q) { return q.videoLink || q.video || ytLink((q.scenarioTag || q.question || '').slice(0, 60)); }
+function shuffleList(list) {
+  const out = list.slice();
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+function normalizeDifficulty(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  if (normalized === 'easy' || normalized === 'beginner' || normalized === 'basic') return 'easy';
+  if (normalized === 'hard' || normalized === 'advanced' || normalized === 'expert') return 'hard';
+  if (normalized === 'medium' || normalized === 'moderate' || normalized === 'intermediate') return 'medium';
+  return '';
+}
+function inferDifficulty(index, total) {
+  if (total <= MIN_QUESTIONS_FOR_INFERRED_DIFFICULTY) return 'medium';
+  const position = (index + 1) / total;
+  if (position > HARD_DIFFICULTY_THRESHOLD) return 'hard';
+  if (position > MEDIUM_DIFFICULTY_THRESHOLD) return 'medium';
+  return 'easy';
+}
+function qDifficulty(q, domainKey) {
+  const resolvedDomainKey = domainKey || (String(q.id || '').split('-')[0]) || '';
+  const explicitDifficulty = normalizeDifficulty(q.difficulty || q.level || q.complexity);
+  if (explicitDifficulty) return DIFFICULTY_META[explicitDifficulty] || DIFFICULTY_META.medium;
+  const domainQuestions = QDB()[resolvedDomainKey] || [];
+  const sourceIndex = domainQuestions.findIndex(item => item.id === q.id);
+  if (sourceIndex < 0 || !domainQuestions.length) return DIFFICULTY_META.medium;
+  const key = inferDifficulty(sourceIndex, domainQuestions.length);
+  return DIFFICULTY_META[key] || DIFFICULTY_META.medium;
+}
+function getDomainExamQuestions(domainKey) {
+  const questions = (QDB()[domainKey] || []).slice();
+  const orderedIds = (AppState.loadState().examOrder || {})[domainKey];
+  if (!orderedIds) return questions;
+  if (orderedIds.length !== questions.length) {
+    AppState.clearDomainExamOrder(domainKey);
+    console.warn('Resetting stale practice exam order for domain:', domainKey);
+    return questions;
+  }
+  const byId = new Map(questions.map(q => [q.id, q]));
+  const orderedQuestions = orderedIds.map((id) => {
+    const q = byId.get(id);
+    if (q) byId.delete(id);
+    return q;
+  }).filter(Boolean);
+  return orderedQuestions.concat(Array.from(byId.values()));
+}
+function setDomainExamQuestions(domainKey, questions) {
+  AppState.setDomainExamOrder(domainKey, questions.map(q => q.id));
+}
 
 /* ============================================================
    DAY KEY POINTS DATA
@@ -363,12 +423,15 @@ const domainStudyGuides = {
    ============================================================ */
 const AppState = (() => {
   const KEY = 'az104_app_state';
-  let _state = { answers: {}, completedBlocks: [], weaknessLog: [], timerState: { mode: 'study', timeLeft: 1200, isRunning: false } };
+  let _state = { answers: {}, completedBlocks: [], weaknessLog: [], examOrder: {}, timerState: { mode: 'study', timeLeft: 1200, isRunning: false } };
 
   function loadState() {
     try {
       const s = localStorage.getItem(KEY);
-      if (s) _state = { ..._state, ...JSON.parse(s) };
+      if (s) {
+        const parsed = JSON.parse(s);
+        _state = { ..._state, ...parsed, examOrder: parsed.examOrder || {} };
+      }
     } catch(e) {}
     return _state;
   }
@@ -382,6 +445,14 @@ const AppState = (() => {
   function clearDomainAnswers(domainKey) { const qs = (typeof domainQuestionDatabase!=='undefined'?domainQuestionDatabase[domainKey]:null) || []; qs.forEach(q => delete _state.answers[q.id]); saveState(); }
   function clearAllAnswers() { _state.answers = {}; saveState(); }
   function getWeaknessLog() { return _state.weaknessLog; }
+  function setDomainExamOrder(domainKey, order) {
+    _state.examOrder[domainKey] = order;
+    saveState();
+  }
+  function clearDomainExamOrder(domainKey) {
+    delete _state.examOrder[domainKey];
+    saveState();
+  }
   function getTotalBlocks() {
     let total = 0;
     Object.values(dailySchedules).forEach(day => {
@@ -391,7 +462,7 @@ const AppState = (() => {
     return total;
   }
   function getCompletedCount() { return _state.completedBlocks.length; }
-  return { loadState, saveState, getAnswer, setAnswer, addCompletedBlock, isBlockCompleted, addToWeaknessLog, removeFromWeaknessLog, clearDomainAnswers, clearAllAnswers, getWeaknessLog, getTotalBlocks, getCompletedCount };
+  return { loadState, saveState, getAnswer, setAnswer, addCompletedBlock, isBlockCompleted, addToWeaknessLog, removeFromWeaknessLog, clearDomainAnswers, clearAllAnswers, getWeaknessLog, setDomainExamOrder, clearDomainExamOrder, getTotalBlocks, getCompletedCount };
 })();
 
 /* ============================================================
@@ -705,11 +776,24 @@ function renderQuestionCard(q, domainKey, index) {
   topicWrap.appendChild(revealBtn);
   topicWrap.appendChild(topicText);
 
+  const metaWrap = document.createElement('div');
+  metaWrap.className = 'question-meta';
+
   const qNum = document.createElement('span');
   qNum.textContent = 'Q' + (index + 1);
+  qNum.setAttribute('aria-label', 'Question ' + (index + 1));
+
+  const difficulty = qDifficulty(q, domainKey);
+  const difficultyBadge = document.createElement('span');
+  difficultyBadge.className = 'difficulty-badge ' + difficulty.className;
+  difficultyBadge.textContent = difficulty.label;
+  difficultyBadge.setAttribute('aria-label', 'Difficulty: ' + difficulty.label);
+
+  metaWrap.appendChild(qNum);
+  metaWrap.appendChild(difficultyBadge);
 
   header.appendChild(topicWrap);
-  header.appendChild(qNum);
+  header.appendChild(metaWrap);
   card.appendChild(header);
 
   const qtext = document.createElement('div');
@@ -769,7 +853,7 @@ function handleAnswer(qid, selectedIdx, q, domainKey, optionEls, explanationEl) 
 function renderDomainExam(domainKey, containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  const questions = QDB()[domainKey] || [];
+  const questions = getDomainExamQuestions(domainKey);
   container.innerHTML = '';
 
   const wrap = document.createElement('div');
@@ -787,12 +871,14 @@ function renderDomainExam(domainKey, containerId) {
   submitArea.className = 'exam-submit-area';
   submitArea.innerHTML = `
     <button class="submit-quiz-btn btn btn-accent" id="submit-${domainKey}">Submit &amp; Grade</button>
+    <button class="btn btn-outline" id="reshuffle-${domainKey}">🔀 Reshuffle Questions</button>
     <button class="btn btn-outline" id="clear-${domainKey}">↺ Clear Answers</button>
     <div id="grade-${domainKey}"></div>`;
   wrap.appendChild(submitArea);
   container.appendChild(wrap);
 
   document.getElementById('submit-' + domainKey)?.addEventListener('click', () => submitQuiz(domainKey, questions, 'grade-' + domainKey));
+  document.getElementById('reshuffle-' + domainKey)?.addEventListener('click', () => reshuffleDomainExam(domainKey, containerId));
   document.getElementById('clear-' + domainKey)?.addEventListener('click', () => clearDomainAnswers(domainKey, containerId));
 }
 
@@ -844,6 +930,13 @@ function clearDomainAnswers(domainKey, containerId) {
   AppState.clearDomainAnswers(domainKey);
   renderDomainExam(domainKey, containerId);
   showToast('↺ Answers cleared');
+}
+
+function reshuffleDomainExam(domainKey, containerId) {
+  const questions = shuffleList(QDB()[domainKey] || []);
+  setDomainExamQuestions(domainKey, questions);
+  renderDomainExam(domainKey, containerId);
+  showToast('🔀 Questions reshuffled');
 }
 
 /* ============================================================
