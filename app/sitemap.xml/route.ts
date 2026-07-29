@@ -43,18 +43,6 @@ function getStaticRoutesFromAppDir(directory: string, currentPath = ''): string[
   return routes;
 }
 
-function getRouteMetadata(route: string): { changeFrequency: 'weekly' | 'monthly'; priority: number } {
-  if (route === '/') {
-    return { changeFrequency: 'weekly', priority: 1.0 };
-  }
-
-  if (route === '/blog') {
-    return { changeFrequency: 'weekly', priority: 0.9 };
-  }
-
-  return { changeFrequency: 'monthly', priority: 0.8 };
-}
-
 function escapeXml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -71,25 +59,16 @@ export async function GET() {
   type SitemapEntry = {
     url: string;
     lastModified: Date;
-    changeFrequency: 'weekly' | 'monthly';
-    priority: number;
   };
 
-  const staticEntries: SitemapEntry[] = staticRoutes.map((route) => {
-    const { changeFrequency, priority } = getRouteMetadata(route);
-    return {
-      url: route === '/' ? BASE_URL : `${BASE_URL}${route}`,
-      lastModified: new Date(),
-      changeFrequency,
-      priority,
-    };
-  });
+  const staticEntries: SitemapEntry[] = staticRoutes.map((route) => ({
+    url: route === '/' ? BASE_URL : `${BASE_URL}${route}`,
+    lastModified: new Date(),
+  }));
 
   const blogEntries: SitemapEntry[] = posts.map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.date),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
   }));
 
   const allEntries = [...staticEntries, ...blogEntries];
@@ -103,15 +82,12 @@ export async function GET() {
         `  <url>\n` +
         `    <loc>${escapeXml(entry.url)}</loc>\n` +
         `    <lastmod>${entry.lastModified.toISOString()}</lastmod>\n` +
-        `    <changefreq>${entry.changeFrequency}</changefreq>\n` +
-        `    <priority>${entry.priority.toFixed(1)}</priority>\n` +
         `  </url>`,
     )
     .join('\n');
 
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
-    `<?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>\n` +
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
     urlElements +
     `\n</urlset>`;
