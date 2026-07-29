@@ -78,7 +78,7 @@ Experience:
  Projects:
  - Mission Control Platform (completed July 2026): Built a Next.js 16 operations dashboard with 13 pages, MCP server meta-tool architecture, n8n-pro-mcp sidecar integration, Authelia SSO, and a unified control plane deployed through Coolify, Traefik, and Let's Encrypt.
  - Web Data Knowledge Base Pipeline (completed): Delivered n8n, Firecrawl, and PostgreSQL/pgvector workflows for content extraction, chunking, deduplication, embeddings, vector search, MCP search access, and tiered collection schedules.
-Education: B.S. in Computer Science (Western Governors University), CompTIA A+ (Certification).
+Education: B.S. in Computer Science (Western Governors University, End Date: 2027), CompTIA A+ (Certification).
 Contact: rderego@devtest512.info, (512) 891-4201, Austin, TX.
 Profiles: GitHub: https://github.com/killo431, LinkedIn: https://www.linkedin.com/in/randysderego/, Indeed: https://profile.indeed.com/p/randyd-mh1efpj, Blog: https://devtest512.info/blog`;
 
@@ -444,7 +444,7 @@ Tech Support - EAGLE EYE NETWORKS (Feb 2017 - Jan 2019)
 - Diagnosed IP camera, firewall, and switch connectivity issues using Linux CLI tools
 
 EDUCATION
-B.S. in Computer Science - Western Governors University
+B.S. in Computer Science - Western Governors University (End Date: 2027)
 CompTIA A+ (Certification)
 
 PROJECT HIGHLIGHTS
@@ -1088,7 +1088,7 @@ PROJECT HIGHLIGHTS
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-slate-900">B.S. in Computer Science</h3>
-                  <p className="text-slate-500 mt-1">Western Governors University</p>
+                  <p className="text-slate-500 mt-1">Western Governors University (End Date: 2027)</p>
                 </div>
               </div>
               
